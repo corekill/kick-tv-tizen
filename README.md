@@ -59,6 +59,8 @@ Hotový balíček najdeš v `dist/KickTV.wgt`. Ani vlastní build ale neobejde p
 
 Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpříjemnila sledování z gauče a chceš podpořit další opravy a nové funkce, můžeš mi [koupit kafe na Ko-fi](https://ko-fi.com/corekill). Není to žádná podmínka — radost mi udělá i to, když aplikaci používáš a napíšeš, když něco zlobí.
 
+[![Podpoř mě na Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/corekill)
+
 ## Ještě je dobré vědět
 
 Kick TV je můj neoficiální komunitní projekt. Nejsem nijak spojený s Kickem, 7TV, Samsungem ani Tizenem a žádná z těchto společností aplikaci nepodporuje. Kick nebo 7TV navíc mohou svoje veřejné služby změnit, takže se občas může něco rozbít. Když se to stane, klidně [založ issue](https://github.com/corekill/kick-tv-tizen/issues/new) a zkusím se na to podívat.
@@ -127,6 +129,8 @@ The device-neutral package is written to `dist/KickTV.wgt`. It still needs to be
 ## Support development
 
 Kick TV is a free project I build in my spare time. If it made watching streams from the couch a little more comfortable and you would like to support future fixes and features, you can [buy me a coffee on Ko-fi](https://ko-fi.com/corekill). There is absolutely no obligation — using the app and reporting anything that breaks also helps a lot.
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/corekill)
 
 ## Disclaimer
 
