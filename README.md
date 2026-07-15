@@ -57,7 +57,7 @@ Hotový balíček najdeš v `dist/KickTV.wgt`. Ani vlastní build ale neobejde p
 
 ## Chceš podpořit další vývoj?
 
-Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpříjemnila sledování z gauče a chceš podpořit další opravy a nové funkce, můžeš mi [koupit kafe na Ko-fi](https://ko-fi.com/K3K01ZATCC). Není to žádná podmínka — radost mi udělá i to, když aplikaci používáš a napíšeš, když něco zlobí.
+Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpříjemnila sledování z gauče a chceš podpořit další opravy a nové funkce, můžeš mi [koupit kafe na Ko-fi](https://ko-fi.com/corekill). Není to žádná podmínka — radost mi udělá i to, když aplikaci používáš a napíšeš, když něco zlobí.
 
 ## Ještě je dobré vědět
 
@@ -126,7 +126,7 @@ The device-neutral package is written to `dist/KickTV.wgt`. It still needs to be
 
 ## Support development
 
-Kick TV is a free project I build in my spare time. If it made watching streams from the couch a little more comfortable and you would like to support future fixes and features, you can [buy me a coffee on Ko-fi](https://ko-fi.com/K3K01ZATCC). There is absolutely no obligation — using the app and reporting anything that breaks also helps a lot.
+Kick TV is a free project I build in my spare time. If it made watching streams from the couch a little more comfortable and you would like to support future fixes and features, you can [buy me a coffee on Ko-fi](https://ko-fi.com/corekill). There is absolutely no obligation — using the app and reporting anything that breaks also helps a lot.
 
 ## Disclaimer
 
