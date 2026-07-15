@@ -4,64 +4,68 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 ![Ikona Kick TV](kick-tv/kick-icon-117.png)
 
-## Funkce
+## Co aplikace umí
 
-- Nativní přehrávání přes Samsung AVPlay s volitelnou kvalitou obrazu.
-- Vyhledávání streamerů i podle části názvu a přímé otevření přesného názvu kanálu.
-- Historie naposledy sledovaných kanálů se stavem LIVE/OFFLINE.
-- Živý chat pro čtení s animovanými Kick emotikony a globálními i kanálovými 7TV emotikony.
-- Celý panel chatu a tři samostatně nastavitelné předvolby chatu v obraze.
-- Automatická čeština při českém jazyku TV, angličtina pro ostatní jazyky.
-- Ovládání navržené pro televizní ovladač a správné chování tlačítka Zpět.
-- Vypnutí spořiče obrazovky během přehrávání.
+- Stream přehrává přes nativní Samsung AVPlay a kvalitu obrazu si můžeš kdykoliv změnit.
+- Nemusíš si pamatovat přesné jméno streamera. Stačí napsat jeho část a aplikace ho zkusí najít.
+- Naposledy sledované kanály zůstávají v historii a rovnou u nich vidíš, kdo právě vysílá.
+- Chat umí běžné i animované Kick emotikony a k tomu globální i kanálové emotikony z 7TV.
+- Chat si můžeš otevřít celý nebo ho nechat přímo v obraze. K dispozici jsou tři předvolby, u kterých si nastavíš velikost i pozici.
+- Pokud máš televizi nastavenou česky, bude česky i aplikace. Pro ostatní jazyky se automaticky přepne do angličtiny.
+- Tlačítko Zpět se chová tak, jak člověk čeká: nejdřív zavře otevřenou nabídku a až potom tě vrátí na výběr streamera.
+- Během sledování aplikace vypne spořič obrazovky, aby tě zbytečně nerušil.
 
-## Snadná instalace
+## Jak aplikaci dostat do televize
 
-Samsung vyžaduje, aby byl každý ručně instalovaný Tizen balíček podepsaný pro konkrétní televizi. WGT v GitHub release je proto záměrně bez zařízení a doporučený instalátor jej podepíše přímo pro vaši TV.
+Samsung bohužel nedovolí nainstalovat jeden univerzálně podepsaný balíček do všech televizí. Stažený WGT se proto musí při instalaci podepsat přímo pro tvoji TV. Nejjednodušší je použít Apps2Samsung, který se o to postará za tebe.
 
-1. Zapněte na televizi **Vývojářský režim** a TV restartujte.
-2. Stáhněte a spusťte [Apps2Samsung](https://github.com/Apps2Samsung/Apps2Samsung/releases).
-3. Stáhněte `KickTV.wgt` z [nejnovějšího vydání Kick TV](https://github.com/corekill/kick-tv-tizen/releases/latest).
-4. V Apps2Samsung vyberte **Custom WGT File**, zvolte `KickTV.wgt`, označte televizi a spusťte instalaci.
+1. Na televizi zapni **Vývojářský režim** a potom ji restartuj.
+2. Stáhni a spusť [Apps2Samsung](https://github.com/Apps2Samsung/Apps2Samsung/releases).
+3. Stáhni `KickTV.wgt` z [nejnovějšího vydání Kick TV](https://github.com/corekill/kick-tv-tizen/releases/latest).
+4. V Apps2Samsung vyber **Custom WGT File**, zvol stažený `KickTV.wgt`, označ svoji televizi a spusť instalaci.
 
-Apps2Samsung zajistí nalezení televize, případné přihlášení k Samsung účtu, vytvoření certifikátu, podepsání balíčku i instalaci. Podrobný postup a řešení problémů najdete v [INSTALL.md](INSTALL.md).
+Apps2Samsung televizi najde, vytvoří potřebný certifikát, balíček podepíše a nainstaluje. Kdyby se něco zaseklo, podrobnější postup a nejčastější řešení najdeš v [INSTALL.md](INSTALL.md).
 
-Dlouhodobým cílem je zařazení do katalogu [Tizen Community Packages](https://github.com/Apps2Samsung/tizen-community-packages), které odstraní i krok s ručním výběrem WGT souboru.
+Do budoucna bych chtěl Kick TV dostat také do katalogu [Tizen Community Packages](https://github.com/Apps2Samsung/tizen-community-packages). Instalace by pak byla ještě o krok jednodušší a WGT by nebylo potřeba vybírat ručně.
 
-## Ovládání při přehrávání
+## Co dělají tlačítka při sledování
 
-| Tlačítko | Funkce |
+| Tlačítko | Co udělá |
 | --- | --- |
 | Šipka `↑` | Nabídka kvality obrazu |
 | Šipka `↓` | Nastavení rozložení chatu |
 | OK | Přepíná: vypnuto → celý chat → předvolba 1 → předvolba 2 → předvolba 3 |
-| Zpět | Zavře nabídku/editor, potom se vrátí na výběr streamera |
+| Zpět | Zavře otevřenou nabídku nebo editor, potom se vrátí na výběr streamera |
 | Play/Pause | Pozastaví nebo obnoví přehrávání |
 
-## Vlastní sestavení
+## Chceš si aplikaci sestavit sám?
 
-Požadavky: `bash`, `node`, `xmllint`, `zip` a `unzip`.
+Stačí mít `bash`, `node`, `xmllint`, `zip` a `unzip` a spustit:
 
 ```bash
 ./scripts/validate.sh
 ./scripts/build.sh
 ```
 
-Balíček bez vazby na konkrétní zařízení vznikne v `dist/KickTV.wgt`. Před instalací jej stále musíte podepsat pro cílovou televizi; Apps2Samsung tento krok provede automaticky.
+Hotový balíček najdeš v `dist/KickTV.wgt`. Ani vlastní build ale neobejde podepisování pro konkrétní televizi — s tím ti může znovu pomoct Apps2Samsung.
 
-## Kompatibilita
+## Na čem to funguje
 
-- Cílová platforma: Samsung Tizen TV 4.0 a novější.
-- Otestováno na skutečné Samsung TV s Tizen 6.0.
-- Pro streamy, chat, vyhledávání a emotikony je nutné internetové připojení.
+- Aplikace je určená pro Samsung TV s Tizenem 4.0 a novějším.
+- Opravdu jsem ji testoval na Samsung TV s Tizenem 6.0, není to jen projekt odzkoušený v emulátoru.
+- Bez internetu to samozřejmě nepůjde — aplikace ho potřebuje pro stream, chat, vyhledávání i emotikony.
 
-## Upozornění
+## Chceš podpořit další vývoj?
 
-Jde o neoficiální komunitní projekt, který není spojený se společnostmi Kick, 7TV, Samsung ani Tizen a nemá jejich podporu. Kick a 7TV mohou své veřejné webové endpointy kdykoliv změnit. Všechny názvy, loga a ochranné známky patří příslušným vlastníkům.
+Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpříjemnila sledování z gauče a chceš podpořit další opravy a nové funkce, můžeš mi [koupit kafe na Ko-fi](https://ko-fi.com/K3K01ZATCC). Není to žádná podmínka — radost mi udělá i to, když aplikaci používáš a napíšeš, když něco zlobí.
+
+## Ještě je dobré vědět
+
+Kick TV je můj neoficiální komunitní projekt. Nejsem nijak spojený s Kickem, 7TV, Samsungem ani Tizenem a žádná z těchto společností aplikaci nepodporuje. Kick nebo 7TV navíc mohou svoje veřejné služby změnit, takže se občas může něco rozbít. Když se to stane, klidně [založ issue](https://github.com/corekill/kick-tv-tizen/issues/new) a zkusím se na to podívat.
 
 ## Licence
 
-Zdrojový kód aplikace je dostupný pod [licencí MIT](LICENSE). Licence neuděluje žádná práva k názvům, ochranným známkám ani grafickým podkladům třetích stran.
+Zdrojový kód je dostupný pod [licencí MIT](LICENSE), takže se v něm můžeš vrtat, upravovat ho a postavit si vlastní verzi. Názvy, loga a ochranné známky třetích stran ale samozřejmě zůstávají jejich vlastníkům.
 
 ---
 
@@ -119,6 +123,10 @@ The device-neutral package is written to `dist/KickTV.wgt`. It still needs to be
 - Target: Samsung Tizen TV 4.0 and newer.
 - Tested on a real Samsung TV running Tizen 6.0.
 - A network connection is required for streams, chat, search, and emote assets.
+
+## Support development
+
+Kick TV is a free project I build in my spare time. If it made watching streams from the couch a little more comfortable and you would like to support future fixes and features, you can [buy me a coffee on Ko-fi](https://ko-fi.com/K3K01ZATCC). There is absolutely no obligation — using the app and reporting anything that breaks also helps a lot.
 
 ## Disclaimer
 
