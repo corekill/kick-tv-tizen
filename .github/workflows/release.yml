@@ -25,7 +25,7 @@ jobs:
       - name: Build release package
         run: ./scripts/build.sh
       - name: Create checksum
-        run: sha256sum dist/KickTV.wgt > dist/KickTV.wgt.sha256
+        run: cd dist && sha256sum KickTV.wgt > KickTV.wgt.sha256
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
