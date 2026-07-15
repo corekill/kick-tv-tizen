@@ -4,6 +4,8 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 ![Ikona Kick TV](kick-tv/kick-icon-117.png)
 
+[Web projektu](https://corekill.github.io/kick-tv-tizen/) · [Stáhnout nejnovější verzi](https://github.com/corekill/kick-tv-tizen/releases/latest) · [Návod k instalaci](INSTALL.md)
+
 ## Co aplikace umí
 
 - Stream přehrává přes nativní Samsung AVPlay a kvalitu obrazu si můžeš kdykoliv změnit.
@@ -14,6 +16,17 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 - Pokud máš televizi nastavenou česky, bude česky i aplikace. Pro ostatní jazyky se automaticky přepne do angličtiny.
 - Tlačítko Zpět se chová tak, jak člověk čeká: nejdřív zavře otevřenou nabídku a až potom tě vrátí na výběr streamera.
 - Během sledování aplikace vypne spořič obrazovky, aby tě zbytečně nerušil.
+
+## Jak Kick TV vypadá
+
+<p align="center">
+  <img src="docs/images/home.png" alt="Domovská obrazovka aplikace Kick TV pro Samsung Tizen" width="49%">
+  <img src="docs/images/history.png" alt="Historie streamerů se stavem LIVE a OFFLINE" width="49%">
+</p>
+<p align="center">
+  <img src="docs/images/quality.png" alt="Výběr kvality přehrávání v Kick TV" width="49%">
+  <img src="docs/images/chat-editor.png" alt="Editor velikosti a pozice chatu přímo v obraze" width="49%">
+</p>
 
 ## Jak aplikaci dostat do televize
 
@@ -74,6 +87,8 @@ Zdrojový kód je dostupný pod [licencí MIT](LICENSE), takže se v něm může
 # English
 
 I built Kick TV for anyone who wants to watch their favorite streamers comfortably from the couch on a big screen — without AirPlay, a phone, or a laptop. Just find a channel, start the stream, and control everything with your TV remote.
+
+[Project website](https://corekill.github.io/kick-tv-tizen/) · [Download the latest release](https://github.com/corekill/kick-tv-tizen/releases/latest) · [Installation guide](INSTALL.md)
 
 ## Features
 

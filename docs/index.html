@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kick TV pro Samsung Tizen – Kick streamy, chat a 7TV na televizi</title>
+  <meta name="description" content="Bezplatná neoficiální Kick aplikace pro Samsung Smart TV s Tizenem. Nativní AVPlay, vyhledávání streamerů, volba kvality, živý chat a animované Kick i 7TV emotikony.">
+  <meta name="keywords" content="Kick TV, Samsung TV, Samsung Smart TV, Tizen, Kick aplikace, Kick streaming, 7TV, AVPlay, WGT">
+  <meta name="author" content="Kuba (CoreKill)">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0b0d10">
+  <link rel="canonical" href="https://corekill.github.io/kick-tv-tizen/">
+  <link rel="icon" type="image/png" href="icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Kick TV for Samsung Tizen">
+  <meta property="og:title" content="Kick TV – Kick pohodlně na Samsung televizi">
+  <meta property="og:description" content="Streamy, vyhledávání, kvalita obrazu, živý chat a animované Kick i 7TV emotikony. Všechno ovladačem z gauče.">
+  <meta property="og:url" content="https://corekill.github.io/kick-tv-tizen/">
+  <meta property="og:image" content="https://corekill.github.io/kick-tv-tizen/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="Kick TV pro Samsung Tizen">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kick TV pro Samsung Tizen">
+  <meta name="twitter:description" content="Kick streamy s chatem a 7TV přímo na Samsung televizi.">
+  <meta name="twitter:image" content="https://corekill.github.io/kick-tv-tizen/social-preview.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Kick TV",
+    "alternateName": "Kick TV for Samsung Tizen",
+    "description": "Free unofficial Kick streaming app for Samsung Smart TVs running Tizen, with native AVPlay, live chat and animated Kick and 7TV emotes.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Samsung Tizen TV 4.0+",
+    "softwareVersion": "2.1.1",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Kuba",
+      "url": "https://github.com/corekill"
+    },
+    "downloadUrl": "https://github.com/corekill/kick-tv-tizen/releases/latest",
+    "codeRepository": "https://github.com/corekill/kick-tv-tizen",
+    "url": "https://corekill.github.io/kick-tv-tizen/",
+    "image": "https://corekill.github.io/kick-tv-tizen/social-preview.png"
+  }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090b0e;
+      --surface: rgba(20, 24, 30, .86);
+      --surface-strong: #151a20;
+      --line: rgba(255, 255, 255, .1);
+      --text: #f7f8fa;
+      --muted: #aeb5c0;
+      --kick: #53fc18;
+      --kick-soft: rgba(83, 252, 24, .13);
+      --radius: 26px;
+      --shadow: 0 26px 80px rgba(0, 0, 0, .36);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 76% 2%, rgba(83, 252, 24, .12), transparent 28rem),
+        radial-gradient(circle at 8% 34%, rgba(135, 82, 255, .1), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9, 11, 14, .78);
+      backdrop-filter: blur(18px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 850; text-decoration: none; letter-spacing: -.02em; }
+    .brand img { width: 34px; height: 34px; border-radius: 8px; }
+    .nav-links { display: flex; align-items: center; gap: 22px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 700; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 88px 0 54px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 62px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(83, 252, 24, .25);
+      border-radius: 999px;
+      background: var(--kick-soft);
+      color: #b9ffa1;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--kick); box-shadow: 0 0 18px var(--kick); }
+    h1 { max-width: 720px; margin: 23px 0 22px; font-size: clamp(45px, 6.2vw, 78px); line-height: .98; letter-spacing: -.055em; }
+    h1 span { color: var(--kick); }
+    .lead { max-width: 650px; margin: 0; color: #c5cbd4; font-size: clamp(18px, 2vw, 22px); line-height: 1.55; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-strong);
+      text-decoration: none;
+      font-weight: 850;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.25); }
+    .button.primary { color: #071003; border-color: var(--kick); background: var(--kick); box-shadow: 0 12px 40px rgba(83, 252, 24, .18); }
+
+    .tv {
+      position: relative;
+      padding: 9px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 20px;
+      background: linear-gradient(145deg, #343c46, #111419 22%, #252b32);
+      box-shadow: var(--shadow);
+      transform: perspective(900px) rotateY(-4deg) rotateX(1deg);
+    }
+    .tv::after { content: ""; position: absolute; left: 32%; right: 32%; bottom: -28px; height: 22px; border-radius: 4px 4px 18px 18px; background: linear-gradient(#242a31, #0d1014); z-index: -1; }
+    .tv img { border-radius: 12px; aspect-ratio: 16 / 9; object-fit: cover; }
+
+    section { padding: 62px 0; }
+    .section-head { max-width: 760px; margin-bottom: 28px; }
+    h2 { margin: 0 0 12px; font-size: clamp(31px, 4vw, 48px); line-height: 1.08; letter-spacing: -.04em; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 18px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .feature { min-height: 190px; padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: inset 0 1px rgba(255,255,255,.025); }
+    .feature b { display: block; margin-bottom: 9px; font-size: 18px; }
+    .feature p { margin: 0; color: var(--muted); }
+    .feature .icon { display: grid; place-items: center; width: 39px; height: 39px; margin-bottom: 24px; border-radius: 11px; background: var(--kick-soft); color: var(--kick); font-weight: 950; }
+
+    .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .shot { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+    .shot img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+    .shot figcaption { padding: 16px 19px; color: var(--muted); font-size: 14px; }
+
+    .install-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: center;
+      padding: 34px;
+      border: 1px solid rgba(83, 252, 24, .24);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(83,252,24,.12), rgba(20,24,30,.92) 42%);
+    }
+    .install-card h2 { font-size: clamp(28px, 4vw, 42px); }
+    .install-card p { max-width: 730px; margin: 0; color: #c5cbd4; }
+
+    .english { margin-top: 22px; padding: 24px; border-left: 3px solid var(--kick); background: rgba(255,255,255,.025); color: var(--muted); }
+    .english strong { color: var(--text); }
+    footer { padding: 38px 0 58px; color: #858d98; font-size: 14px; border-top: 1px solid var(--line); }
+    footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    footer a { color: #b8bec7; }
+
+    @media (max-width: 880px) {
+      .hero { grid-template-columns: 1fr; gap: 50px; padding-top: 64px; }
+      .tv { transform: none; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .install-card { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 26px, 1160px); }
+      .nav-links a:not(.github) { display: none; }
+      .hero { padding-top: 52px; }
+      .features, .gallery { grid-template-columns: 1fr; }
+      .feature { min-height: auto; }
+      .install-card { padding: 25px; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap" aria-label="Hlavní navigace">
+      <a class="brand" href="#top"><img src="icon.png" alt=""> Kick TV</a>
+      <div class="nav-links">
+        <a href="#funkce">Co umí</a>
+        <a href="#ukazky">Ukázky</a>
+        <a href="#instalace">Instalace</a>
+        <a class="github" href="https://github.com/corekill/kick-tv-tizen">GitHub ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <div class="eyebrow">Zdarma a open source</div>
+        <h1>Kick pohodlně na <span>Samsung TV.</span></h1>
+        <p class="lead">Udělal jsem aplikaci pro lidi, kteří chtějí sledovat Kick z gauče na velké obrazovce — bez AirPlaye, telefonu nebo notebooku. Včetně chatu, 7TV emotikonů a ovládání běžným ovladačem.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/corekill/kick-tv-tizen/releases/latest">Stáhnout Kick TV</a>
+          <a class="button" href="https://github.com/corekill/kick-tv-tizen/blob/main/INSTALL.md">Jak aplikaci nainstalovat</a>
+        </div>
+      </div>
+      <div class="tv">
+        <img src="images/home.png" width="1920" height="1080" alt="Domovská obrazovka Kick TV na Samsung Tizen">
+      </div>
+    </div>
+
+    <section id="funkce">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Všechno důležité přímo v televizi</h2>
+          <p>Najdi streamera, spusť stream a dál už telefon nepotřebuješ.</p>
+        </div>
+        <div class="features">
+          <article class="feature"><span class="icon">▶</span><b>Nativní přehrávání</b><p>Samsung AVPlay se stará o plynulé video a dovolí ti vybrat kvalitu obrazu.</p></article>
+          <article class="feature"><span class="icon">⌕</span><b>Chytré vyhledávání</b><p>Stačí část jména. Naposledy sledované kanály navíc ukazují stav LIVE nebo OFFLINE.</p></article>
+          <article class="feature"><span class="icon">☺</span><b>Kick a 7TV emotikony</b><p>Živý chat zobrazuje běžné i animované Kick emotikony a globální i kanálové 7TV emotes.</p></article>
+          <article class="feature"><span class="icon">▦</span><b>Chat podle tebe</b><p>Celý panel nebo tři vlastní předvolby přímo v obraze. Pozici i velikost nastavíš ovladačem.</p></article>
+          <article class="feature"><span class="icon">⌁</span><b>Ovladač na prvním místě</b><p>Nabídky, přehrávání i návrat zpět se chovají tak, jak člověk u televizní aplikace čeká.</p></article>
+          <article class="feature"><span class="icon">CZ</span><b>Česky i anglicky</b><p>Česká televize dostane české rozhraní, všechny ostatní jazyky automaticky anglické.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ukazky">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Jak aplikace vypadá</h2>
+          <p>Rozhraní je navržené pro velkou obrazovku a ovládání ze sedačky.</p>
+        </div>
+        <div class="gallery">
+          <figure class="shot"><img src="images/history.png" loading="lazy" width="1920" height="1080" alt="Historie Kick streamerů se stavem LIVE a OFFLINE"><figcaption>Historie se stavem LIVE / OFFLINE</figcaption></figure>
+          <figure class="shot"><img src="images/quality.png" loading="lazy" width="1920" height="1080" alt="Nabídka pro výběr kvality Kick streamu"><figcaption>Volba kvality přehrávání</figcaption></figure>
+          <figure class="shot"><img src="images/chat-editor.png" loading="lazy" width="1920" height="1080" alt="Editor pozice a velikosti Kick chatu v obraze"><figcaption>Editor pozice a velikosti chatu</figcaption></figure>
+          <figure class="shot"><img src="images/home.png" loading="lazy" width="1920" height="1080" alt="Vyhledávání streamerů v Kick TV"><figcaption>Vyhledávání a naposledy sledované kanály</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="instalace">
+      <div class="wrap">
+        <div class="install-card">
+          <div>
+            <h2>Chceš to zkusit na své TV?</h2>
+            <p>Kick TV je určená pro Samsung televize s Tizenem 4.0 a novějším. Stáhni WGT z posledního vydání a Apps2Samsung ho při instalaci podepíše přímo pro tvoji televizi.</p>
+          </div>
+          <a class="button primary" href="https://github.com/corekill/kick-tv-tizen/blob/main/INSTALL.md">Otevřít návod</a>
+        </div>
+        <div class="english" lang="en"><strong>English:</strong> Kick TV is a free, unofficial Kick streaming app for Samsung Smart TVs running Tizen. It includes native AVPlay video, channel search, quality selection, LIVE/OFFLINE history, live chat, animated Kick and 7TV emotes, and configurable in-picture chat layouts. <a href="https://github.com/corekill/kick-tv-tizen#english">Read the English README →</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Vytvořil Kuba · neoficiální komunitní projekt</span>
+      <span><a href="https://github.com/corekill/kick-tv-tizen">Zdrojový kód</a> · <a href="https://ko-fi.com/corekill">Ko-fi</a> · <a href="https://github.com/corekill/kick-tv-tizen/issues">Nahlásit problém</a></span>
+    </div>
+  </footer>
+</body>
+</html>
