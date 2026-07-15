@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.1
+
+- Fixed native Kick emotes so animated GIFs render and stay animated in chat.
+- Kept 7TV emote parsing active around native Kick emotes in the same message.
+
 ## 2.1.0 — Stable
 
 - Added global and channel-specific 7TV emotes with a compact local cache.

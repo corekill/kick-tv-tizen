@@ -151,7 +151,6 @@
     chatMode=(chatMode+1)%5;view.classList.toggle('chat-open',chatMode===1);view.classList.toggle('chat-overlay',chatMode>=2);chatPanel.setAttribute('aria-hidden',chatMode?'false':'true');if(chatMode>=2)applyChatLayout(chatMode-2);
     if(chatMode)chatUnread=0;updateChatHint();showHud();
   }
-  function normaliseMessage(content){return String(content||'').replace(/\[emote:\d+:([^\]]+)\]/g,'$1');}
   function sevenTVItems(data){
     var source=(data&&data.emote_set&&data.emote_set.emotes)||(data&&data.emotes)||[],out=[];
     source.forEach(function(entry){
@@ -181,12 +180,21 @@
     fetchSevenTV('https://7tv.io/v3/emote-sets/global','kicktv.7tv.global',function(items){globalItems=items;complete();});
     if(kickUserId)fetchSevenTV('https://7tv.io/v3/users/kick/'+encodeURIComponent(kickUserId),'kicktv.7tv.kick.'+kickUserId,function(items){channelItems=items;complete();});else complete();
   }
-  function renderMessageContent(target,content){
-    normaliseMessage(content).split(/(\s+)/).forEach(function(part){
+  function appendSevenTVText(target,content){
+    String(content||'').split(/(\s+)/).forEach(function(part){
       var emote=sevenTVEmotes[part];if(!emote){target.appendChild(document.createTextNode(part));return;}
       var img=document.createElement('img');img.className='chat-emote';img.alt=part;img.title=part;img.src=emote.url;img.setAttribute('draggable','false');if(emote.staticUrl)img.setAttribute('data-static-url',emote.staticUrl);
       img.onerror=function(){var fallback=img.getAttribute('data-static-url');if(fallback&&img.src!==fallback){img.src=fallback;return;}if(img.parentNode)img.parentNode.replaceChild(document.createTextNode(img.alt),img);};target.appendChild(img);
     });
+  }
+  function renderMessageContent(target,content){
+    var source=String(content||''),pattern=/\[emote:(\d+):([^\]]+)\]/g,last=0,match;
+    while((match=pattern.exec(source))!==null){
+      appendSevenTVText(target,source.slice(last,match.index));
+      var img=document.createElement('img');img.className='chat-emote kick-emote';img.alt=match[2];img.title=match[2];img.src='https://files.kick.com/emotes/'+match[1]+'/fullsize';img.setAttribute('draggable','false');
+      img.onerror=function(){if(this.parentNode)this.parentNode.replaceChild(document.createTextNode(this.alt),this);};target.appendChild(img);last=pattern.lastIndex;
+    }
+    appendSevenTVText(target,source.slice(last));
   }
   function addChatMessage(data){
     var sender=data.sender||data.user||{},content=data.content||(data.message&&data.message.message)||'';

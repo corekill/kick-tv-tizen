@@ -45,7 +45,7 @@ Uninstall the existing Kick TV app from the TV, then install the new WGT again. 
 ### The application installs but the stream does not start
 
 - Confirm the channel is currently live.
-- Confirm the TV can access `kick.com`, `7tv.io`, and `cdn.7tv.app`.
+- Confirm the TV can access `kick.com`, `files.kick.com`, `7tv.io`, and `cdn.7tv.app`.
 - Press Back to return home and retry the channel.
 
 ## Tizen Studio alternative

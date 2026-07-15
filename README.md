@@ -9,7 +9,7 @@ An unofficial, remote-friendly Kick client for Samsung Smart TVs. Kick TV uses S
 - Native Samsung AVPlay video with selectable quality profiles.
 - Streamer search with exact-channel fallback.
 - Recently watched channels with LIVE/OFFLINE status.
-- Read-only Kick live chat with global and channel-specific 7TV emotes.
+- Read-only Kick live chat with animated native Kick emotes plus global and channel-specific 7TV emotes.
 - Full chat panel plus three independently configurable overlay presets.
 - Czech UI for Czech TV language settings; English for every other language.
 - Remote-first controls and hierarchical Back behavior.
