@@ -1,0 +1,12 @@
+.DS_Store
+dist/
+outputs/
+work/
+*.p12
+*.pfx
+*.pem
+*.key
+password.txt
+device-profile.xml
+author-signature.xml
+signature1.xml

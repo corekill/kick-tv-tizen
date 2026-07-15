@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Kick TV</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="$WEBAPIS/webapis/webapis.js"></script>
+</head>
+<body>
+  <main id="home">
+    <div class="home-grid"></div><div class="glow glow-a"></div><div class="glow glow-b"></div>
+    <header class="topbar">
+      <div class="brand"><img src="kick-icon.png" alt=""><div><strong>KICK <em>TV</em></strong><small>Samsung Tizen Edition</small></div></div>
+      <div class="system-ready"><span></span><b data-i18n="ready">AVPlay připraven</b></div>
+    </header>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> LIVE STREAMING</div>
+        <h1><span data-i18n="heroLine1">Živě. Pohodlně.</span><br><em data-i18n="heroLine2">Na velké obrazovce.</em></h1>
+        <p data-i18n="heroText">Najdi kanál, spusť stream a ovládej kvalitu i chat jediným ovladačem.</p>
+        <div class="feature-chips"><span data-i18n="featureNative">⚡ Nativní AVPlay</span><span data-i18n="featureChat">● Živý chat + 7TV</span><span data-i18n="featurePhone">⌁ Bez telefonu</span></div>
+      </div>
+      <section class="card">
+        <div class="card-heading"><span>01</span><div><h2 data-i18n="findStream">Najít stream</h2><p data-i18n="findStreamHelp">Stačí část názvu nebo celá adresa kanálu</p></div></div>
+        <label class="sr-only" for="channel" data-i18n="searchStreamer">Hledat streamera</label>
+      <div class="input-row">
+          <input id="channel" class="focusable" type="text" placeholder="Jméno streamera…" data-i18n-placeholder="streamerPlaceholder" autocomplete="off" autofocus>
+        <button id="watch" class="focusable primary" data-i18n="watch">Sledovat</button>
+      </div>
+        <p class="hint"><span>TIP</span><b data-i18n="searchTip">Z textového pole odejdeš šipkou → nebo ↓</b></p>
+      </section>
+    </section>
+    <section id="searchSection" class="search-results hidden"><div class="result-heading"><h2 data-i18n="searchResults">Výsledky hledání</h2><span id="searchState"></span></div><div id="results" class="results"></div></section>
+    <section id="recentSection" class="recent hidden"><h2 data-i18n="recent">Naposledy sledované</h2><div id="recent" class="tiles"></div></section>
+    <footer class="home-footer"><div><span class="key">OK</span><span data-i18n="select">vybrat</span><span class="key">↩</span><span data-i18n="back">zpět</span></div><div class="footer-tip" data-i18n="playbackKeys">Při přehrávání: ↑ kvalita · ↓ rozložení chatu · OK režim chatu</div></footer>
+  </main>
+  <section id="playerView" class="hidden">
+    <object id="av-player" type="application/avplayer"></object>
+    <div id="playerStatus"><div class="spinner"></div><strong id="statusTitle" data-i18n="loadingStream">Načítám stream…</strong><span id="statusDetail"></span></div>
+    <div id="playerHud"><span id="nowPlaying"></span><span id="playerHint" data-i18n="playerHintDefault">OK: chat · Zpět: nabídka</span></div>
+    <aside id="chatPanel" aria-hidden="true">
+      <header class="chat-header">
+        <div><span class="chat-dot"></span><strong data-i18n="liveChat">Živý chat</strong><i class="seven-badge">7TV</i></div>
+        <span id="chatStatus" data-i18n="connecting">Připojuji…</span>
+      </header>
+      <div id="chatMessages" class="chat-messages">
+        <div class="chat-empty" data-i18n="chatEmpty">Nové zprávy se objeví tady.</div>
+      </div>
+      <footer class="chat-footer"><span class="ok-key">OK</span><span data-i18n="nextChatMode">další režim chatu</span></footer>
+    </aside>
+    <aside id="qualityMenu" class="quality-menu" aria-hidden="true">
+      <div class="quality-heading"><span>↑</span><div><strong data-i18n="qualityTitle">Kvalita obrazu</strong><small data-i18n="qualitySubtitle">Změna krátce znovu načte stream</small></div></div>
+      <div id="qualityOptions" class="quality-options"></div>
+      <div class="quality-help" data-i18n="qualityHelp">↑ ↓ vybrat · OK potvrdit · Zpět zavřít</div>
+    </aside>
+    <aside id="chatEditor" class="chat-editor" aria-hidden="true">
+      <div class="editor-title"><span>↕</span><div><strong data-i18n="layoutTitle">Rozložení chatu</strong><small id="editorSubtitle">Předvolba 1 · změny vidíš živě v obraze</small></div></div>
+      <div id="chatEditorRows" class="editor-rows"></div>
+      <div class="editor-help" data-i18n="layoutHelp">↑ ↓ vlastnost · ← → upravit · OK uložit · Zpět zrušit</div>
+    </aside>
+  </section>
+  <div id="sparkles" aria-hidden="true"></div>
+  <script src="app.js"></script>
+</body>
+</html>

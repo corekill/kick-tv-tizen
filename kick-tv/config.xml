@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://corekill.cz/kicktv" version="2.1.0" viewmodes="maximized">
+  <tizen:application id="CrKckTV001.KickTV" package="CrKckTV001" required_version="4.0"/>
+  <content src="index.html"/>
+  <icon src="kick-icon-117.png"/>
+  <feature name="http://tizen.org/feature/screen.size.all"/>
+  <tizen:privilege name="http://tizen.org/privilege/internet"/>
+  <tizen:profile name="tv-samsung"/>
+  <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable" pointing-device-support="disable"/>
+  <access origin="https://player.kick.com" subdomains="true"/>
+  <access origin="https://kick.com" subdomains="true"/>
+  <access origin="https://www.kickstats.com" subdomains="true"/>
+  <access origin="https://files.kick.com" subdomains="true"/>
+  <access origin="https://tizen.kick.com" subdomains="true"/>
+  <access origin="https://7tv.io" subdomains="true"/>
+  <access origin="https://cdn.7tv.app" subdomains="true"/>
+  <access origin="*" subdomains="true"/>
+  <tizen:allow-navigation>https://tizen.kick.com/*</tizen:allow-navigation>
+  <name>Kick TV</name>
+  <description>Comfortable Kick viewing for Samsung TV.</description>
+</widget>
