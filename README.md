@@ -1,6 +1,6 @@
 # Kick TV pro Samsung Tizen
 
-Neoficiální aplikace pro pohodlné sledování Kick streamů na televizích Samsung Smart TV. Kick TV používá nativní přehrávač Samsung AVPlay a nabízí vyhledávání streamerů, volbu kvality obrazu, historii se stavem LIVE/OFFLINE, živý chat, animované Kick a 7TV emotikony i nastavitelné rozložení chatu přímo v obraze.
+Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamery pohodlně z gauče přímo na velké obrazovce — bez AirPlaye, telefonu nebo notebooku. Stačí vyhledat kanál, spustit stream a všechno ovládat běžným ovladačem od televize.
 
 ![Ikona Kick TV](kick-tv/kick-icon-117.png)
 
@@ -67,7 +67,7 @@ Zdrojový kód aplikace je dostupný pod [licencí MIT](LICENSE). Licence neudě
 
 # English
 
-An unofficial app for comfortable Kick streaming on Samsung Smart TVs. Kick TV uses Samsung's native AVPlay player and provides streamer search, selectable video quality, LIVE/OFFLINE history, live chat, animated Kick and 7TV emotes, and configurable in-picture chat layouts.
+I built Kick TV for anyone who wants to watch their favorite streamers comfortably from the couch on a big screen — without AirPlay, a phone, or a laptop. Just find a channel, start the stream, and control everything with your TV remote.
 
 ## Features
 
