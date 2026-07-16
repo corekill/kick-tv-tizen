@@ -13,19 +13,23 @@
 
 Developer Mode must remain enabled whenever the app is installed or updated.
 
-### 2. Install the WGT
+### 2. Install Kick TV from the community catalog
 
 1. Download [Apps2Samsung](https://github.com/Apps2Samsung/Apps2Samsung/releases) for Windows, macOS, Linux, or Android.
-2. Download `KickTV.wgt` from the latest release of this repository.
-3. Start Apps2Samsung and select the detected TV. If it is not detected, enter its IP address manually.
-4. Select **Custom WGT File** and choose `KickTV.wgt`.
-5. Click **Install** and complete Samsung login if requested.
+2. Start Apps2Samsung.
+3. Select **KickTV** from the **Release** dropdown.
+4. Select the detected TV. If it is not detected, use the refresh button or enter its IP address manually.
+5. Click **Download & Install** and complete Samsung login if requested.
 
-Apps2Samsung generates a distributor certificate containing the TV's DUID, re-signs the WGT, and installs it. The release package does not contain private signing keys.
+Apps2Samsung downloads the current `KickTV.wgt` from the community catalog, generates a distributor certificate containing the TV's DUID, re-signs the package, and installs it. The release package does not contain private signing keys.
+
+### Manual fallback
+
+If **KickTV** is not shown in the Release dropdown, first update Apps2Samsung to the latest version and refresh its catalog. As a fallback, download `KickTV.wgt` from the [latest Kick TV release](https://github.com/corekill/kick-tv-tizen/releases/latest), choose **Custom WGT File** in Apps2Samsung, and install it the same way.
 
 ## Updating
 
-Repeat the installation with the newer `KickTV.wgt`. Settings and viewing history normally remain stored because the application ID stays unchanged.
+Select **KickTV** in Apps2Samsung and run **Download & Install** again. Settings and viewing history normally remain stored because the application ID stays unchanged.
 
 If Tizen reports a certificate mismatch, remove the existing Kick TV installation and install it again. This can happen when the new package is signed with a different author certificate.
 

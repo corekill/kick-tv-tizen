@@ -4,7 +4,9 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 ![Ikona Kick TV](kick-tv/kick-icon-117.png)
 
-[Web projektu](https://corekill.github.io/kick-tv-tizen/) · [Stáhnout nejnovější verzi](https://github.com/corekill/kick-tv-tizen/releases/latest) · [Návod k instalaci](INSTALL.md)
+[Web projektu](https://corekill.github.io/kick-tv-tizen/) · [Nainstalovat přes Apps2Samsung](INSTALL.md) · [Nejnovější vydání](https://github.com/corekill/kick-tv-tizen/releases/latest)
+
+[![Dostupné v katalogu Apps2Samsung](https://img.shields.io/badge/Instalace-Apps2Samsung%20Community-53FC18?style=for-the-badge&logo=samsung&logoColor=white&labelColor=11151A)](https://github.com/Apps2Samsung/Apps2Samsung/releases)
 
 ## Co aplikace umí
 
@@ -30,16 +32,14 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 ## Jak aplikaci dostat do televize
 
-Samsung bohužel nedovolí nainstalovat jeden univerzálně podepsaný balíček do všech televizí. Stažený WGT se proto musí při instalaci podepsat přímo pro tvoji TV. Nejjednodušší je použít Apps2Samsung, který se o to postará za tebe.
+Kick TV je přímo v komunitním katalogu Apps2Samsung, takže už nemusíš ručně stahovat ani vybírat WGT soubor. Apps2Samsung stáhne aktuální verzi, podepíše ji pro tvoji televizi a rovnou ji nainstaluje.
 
 1. Na televizi zapni **Vývojářský režim** a potom ji restartuj.
 2. Stáhni a spusť [Apps2Samsung](https://github.com/Apps2Samsung/Apps2Samsung/releases).
-3. Stáhni `KickTV.wgt` z [nejnovějšího vydání Kick TV](https://github.com/corekill/kick-tv-tizen/releases/latest).
-4. V Apps2Samsung vyber **Custom WGT File**, zvol stažený `KickTV.wgt`, označ svoji televizi a spusť instalaci.
+3. V nabídce **Release** vyber **KickTV**.
+4. Vyber svoji televizi a klikni na **Download & Install**.
 
-Apps2Samsung televizi najde, vytvoří potřebný certifikát, balíček podepíše a nainstaluje. Kdyby se něco zaseklo, podrobnější postup a nejčastější řešení najdeš v [INSTALL.md](INSTALL.md).
-
-Do budoucna bych chtěl Kick TV dostat také do katalogu [Tizen Community Packages](https://github.com/Apps2Samsung/tizen-community-packages). Instalace by pak byla ještě o krok jednodušší a WGT by nebylo potřeba vybírat ručně.
+To je celé. Kdyby se něco zaseklo nebo se KickTV v nabídce nezobrazila, podrobnější postup, záložní ruční instalaci a nejčastější řešení najdeš v [INSTALL.md](INSTALL.md).
 
 ## Co dělají tlačítka při sledování
 
@@ -88,7 +88,7 @@ Zdrojový kód je dostupný pod [licencí MIT](LICENSE), takže se v něm může
 
 I built Kick TV for anyone who wants to watch their favorite streamers comfortably from the couch on a big screen — without AirPlay, a phone, or a laptop. Just find a channel, start the stream, and control everything with your TV remote.
 
-[Project website](https://corekill.github.io/kick-tv-tizen/) · [Download the latest release](https://github.com/corekill/kick-tv-tizen/releases/latest) · [Installation guide](INSTALL.md)
+[Project website](https://corekill.github.io/kick-tv-tizen/) · [Install with Apps2Samsung](INSTALL.md) · [Latest release](https://github.com/corekill/kick-tv-tizen/releases/latest)
 
 ## Features
 
@@ -103,16 +103,14 @@ I built Kick TV for anyone who wants to watch their favorite streamers comfortab
 
 ## Easy installation
 
-Samsung requires every sideloaded Tizen package to be signed for the target TV. The WGT in the GitHub release is therefore intentionally device-neutral, and the recommended installer signs it specifically for your television.
+Kick TV is now included directly in the Apps2Samsung community catalog. You no longer need to download or select the WGT manually—Apps2Samsung fetches the current release, signs it for your TV, and installs it.
 
 1. Enable **Developer Mode** on the TV and restart it.
 2. Download and open [Apps2Samsung](https://github.com/Apps2Samsung/Apps2Samsung/releases).
-3. Download `KickTV.wgt` from the [latest Kick TV release](https://github.com/corekill/kick-tv-tizen/releases/latest).
-4. In Apps2Samsung select **Custom WGT File**, choose `KickTV.wgt`, select the TV, and install.
+3. Select **KickTV** from the **Release** dropdown.
+4. Select your TV and click **Download & Install**.
 
-Apps2Samsung handles TV discovery, Samsung login when required, certificate generation, package signing, and installation. See [INSTALL.md](INSTALL.md) for the complete walkthrough and troubleshooting.
-
-The long-term goal is inclusion in the [Tizen Community Packages](https://github.com/Apps2Samsung/tizen-community-packages) catalog, which removes the custom-file step.
+That is it. Apps2Samsung handles the download, TV discovery, Samsung login when required, certificate generation, package signing, and installation. See [INSTALL.md](INSTALL.md) for troubleshooting and the manual fallback.
 
 ## Playback controls
 
