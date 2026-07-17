@@ -24,16 +24,16 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 ## Jak Kick TV vypadá
 
 <p align="center">
-  <img src="docs/images/home.png" alt="Domovská obrazovka aplikace Kick TV pro Samsung Tizen" width="49%">
-  <img src="docs/images/history.png" alt="Historie streamerů s profilovými obrázky, stavem LIVE a OFFLINE, počtem diváků a kategorií" width="49%">
+  <img src="docs/images/home-2.2.png" alt="Domovská obrazovka aplikace Kick TV pro Samsung Tizen" width="49%">
+  <img src="docs/images/history-2.2.png" alt="Historie streamerů s profilovými obrázky, stavem LIVE a OFFLINE, počtem diváků a kategorií" width="49%">
 </p>
 <p align="center">
-  <img src="docs/images/offline.png" alt="Offline streamer se jménem, automatickou kontrolou stavu a otevřeným chatem" width="49%">
-  <img src="docs/images/chat.png" alt="Celý živý chat s podporou Kick a 7TV emotikonů" width="49%">
+  <img src="docs/images/offline-2.2.png" alt="Offline streamer se jménem, automatickou kontrolou stavu a otevřeným chatem" width="49%">
+  <img src="docs/images/chat-2.2.png" alt="Celý živý chat s podporou Kick a 7TV emotikonů" width="49%">
 </p>
 <p align="center">
-  <img src="docs/images/quality.png" alt="Výběr kvality přehrávání v Kick TV" width="49%">
-  <img src="docs/images/chat-editor.png" alt="Editor velikosti a pozice chatu přímo v obraze" width="49%">
+  <img src="docs/images/quality-2.2.png" alt="Výběr kvality přehrávání v Kick TV" width="49%">
+  <img src="docs/images/chat-editor-2.2.png" alt="Editor velikosti a pozice chatu přímo v obraze" width="49%">
 </p>
 
 ## Jak aplikaci dostat do televize
