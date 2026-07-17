@@ -11,7 +11,6 @@ Tahle verze hlavně zpříjemňuje návrat ke streamerům, které sleduješ. His
 - Zvolený režim chatu se ukládá zvlášť pro každého streamera. Rozměry a pozice tří vlastních předvoleb zůstávají společné.
 - Rozložení offline obrazovky, chatu a historie bylo upravené přímo podle reálného zobrazení na Tizenu 6.0.
 - Kick TV je součástí komunitního katalogu Apps2Samsung, takže při instalaci stačí vybrat `KickTV` a kliknout na **Download & Install**.
-- Přibylo anonymní počítadlo prvních spuštění. Odesílá jediný prázdný signál bez identifikátoru televize, sledovaných kanálů nebo chatu; podrobnosti jsou na [stránce o soukromí](docs/privacy.html).
 
 ### English
 
@@ -20,7 +19,6 @@ Tahle verze hlavně zpříjemňuje návrat ke streamerům, které sleduješ. His
 - The selected chat mode is remembered separately for each streamer, while the three custom preset layouts remain global.
 - Offline, chat, and history layouts were tuned against a real Tizen 6.0 television.
 - Kick TV is available in the Apps2Samsung community catalog: select `KickTV`, choose your TV, and click **Download & Install**.
-- An anonymous first-launch counter sends one empty signal without a TV identifier, watched channels, or chat data. See the [privacy page](docs/privacy.html#english) for details.
 
 ## 2.1.1
 
