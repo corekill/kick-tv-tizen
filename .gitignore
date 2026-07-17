@@ -10,3 +10,5 @@ password.txt
 device-profile.xml
 author-signature.xml
 signature1.xml
+__pycache__/
+*.py[cod]

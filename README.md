@@ -12,9 +12,11 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 - Stream přehrává přes nativní Samsung AVPlay a kvalitu obrazu si můžeš kdykoliv změnit.
 - Nemusíš si pamatovat přesné jméno streamera. Stačí napsat jeho část a aplikace ho zkusí najít.
-- Naposledy sledované kanály zůstávají v historii a rovnou u nich vidíš, kdo právě vysílá.
+- Naposledy sledované kanály zůstávají v historii. Karty ukážou profilovou fotku a u živých také počet diváků a kategorii.
+- Když streamer nevysílá, místo černé obrazovky uvidíš jeho jméno a rovnou otevřený chat. Aplikace každých 10 sekund zkontroluje, jestli nezačal vysílat.
 - Chat umí běžné i animované Kick emotikony a k tomu globální i kanálové emotikony z 7TV.
 - Chat si můžeš otevřít celý nebo ho nechat přímo v obraze. K dispozici jsou tři předvolby, u kterých si nastavíš velikost i pozici.
+- Aplikace si pro každého streamera pamatuje naposledy zvolený režim chatu. Rozměry a pozice tří předvoleb přitom zůstávají společné.
 - Pokud máš televizi nastavenou česky, bude česky i aplikace. Pro ostatní jazyky se automaticky přepne do angličtiny.
 - Tlačítko Zpět se chová tak, jak člověk čeká: nejdřív zavře otevřenou nabídku a až potom tě vrátí na výběr streamera.
 - Během sledování aplikace vypne spořič obrazovky, aby tě zbytečně nerušil.
@@ -78,6 +80,8 @@ Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpř
 
 Kick TV je můj neoficiální komunitní projekt. Nejsem nijak spojený s Kickem, 7TV, Samsungem ani Tizenem a žádná z těchto společností aplikaci nepodporuje. Kick nebo 7TV navíc mohou svoje veřejné služby změnit, takže se občas může něco rozbít. Když se to stane, klidně [založ issue](https://github.com/corekill/kick-tv-tizen/issues/new) a zkusím se na to podívat.
 
+Od verze 2.2 aplikace při prvním úspěšném spuštění odešle jediný anonymní signál, který zvýší celkové počítadlo instalací. Signál neobsahuje žádný identifikátor, informace o televizi, hledání, sledované kanály ani chat. Přijímač uchovává pouze výsledné celkové číslo a nevytváří záznamy o jednotlivých instalacích. [Podrobnosti o počítadle](https://corekill.github.io/kick-tv-tizen/privacy.html)
+
 ## Licence
 
 Zdrojový kód je dostupný pod [licencí MIT](LICENSE), takže se v něm můžeš vrtat, upravovat ho a postavit si vlastní verzi. Názvy, loga a ochranné známky třetích stran ale samozřejmě zůstávají jejich vlastníkům.
@@ -94,9 +98,11 @@ I built Kick TV for anyone who wants to watch their favorite streamers comfortab
 
 - Native Samsung AVPlay video with selectable quality profiles.
 - Streamer search by partial name with an exact-channel fallback.
-- Recently watched channels with LIVE/OFFLINE status.
+- Recently watched channels with profile pictures plus viewer counts and categories for LIVE channels.
+- A dedicated offline screen with the channel name, automatically opened chat, and a ten-second LIVE check that starts playback when the streamer comes online.
 - Read-only live chat with animated native Kick emotes plus global and channel-specific 7TV emotes.
 - Full chat panel plus three independently configurable in-picture presets.
+- The last selected chat mode is remembered per streamer, while preset sizes and positions remain global.
 - Czech UI for Czech TV language settings; English for every other language.
 - Remote-first controls and hierarchical Back behavior.
 - Screensaver suppression while playback is active.
@@ -148,6 +154,8 @@ Kick TV is a free project I build in my spare time. If it made watching streams 
 ## Disclaimer
 
 This is an unofficial community project and is not affiliated with or endorsed by Kick, 7TV, Samsung, or Tizen. Kick and 7TV may change their public web endpoints at any time. Their names, logos, and trademarks belong to their respective owners.
+
+Starting with version 2.2, the app sends one anonymous signal after its first successful launch to increment an aggregate installation counter. It contains no identifier, TV information, searches, watched channels, or chat data. The receiver stores only the resulting total and creates no per-installation records. [Installation counter details](https://corekill.github.io/kick-tv-tizen/privacy.html#english)
 
 ## License
 

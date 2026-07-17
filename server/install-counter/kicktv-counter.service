@@ -1,0 +1,30 @@
+[Unit]
+Description=Kick TV anonymous aggregate install counter
+After=network.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=kicktv-counter
+StateDirectoryMode=0700
+Environment=KICKTV_COUNTER_HOST=127.0.0.1
+Environment=KICKTV_COUNTER_PORT=8787
+Environment=KICKTV_COUNTER_DB=/var/lib/kicktv-counter/counter.db
+ExecStart=/usr/bin/python3 /opt/kicktv-counter/server.py
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectControlGroups=yes
+ProtectHome=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectSystem=strict
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictSUIDSGID=yes
+LockPersonality=yes
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

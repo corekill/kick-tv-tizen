@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soukromí a počítadlo instalací – Kick TV</title>
+  <meta name="description" content="Jak funguje anonymní počítadlo instalací aplikace Kick TV pro Samsung Tizen.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#090b0e">
+  <link rel="canonical" href="https://corekill.github.io/kick-tv-tizen/privacy.html">
+  <link rel="icon" type="image/png" href="icon.png">
+  <style>
+    :root{color-scheme:dark;--bg:#090b0e;--card:#14191f;--line:#ffffff18;--text:#f7f8fa;--muted:#b1b8c2;--green:#53fc18}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#17402055,transparent 30rem),var(--bg);color:var(--text);font:17px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{width:min(820px,calc(100% - 32px));margin:auto}header{border-bottom:1px solid var(--line)}nav{height:74px;display:flex;align-items:center;justify-content:space-between}nav a{color:inherit;text-decoration:none;font-weight:800}.brand{display:flex;align-items:center;gap:11px}.brand img{width:34px;border-radius:8px}.back{color:var(--muted);font-size:14px}main{padding:72px 0 90px}h1{margin:0 0 18px;font-size:clamp(38px,7vw,62px);line-height:1.03;letter-spacing:-.045em}h1 span{color:var(--green)}.lead{margin:0 0 38px;color:var(--muted);font-size:20px}.card{margin:18px 0;padding:28px;border:1px solid var(--line);border-radius:22px;background:var(--card)}h2{margin:0 0 11px;font-size:24px}p{margin:10px 0;color:var(--muted)}strong{color:var(--text)}ul{margin:12px 0 0;padding-left:22px;color:var(--muted)}li+li{margin-top:7px}.english{margin-top:48px;padding-top:46px;border-top:1px solid var(--line)}a{color:var(--green)}code{padding:2px 6px;border-radius:6px;background:#ffffff10;color:#dfffd4;font-size:.92em}
+  </style>
+</head>
+<body>
+  <header><nav class="wrap"><a class="brand" href="index.html"><img src="icon.png" alt="">Kick TV</a><a class="back" href="index.html">← Zpět na web</a></nav></header>
+  <main class="wrap">
+    <h1>Soukromí bez <span>drobných písmen.</span></h1>
+    <p class="lead">Kick TV nepoužívá běžnou telemetrii. Počítá pouze anonymní první spuštění aplikace.</p>
+    <section class="card">
+      <h2>Co aplikace odešle</h2>
+      <p>Po prvním úspěšném spuštění odešle jeden prázdný požadavek na <code>corekill.cz</code>. Neobsahuje ID instalace, model televize, jazyk, hledání, sledované kanály, chat ani jiné údaje o používání.</p>
+      <p>Stejně jako u každého HTTPS spojení projde síťová adresa přes webový server a reverzní proxy. Samotný přijímač ji ale nepřebírá, neukládá ani nespojuje s výsledným počtem.</p>
+    </section>
+    <section class="card">
+      <h2>Co se uloží</h2>
+      <ul>
+        <li>Na serveru se pouze zvýší jedno společné číslo celkových instalací.</li>
+        <li>Přijímač nevytváří záznamy o jednotlivých požadavcích; jeho backendová cesta má access log vypnutý.</li>
+        <li>V televizi se uloží pouze příznak <code>kicktv.installReported</code>, aby se signál neposílal znovu.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Co číslo znamená</h2>
+      <p>Jde o počet prvních úspěšných spuštění od verze 2.2. Odinstalování aplikace počet nesníží. Nová instalace nebo smazání dat aplikace se může započítat znovu.</p>
+    </section>
+    <div class="english" id="english" lang="en">
+      <h1>Privacy without <span>fine print.</span></h1>
+      <p class="lead">Kick TV does not use regular telemetry. It only counts anonymous first launches.</p>
+      <section class="card"><h2>What is sent</h2><p>After the first successful launch, the app sends one empty request to <code>corekill.cz</code>. It contains no installation ID, TV model, language, searches, watched channels, chat, or other usage data.</p><p>As with every HTTPS connection, the network address passes through the web server and reverse proxy. The counter receiver itself does not accept, store, or associate it with the resulting total.</p></section>
+      <section class="card"><h2>What is stored</h2><ul><li>The server only increments one shared aggregate installation total.</li><li>The receiver creates no per-request records, and its backend route has access logging disabled.</li><li>The TV stores only the <code>kicktv.installReported</code> flag so the signal is not sent again.</li></ul></section>
+      <section class="card"><h2>What the number means</h2><p>It is the number of first successful launches since version 2.2. Uninstalling the app does not decrease it. A reinstall or clearing the app data may be counted again.</p></section>
+    </div>
+  </main>
+</body>
+</html>
