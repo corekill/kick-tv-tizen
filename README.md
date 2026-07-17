@@ -25,7 +25,11 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 <p align="center">
   <img src="docs/images/home.png" alt="Domovská obrazovka aplikace Kick TV pro Samsung Tizen" width="49%">
-  <img src="docs/images/history.png" alt="Historie streamerů se stavem LIVE a OFFLINE" width="49%">
+  <img src="docs/images/history.png" alt="Historie streamerů s profilovými obrázky, stavem LIVE a OFFLINE, počtem diváků a kategorií" width="49%">
+</p>
+<p align="center">
+  <img src="docs/images/offline.png" alt="Offline streamer se jménem, automatickou kontrolou stavu a otevřeným chatem" width="49%">
+  <img src="docs/images/chat.png" alt="Celý živý chat s podporou Kick a 7TV emotikonů" width="49%">
 </p>
 <p align="center">
   <img src="docs/images/quality.png" alt="Výběr kvality přehrávání v Kick TV" width="49%">
