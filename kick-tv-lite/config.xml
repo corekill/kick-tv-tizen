@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://corekill.cz/kicktv-lite" version="1.0.0" viewmodes="maximized">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://corekill.cz/kicktv-lite" version="1.0.1" viewmodes="maximized">
   <tizen:application id="CrKckTVL01.KickTVLite" package="CrKckTVL01" required_version="3.0"/>
   <content src="index.html"/>
   <icon src="kick-icon-117.png"/>

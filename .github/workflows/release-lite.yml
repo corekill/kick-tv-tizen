@@ -27,14 +27,14 @@ jobs:
       - name: Publish experimental Lite release
         uses: softprops/action-gh-release@v2
         with:
-          name: Kick TV Lite 1.0.0 — experimentální verze pro Tizen 3
+          name: Kick TV Lite 1.0.1 — experimentální verze pro Tizen 3
           prerelease: true
           body: |
             ## Čeština
 
             Samostatná odlehčená verze pro starší Samsung TV s Tizenem 3.0.
 
-            Obsahuje nativní přehrávání přes AVPlay, hledání podle části jména, historii se stavem LIVE/OFFLINE, automatickou kontrolu offline kanálů a jednoduchý živý chat. Kvůli výkonu starších televizí záměrně vynechává volbu kvality, 7TV, obrázkové emotikony, náhledy a nastavitelné chatové overlaye.
+            Obsahuje nativní přehrávání přes AVPlay, volbu kvality s automatickým kompatibilním fallbackem, hledání podle části jména, historii se stavem LIVE/OFFLINE, automatickou kontrolu offline kanálů a jednoduchý živý chat. Kvůli výkonu starších televizí záměrně vynechává 7TV, obrázkové emotikony, náhledy a nastavitelné chatové overlaye.
 
             Jde o experimentální balíček, protože zatím nebyl ověřený na skutečné Tizen 3 televizi. Používá vlastní ID aplikace a nepřepisuje běžnou Kick TV.
 
@@ -42,7 +42,7 @@ jobs:
 
             A separate lightweight build for older Samsung TVs running Tizen 3.0.
 
-            It includes native AVPlay streaming, partial-name search, viewing history with LIVE/OFFLINE status, automatic offline checks, and read-only live chat. To keep it responsive on older hardware, it intentionally omits quality selection, 7TV, image emotes, thumbnails, and configurable chat overlays.
+            It includes native AVPlay streaming, quality selection with an automatic compatibility fallback, partial-name search, viewing history with LIVE/OFFLINE status, automatic offline checks, and read-only live chat. To keep it responsive on older hardware, it intentionally omits 7TV, image emotes, thumbnails, and configurable chat overlays.
 
             This is an experimental build because it has not yet been verified on a real Tizen 3 television. It uses a separate application ID and does not replace the standard Kick TV app.
           files: |
