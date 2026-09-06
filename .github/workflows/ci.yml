@@ -16,9 +16,16 @@ jobs:
       - name: Install validation tools
         run: sudo apt-get update && sudo apt-get install -y libxml2-utils zip unzip
       - name: Validate and build
-        run: ./scripts/build.sh
+        run: |
+          ./scripts/build.sh
+          ./scripts/build-lite.sh
       - name: Upload device-neutral WGT
         uses: actions/upload-artifact@v4
         with:
           name: KickTV-WGT
           path: dist/KickTV.wgt
+      - name: Upload device-neutral Lite WGT
+        uses: actions/upload-artifact@v4
+        with:
+          name: KickTV-Lite-WGT
+          path: dist/KickTV-Lite.wgt

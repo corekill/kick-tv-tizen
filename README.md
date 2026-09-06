@@ -74,6 +74,12 @@ Hotový balíček najdeš v `dist/KickTV.wgt`. Ani vlastní build ale neobejde p
 - Opravdu jsem ji testoval na Samsung TV s Tizenem 6.0, není to jen projekt odzkoušený v emulátoru.
 - Bez internetu to samozřejmě nepůjde — aplikace ho potřebuje pro stream, chat, vyhledávání i emotikony.
 
+### Experimentální Lite verze pro Tizen 3
+
+Pro televizory z roku 2017 s Tizenem 3.0 je k dispozici samostatný balíček **Kick TV Lite**. Zachovává přehrávání, hledání, historii, LIVE/OFFLINE stav a jednoduchý živý chat. Kvůli výkonu starších TV nemá 7TV, obrázkové emotikony, výběr kvality ani nastavitelné overlaye. Používá vlastní ID, takže nepřepíše běžnou Kick TV. Lite zatím není otestovaná na skutečné Tizen 3 televizi, proto ji vydávám jako experimentální verzi.
+
+[Stáhnout Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.0-lite)
+
 ## Chceš podpořit další vývoj?
 
 Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpříjemnila sledování z gauče a chceš podpořit další opravy a nové funkce, můžeš mi [koupit kafe na Ko-fi](https://ko-fi.com/corekill). Není to žádná podmínka — radost mi udělá i to, když aplikaci používáš a napíšeš, když něco zlobí.
@@ -148,6 +154,12 @@ The device-neutral package is written to `dist/KickTV.wgt`. It still needs to be
 - Target: Samsung Tizen TV 4.0 and newer.
 - Tested on a real Samsung TV running Tizen 6.0.
 - A network connection is required for streams, chat, search, and emote assets.
+
+### Experimental Lite build for Tizen 3
+
+A separate **Kick TV Lite** package is available for 2017 Samsung TVs running Tizen 3.0. It keeps playback, search, history, LIVE/OFFLINE status, and lightweight read-only live chat. To reduce load on older hardware, it omits 7TV, image emotes, quality selection, thumbnails, and configurable overlays. It has its own application ID and does not replace the standard app. This build has not yet been tested on real Tizen 3 hardware.
+
+[Download Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.0-lite)
 
 ## Support development
 

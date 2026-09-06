@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://corekill.cz/kicktv-lite" version="1.0.0" viewmodes="maximized">
+  <tizen:application id="CrKckTVL01.KickTVLite" package="CrKckTVL01" required_version="3.0"/>
+  <content src="index.html"/>
+  <icon src="kick-icon-117.png"/>
+  <feature name="http://tizen.org/feature/screen.size.all"/>
+  <tizen:privilege name="http://tizen.org/privilege/internet"/>
+  <tizen:profile name="tv-samsung"/>
+  <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable" pointing-device-support="disable"/>
+  <access origin="https://kick.com" subdomains="true"/>
+  <access origin="https://www.kickstats.com" subdomains="true"/>
+  <access origin="https://ws-us2.pusher.com" subdomains="true"/>
+  <access origin="*" subdomains="true"/>
+  <name>Kick TV Lite</name>
+  <description>Lightweight Kick viewer for older Samsung TVs.</description>
+</widget>

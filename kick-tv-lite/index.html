@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Kick TV Lite</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="$WEBAPIS/webapis/webapis.js"></script>
+</head>
+<body>
+  <main id="home">
+    <header class="topbar">
+      <div class="brand"><img src="kick-icon-117.png" alt=""><div><strong>KICK <em>TV</em></strong><small>LITE · TIZEN 3</small></div></div>
+      <div class="ready"><span></span><b data-i18n="ready">Připraveno pro starší TV</b></div>
+    </header>
+    <section class="hero">
+      <div class="intro"><p>LIGHTWEIGHT EDITION</p><h1 data-i18n="headline">Kick pohodlně<br>i na starší televizi.</h1><span data-i18n="subline">Jednoduché přehrávání a živý chat bez zbytečné zátěže.</span></div>
+      <section class="search-card">
+        <h2 data-i18n="find">Najít streamera</h2>
+        <p data-i18n="findHelp">Stačí část jména nebo adresa kanálu</p>
+        <div class="input-row"><input id="channel" class="focusable" type="text" autocomplete="off" data-i18n-placeholder="placeholder" placeholder="Jméno streamera…"><button id="watch" class="focusable" data-i18n="watch">Sledovat</button></div>
+        <div class="tip" data-i18n="searchTip">Z textového pole odejdeš šipkou doprava nebo dolů.</div>
+      </section>
+    </section>
+    <section id="searchSection" class="section hidden"><h2 data-i18n="results">Výsledky hledání</h2><span id="searchState"></span><div id="results" class="results"></div></section>
+    <section id="recentSection" class="section hidden"><h2 data-i18n="recent">Naposledy sledované</h2><div id="recent" class="recent"></div></section>
+    <footer><span class="key">OK</span> <span data-i18n="select">vybrat</span><span class="key back">↩</span> <span data-i18n="back">zpět</span></footer>
+  </main>
+  <section id="playerView" class="hidden">
+    <object id="av-player" type="application/avplayer"></object>
+    <div id="playerStatus"><div class="spinner"></div><strong id="statusTitle" data-i18n="loading">Načítám stream…</strong><span id="statusDetail"></span></div>
+    <div id="hud"><span id="nowPlaying"></span><span id="hint" data-i18n="playerHint">OK: chat · Zpět: výběr</span></div>
+    <aside id="chatPanel">
+      <header><span class="chat-dot"></span><strong data-i18n="chat">Živý chat</strong><small id="chatStatus" data-i18n="connecting">Připojuji…</small></header>
+      <div id="chatMessages" class="messages"><div class="empty" data-i18n="empty">Nové zprávy se objeví tady.</div></div>
+      <footer><span class="key">OK</span> <span data-i18n="hideChat">skrýt chat</span></footer>
+    </aside>
+  </section>
+  <div id="sparkles"></div>
+  <script src="app.js"></script>
+</body>
+</html>

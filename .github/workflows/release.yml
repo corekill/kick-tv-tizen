@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   release:
+    if: ${{ !endsWith(github.ref_name, '-lite') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

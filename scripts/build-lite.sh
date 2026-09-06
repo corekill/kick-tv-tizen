@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+APP="$ROOT/kick-tv-lite"
+DIST="${1:-$ROOT/dist}"
+PACKAGE="$DIST/KickTV-Lite.wgt"
+CHECKSUM_FILE="$PACKAGE.sha256"
+
+"$ROOT/scripts/validate-lite.sh"
+mkdir -p "$DIST"
+rm -f "$PACKAGE" "$CHECKSUM_FILE"
+
+(
+  cd "$APP"
+  zip -X -q "$PACKAGE" config.xml index.html style.css app.js kick-icon-117.png
+)
+
+unzip -t "$PACKAGE" >/dev/null
+version="$(xmllint --xpath 'string(/*[local-name()="widget"]/@version)' "$APP/config.xml")"
+if command -v shasum >/dev/null 2>&1; then
+  checksum="$(shasum -a 256 "$PACKAGE" | awk '{print $1}')"
+else
+  checksum="$(sha256sum "$PACKAGE" | awk '{print $1}')"
+fi
+printf '%s  %s\n' "$checksum" "$(basename "$PACKAGE")" > "$CHECKSUM_FILE"
+
+echo "Built Kick TV Lite $version"
+echo "Package: $PACKAGE"
+echo "SHA-256: $checksum"

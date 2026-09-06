@@ -23,6 +23,10 @@ Developer Mode must remain enabled whenever the app is installed or updated.
 
 Apps2Samsung downloads the current `KickTV.wgt` from the community catalog, generates a distributor certificate containing the TV's DUID, re-signs the package, and installs it. The release package does not contain private signing keys.
 
+### Experimental Tizen 3 Lite package
+
+For a 2017 Samsung TV running Tizen 3.0, download `KickTV-Lite.wgt` from the [experimental Lite release](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.0-lite), choose **Custom WGT File** in Apps2Samsung, and install it the same way. Lite uses a separate application ID, so it does not overwrite the standard Kick TV application.
+
 ### Manual fallback
 
 If **KickTV** is not shown in the Release dropdown, first update Apps2Samsung to the latest version and refresh its catalog. As a fallback, download `KickTV.wgt` from the [latest Kick TV release](https://github.com/corekill/kick-tv-tizen/releases/latest), choose **Custom WGT File** in Apps2Samsung, and install it the same way.
