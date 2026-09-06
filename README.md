@@ -4,7 +4,7 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 ![Ikona Kick TV](kick-tv/kick-icon-117.png)
 
-[Web projektu](https://corekill.github.io/kick-tv-tizen/) · [Nainstalovat na Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.0-beta) · [Nejnovější Samsung vydání](https://github.com/corekill/kick-tv-tizen/releases/latest)
+[Web projektu](https://corekill.github.io/kick-tv-tizen/) · [Nainstalovat na Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.1-beta) · [Nejnovější Samsung vydání](https://github.com/corekill/kick-tv-tizen/releases/latest)
 
 [![Dostupné v katalogu Apps2Samsung](https://img.shields.io/badge/Instalace-Apps2Samsung%20Community-53FC18?style=for-the-badge&logo=samsung&logoColor=white&labelColor=11151A)](https://github.com/Apps2Samsung/Apps2Samsung/releases)
 
@@ -12,7 +12,7 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 Pro televize a multimediální krabičky s Android TV nebo Google TV je k dispozici samostatná nativní beta. Umí přehrávání přes Media3/ExoPlayer, hledání, volbu kvality, historii se stavem LIVE/OFFLINE, chat s animovanými Kick a 7TV emotikony i stejné nastavitelné předvolby chatu v obraze.
 
-[Stáhnout instalační APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.0-beta/KickTV-Android-TV-0.1.0-beta.apk)
+[Stáhnout instalační APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.1-beta/KickTV-Android-TV-0.1.1-beta.apk)
 
 APK je určené k ruční instalaci (sideload). První betu jsem ověřil v Android TV 14 emulátoru na 1920×1080; testy na skutečných televizích a stickách teprve sbírám. Podrobnosti k sestavení a instalaci přes ADB jsou v [android-tv/README.md](android-tv/README.md).
 
@@ -112,13 +112,13 @@ Zdrojový kód je dostupný pod [licencí MIT](LICENSE), takže se v něm může
 
 I built Kick TV for anyone who wants to watch their favorite streamers comfortably from the couch on a big screen — without AirPlay, a phone, or a laptop. Just find a channel, start the stream, and control everything with your TV remote. Native builds are now available for Samsung Tizen and, as a beta, Android TV / Google TV.
 
-[Project website](https://corekill.github.io/kick-tv-tizen/) · [Install on Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.0-beta) · [Latest Samsung release](https://github.com/corekill/kick-tv-tizen/releases/latest)
+[Project website](https://corekill.github.io/kick-tv-tizen/) · [Install on Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.1-beta) · [Latest Samsung release](https://github.com/corekill/kick-tv-tizen/releases/latest)
 
 ## Android TV and Google TV — beta
 
 A separate native beta is available for Android TV and Google TV televisions and streaming devices. It includes Media3/ExoPlayer playback, search, selectable quality, LIVE/OFFLINE history, animated Kick and 7TV chat emotes, and the same configurable in-picture chat presets.
 
-[Download the installable APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.0-beta/KickTV-Android-TV-0.1.0-beta.apk)
+[Download the installable APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.1-beta/KickTV-Android-TV-0.1.1-beta.apk)
 
 The APK is intended for sideloading. This first beta has been verified in an Android TV 14 emulator at 1920×1080; real-device feedback is welcome. Build and ADB installation instructions are available in [android-tv/README.md](android-tv/README.md).
 

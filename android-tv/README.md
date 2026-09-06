@@ -2,7 +2,7 @@
 
 Native Android TV / Google TV companion to Kick TV for Samsung Tizen. This build is currently a beta intended for sideload testing on TVs and streaming sticks.
 
-[Download the current beta APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.0-beta/KickTV-Android-TV-0.1.0-beta.apk)
+[Download the current beta APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.1-beta/KickTV-Android-TV-0.1.1-beta.apk)
 
 ## Included
 

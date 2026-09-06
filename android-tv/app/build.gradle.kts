@@ -11,8 +11,8 @@ android {
         applicationId = "cz.corekill.kicktv"
         minSdk = 23
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0-beta"
+        versionCode = 2
+        versionName = "0.1.1-beta"
     }
 
     buildFeatures {

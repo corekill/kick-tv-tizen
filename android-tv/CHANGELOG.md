@@ -1,5 +1,15 @@
 # Android TV changelog
 
+## 0.1.1-beta
+
+- Profilové obrázky streamerů se nyní zobrazují ve výsledcích hledání i historii; pokud obrázek chybí nebo se nenačte, zůstane čitelná iniciála.
+- Ovladače se samostatnými tlačítky Play a Pause jsou nyní podporované vedle kombinovaného Play/Pause.
+
+---
+
+- Streamer profile pictures are now shown in search results and history, with a readable initial as the fallback.
+- Remotes with separate Play and Pause buttons are now supported alongside the combined Play/Pause key.
+
 ## 0.1.0-beta
 
 První veřejná beta Kick TV pro Android TV a Google TV.

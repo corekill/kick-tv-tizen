@@ -221,8 +221,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupLists() {
-        resultsAdapter = ChannelAdapter { openChannel(it.slug) }
-        recentAdapter = ChannelAdapter { openChannel(it.slug) }
+        val imageLoader = ProfileImageLoader(api.client)
+        resultsAdapter = ChannelAdapter(imageLoader) { openChannel(it.slug) }
+        recentAdapter = ChannelAdapter(imageLoader) { openChannel(it.slug) }
         findViewById<RecyclerView>(R.id.resultsList).apply {
             layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.HORIZONTAL, false)
             adapter = resultsAdapter
@@ -716,6 +717,8 @@ class MainActivity : AppCompatActivity() {
             KeyEvent.KEYCODE_DPAD_DOWN -> { openChatEditor(); true }
             KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER -> { cycleChat(); true }
             KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> { if (player.isPlaying) player.pause() else player.play(); true }
+            KeyEvent.KEYCODE_MEDIA_PLAY -> { player.play(); true }
+            KeyEvent.KEYCODE_MEDIA_PAUSE -> { player.pause(); true }
             KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_ESCAPE -> { returnHome(); true }
             else -> super.dispatchKeyEvent(event)
         }
