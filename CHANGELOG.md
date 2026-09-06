@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.1 — testovací oprava pro starší Tizen
+
+- Opravené jednotky datového toku v profilech kvality Samsung AVPlay.
+- Pokud starší Tizen odmítne připravit stream s omezením kvality, aplikace jej automaticky zkusí znovu v kompatibilním režimu bez omezení bitrate.
+- Chyby AVPlay nyní zobrazují čitelnější název a zprávu.
+
 ## 2.2.0 — Offline už není černá díra
 
 Tahle verze hlavně zpříjemňuje návrat ke streamerům, které sleduješ. Historie je přehlednější, aplikace si pamatuje tvůj oblíbený režim chatu a offline kanál už neznamená prázdnou černou obrazovku.
