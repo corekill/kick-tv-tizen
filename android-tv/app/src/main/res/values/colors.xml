@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="kick_green">#53FC18</color>
+    <color name="ink">#090D12</color>
+    <color name="panel">#E611171F</color>
+    <color name="panel_solid">#111820</color>
+    <color name="muted">#9AA5B1</color>
+    <color name="white">#F7FAFC</color>
+    <color name="danger">#FF6677</color>
+</resources>

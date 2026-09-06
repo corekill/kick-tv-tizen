@@ -12,3 +12,8 @@ author-signature.xml
 signature1.xml
 __pycache__/
 *.py[cod]
+android-tv/.gradle/
+android-tv/.idea/
+android-tv/local.properties
+android-tv/**/build/
+android-tv/*.iml
