@@ -88,7 +88,7 @@ Hotový balíček najdeš v `dist/KickTV.wgt`. Ani vlastní build ale neobejde p
 
 Pro televizory z roku 2017 s Tizenem 3.0 je k dispozici samostatný balíček **Kick TV Lite**. Zachovává přehrávání, volbu kvality, hledání, historii, LIVE/OFFLINE stav a jednoduchý živý chat. Kvůli výkonu starších TV nemá 7TV, obrázkové emotikony ani nastavitelné overlaye. Používá vlastní ID, takže nepřepíše běžnou Kick TV. Lite zatím není otestovaná na skutečné Tizen 3 televizi, proto ji vydávám jako experimentální verzi.
 
-[Stáhnout Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.1-lite)
+[Stáhnout Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.2-lite)
 
 ## Chceš podpořit další vývoj?
 
@@ -177,7 +177,7 @@ The device-neutral package is written to `dist/KickTV.wgt`. It still needs to be
 
 A separate **Kick TV Lite** package is available for 2017 Samsung TVs running Tizen 3.0. It keeps playback, quality selection, search, history, LIVE/OFFLINE status, and lightweight read-only live chat. To reduce load on older hardware, it omits 7TV, image emotes, thumbnails, and configurable overlays. It has its own application ID and does not replace the standard app. This build has not yet been tested on real Tizen 3 hardware.
 
-[Download Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.1-lite)
+[Download Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.2-lite)
 
 ## Support development
 

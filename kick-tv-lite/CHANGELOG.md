@@ -1,5 +1,12 @@
 # Kick TV Lite changelog
 
+## 1.0.2-lite
+
+- Opravené spouštění videa na starém AVPlay: aplikace po `prepareAsync` počká na skutečný stav `READY` a v případě potřeby použije synchronní přípravu.
+- Volání nastavení obrazu jsou na Tizenu 3 volitelná, takže nepodporovaná operace nezastaví celé přehrávání.
+- Šipka dolů během přehrávání otevře lokální diagnostiku s modelem TV, stavem AVPlay a přesným krokem, na kterém přehrávání selhalo.
+- Diagnostika nezobrazuje token streamu ani neposílá data mimo televizi.
+
 ## 1.0.1-lite
 
 - Přidaná lehká nabídka kvality obrazu na šipku nahoru.

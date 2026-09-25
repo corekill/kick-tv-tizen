@@ -27,14 +27,14 @@ jobs:
       - name: Publish experimental Lite release
         uses: softprops/action-gh-release@v2
         with:
-          name: Kick TV Lite 1.0.1 — experimentální verze pro Tizen 3
+          name: Kick TV Lite 1.0.2 — Tizen 3 playback test
           prerelease: true
           body: |
             ## Čeština
 
             Samostatná odlehčená verze pro starší Samsung TV s Tizenem 3.0.
 
-            Obsahuje nativní přehrávání přes AVPlay, volbu kvality s automatickým kompatibilním fallbackem, hledání podle části jména, historii se stavem LIVE/OFFLINE, automatickou kontrolu offline kanálů a jednoduchý živý chat. Kvůli výkonu starších televizí záměrně vynechává 7TV, obrázkové emotikony, náhledy a nastavitelné chatové overlaye.
+            Tato verze opravuje spouštění přehrávání na starém AVPlay: čeká na stav READY, umí použít synchronní přípravu a ignoruje nepodporovaná nastavení obrazu. Šipka dolů otevře lokální diagnostiku s přesným krokem přehrávání pro snadnější hlášení chyb.
 
             Jde o experimentální balíček, protože zatím nebyl ověřený na skutečné Tizen 3 televizi. Používá vlastní ID aplikace a nepřepisuje běžnou Kick TV.
 
@@ -42,7 +42,7 @@ jobs:
 
             A separate lightweight build for older Samsung TVs running Tizen 3.0.
 
-            It includes native AVPlay streaming, quality selection with an automatic compatibility fallback, partial-name search, viewing history with LIVE/OFFLINE status, automatic offline checks, and read-only live chat. To keep it responsive on older hardware, it intentionally omits 7TV, image emotes, thumbnails, and configurable chat overlays.
+            This version fixes playback startup on old AVPlay by waiting for the READY state, falling back to synchronous preparation, and treating unsupported display settings as optional. Press Down to open local diagnostics showing the exact playback stage for easier bug reports.
 
             This is an experimental build because it has not yet been verified on a real Tizen 3 television. It uses a separate application ID and does not replace the standard Kick TV app.
           files: |
