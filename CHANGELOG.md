@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.2 — oprava ruční volby kvality
+
+- Ruční kvalita nyní používá přímo H.264 HLS variantu, kterou Kick skutečně nabízí pro daný stream.
+- Přepnutí na 1080p, 720p, 480p, 360p nebo 160p už neposílá AVPlay neplatný pevný rozsah bitrate, který způsoboval `PLAYER_ERROR_CONNECTION_FAILED`.
+- Nabídka zobrazuje jen kvality dostupné pro právě sledovaný stream. Automatika dál ponechá výběr varianty na AVPlay.
+
 ## 2.2.1 — testovací oprava pro starší Tizen
 
 - Opravené jednotky datového toku v profilech kvality Samsung AVPlay.
