@@ -27,14 +27,16 @@ jobs:
       - name: Publish experimental Lite release
         uses: softprops/action-gh-release@v2
         with:
-          name: Kick TV Lite 1.0.2 — Tizen 3 playback test
+          name: Kick TV Lite 1.0.3 — direct HLS test for Tizen 3
           prerelease: true
           body: |
             ## Čeština
 
             Samostatná odlehčená verze pro starší Samsung TV s Tizenem 3.0.
 
-            Tato verze opravuje spouštění přehrávání na starém AVPlay: čeká na stav READY, umí použít synchronní přípravu a ignoruje nepodporovaná nastavení obrazu. Šipka dolů otevře lokální diagnostiku s přesným krokem přehrávání pro snadnější hlášení chyb.
+            Po diagnostice z reálné Tizen 3 televize tato verze obchází Amazon IVS master playlist, na kterém starý AVPlay zůstával ve stavu IDLE. Aplikace načte dostupné H.264 varianty a přehrávači předá přímo zvolený media playlist. Nabídka kvality proto ukazuje pouze varianty skutečně dostupné pro daný stream.
+
+            Diagnostika na šipce dolů nyní navíc zobrazuje master i přímý playlist, model, kód modelu a firmware televize.
 
             Jde o experimentální balíček, protože zatím nebyl ověřený na skutečné Tizen 3 televizi. Používá vlastní ID aplikace a nepřepisuje běžnou Kick TV.
 
@@ -42,7 +44,9 @@ jobs:
 
             A separate lightweight build for older Samsung TVs running Tizen 3.0.
 
-            This version fixes playback startup on old AVPlay by waiting for the READY state, falling back to synchronous preparation, and treating unsupported display settings as optional. Press Down to open local diagnostics showing the exact playback stage for easier bug reports.
+            Based on diagnostics from a real Tizen 3 television, this version bypasses the Amazon IVS master playlist that left old AVPlay stuck in IDLE. The app reads the available H.264 renditions and opens the selected media playlist directly. The quality menu therefore shows only renditions actually available for the current stream.
+
+            Press Down to open diagnostics, which now include the master and direct playlist, TV model, model code, and firmware.
 
             This is an experimental build because it has not yet been verified on a real Tizen 3 television. It uses a separate application ID and does not replace the standard Kick TV app.
           files: |

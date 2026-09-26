@@ -1,5 +1,12 @@
 # Kick TV Lite changelog
 
+## 1.0.3-lite
+
+- Tizen 3 už neposílá AVPlay komplikovaný Amazon IVS master playlist. Aplikace nejdřív načte dostupné H.264 varianty a přehrávači předá přímo konkrétní media playlist.
+- Automatická kvalita zvolí nejvyšší dostupnou kompatibilní H.264 variantu; ruční nabídka ukazuje pouze kvality skutečně dostupné pro daný stream.
+- Diagnostika nově uvádí master i přímo přehrávaný playlist, kód modelu a firmware televize.
+- Přidané oprávnění ProductInfo, aby se na reálných televizích zobrazil model místo hodnoty `unknown`.
+
 ## 1.0.2-lite
 
 - Opravené spouštění videa na starém AVPlay: aplikace po `prepareAsync` počká na skutečný stav `READY` a v případě potřeby použije synchronní přípravu.
