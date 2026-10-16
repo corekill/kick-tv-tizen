@@ -441,5 +441,17 @@
     if(e.keyCode===37||e.keyCode===38){e.preventDefault();move(-1);}else if(e.keyCode===39||e.keyCode===40){e.preventDefault();move(1);}else if(e.keyCode===13&&document.activeElement){document.activeElement.click();}
   },true);
   try{['MediaPlay','MediaPause','MediaPlayPause'].forEach(function(k){tizen.tvinputdevice.registerKey(k);});}catch(e){}
-  applyChatLayout();setTimeout(function(){input.focus();},100);setTimeout(reportInstall,1200);
+  // A launch request (such as a remote's ed.apps.launch metaTag) may carry a kick.com channel URL in its URI or data.
+  function requestedChannel(){
+    var found=null;
+    try{
+      var control=tizen.application.getCurrentApplication().getRequestedAppControl().appControl,values=[control.uri||''];
+      (control.data||[]).forEach(function(item){values=values.concat(item.value||[]);});
+      values.forEach(function(value){if(found)return;value=String(value);try{value=decodeURIComponent(value);}catch(ignoreDecode){}var match=/kick\.com\/@?([A-Za-z0-9_-]{1,64})/i.exec(value);if(match)found=match[1];});
+    }catch(ignoreLaunch){}
+    return found;
+  }
+  function openRequestedChannel(){var name=requestedChannel();if(!name)return;if(playing)closePlayer();open(name);}
+  window.addEventListener('appcontrol',openRequestedChannel);
+  applyChatLayout();setTimeout(function(){input.focus();},100);setTimeout(openRequestedChannel,150);setTimeout(reportInstall,1200);
 })();
