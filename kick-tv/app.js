@@ -453,5 +453,11 @@
   }
   function openRequestedChannel(){var name=requestedChannel();if(!name)return;if(playing)closePlayer();open(name);}
   window.addEventListener('appcontrol',openRequestedChannel);
+  // Tizen keeps AVPlay running after the app leaves the screen, so stop the stream and reopen it at the live edge on return.
+  var resumeChannel='';
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){if(playing&&currentChannelName){resumeChannel=currentChannelName;closePlayer();}return;}
+    var name=resumeChannel;resumeChannel='';if(name&&!playing)open(name);
+  });
   applyChatLayout();setTimeout(function(){input.focus();},100);setTimeout(openRequestedChannel,150);setTimeout(reportInstall,1200);
 })();
