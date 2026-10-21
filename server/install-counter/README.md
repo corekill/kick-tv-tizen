@@ -1,20 +1,24 @@
 # Kick TV installation counter
 
-This is the intentionally small receiver behind `corekill.cz/api/kicktv`.
-It persistently stores one aggregate integer in SQLite and does not store
-identifiers, addresses, headers, timestamps, or individual events.
+This is the privacy-minded receiver behind `corekill.cz/api/kicktv`. It stores
+separate aggregate install totals for the standard and Lite editions. It can
+also accept strictly opt-in, allowlisted Lite performance diagnostics.
 
 ## Public endpoints
 
 - `POST /api/kicktv/install` increments the aggregate count.
-- `GET /api/kicktv/count` returns `{"installs":123}`.
+- `POST /api/kicktv-lite/install` increments the separate Lite count.
+- `POST /api/kicktv-lite/telemetry` accepts consented technical Lite metrics.
+- `GET /api/kicktv/count` returns both aggregate totals.
 - `GET /api/kicktv/healthz` returns the receiver status.
 - `GET /kicktv-admin/` displays the aggregate installation count. Nginx
   protects it with HTTP Basic Auth and a global request limit.
 
-The Samsung application sends an empty request once. It saves the successful
-result in the TV's local storage and does not send the request again unless the
-application data is removed or the app is reinstalled.
+Each Samsung application sends an empty install request once. Lite diagnostics
+are disabled by default and require explicit in-app consent. Their strict
+allowlist excludes channel names, history, chat, stream URLs and stable device
+identifiers. A random session ID lasts for one app run and records expire after
+90 days.
 
 ## Deployment
 
@@ -31,6 +35,7 @@ disable per-request logging. A public counter cannot be perfectly resistant to
 artificial requests, so the result should be treated as an approximate number
 of installations.
 
-The dashboard shows only the aggregate installation count and service uptime.
-The public counter endpoint has a global request limit; its result remains an
-approximation because a public open-source client cannot hold a secret.
+The protected dashboard shows both aggregate counts and summaries of consented
+Lite performance samples. It never displays session IDs. Public endpoints have
+global request limits; installation totals remain approximate because an
+open-source client cannot hold a secret.

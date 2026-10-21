@@ -20,7 +20,7 @@
   ];
   var sevenTVEmotes={},sevenTVCount=0,sevenTVSequence=0;
   var language=/^(cs|cz|ces)(-|_|$)/i.test(navigator.language||'')?'cs':'en';
-  var pusherUrl='wss://ws-us2.pusher.com/app/32cbd69e4b950bf97679?protocol=7&client=js&version=8.4.0&flash=false';
+  var chatSequence=0,currentKickChannelId=null;
   var installCounterUrl='https://corekill.cz/api/kicktv/install';
   var translations={
     cs:{ready:'AVPlay připraven',heroLine1:'Živě. Pohodlně.',heroLine2:'Na velké obrazovce.',heroText:'Najdi kanál, spusť stream a ovládej kvalitu i chat jediným ovladačem.',featureNative:'⚡ Nativní AVPlay',featureChat:'● Živý chat + 7TV',featurePhone:'⌁ Bez telefonu',findStream:'Najít stream',findStreamHelp:'Stačí část názvu nebo celá adresa kanálu',searchStreamer:'Hledat streamera',streamerPlaceholder:'Jméno streamera…',watch:'Sledovat',searchTip:'Z textového pole odejdeš šipkou → nebo ↓',searchResults:'Výsledky hledání',recent:'Naposledy sledované',select:'vybrat',back:'zpět',playbackKeys:'Při přehrávání: ↑ kvalita · ↓ rozložení chatu · OK režim chatu',loadingStream:'Načítám stream…',playerHintDefault:'OK: chat · Zpět: nabídka',liveChat:'Živý chat',connecting:'Připojuji…',chatEmpty:'Nové zprávy se objeví tady.',nextChatMode:'další režim chatu',qualityTitle:'Kvalita obrazu',qualitySubtitle:'Změna krátce znovu načte stream',qualityHelp:'↑ ↓ vybrat · OK potvrdit · Zpět zavřít',layoutTitle:'Rozložení chatu',layoutHelp:'↑ ↓ vlastnost · ← → upravit · OK uložit · Zpět zrušit',checking:'ověřuji stav…',unknown:'stav neznámý',followers:'sledujících',viewers:'diváků',exactChannel:'Přesně zadaný kanál',foundLocal:'nalezeno v TV · ověřuji online…',checkingOnline:'ověřuji online…',localResults:'lokální výsledky',gettingStream:'Získávám živý stream…',kickConnecting:'Připojuji se ke Kick API.',chatUnavailable:'Chat není pro kanál dostupný',connected:'Připojeno',connected7tv:'Připojeno · 7TV {count}',chatReconnecting:'Chat se znovu připojuje…',restoringConnection:'Obnovuji spojení…',chatFailed:'Chat se nepodařilo připojit',hudOff:'↑ kvalita · ↓ upravit chat · OK celý chat{unread} · Zpět nabídka',hudFull:'↑ kvalita · ↓ upravit chat · OK předvolba 1 · Zpět nabídka',hudPreset:'↑ kvalita · ↓ upravit chat · OK předvolba {next} · Zpět nabídka',hudPresetLast:'↑ kvalita · ↓ upravit chat · OK skrýt chat · Zpět nabídka',preset:'Předvolba {number}',editorSubtitle:'Předvolba {number} · změny vidíš živě v obraze',preview:'NÁHLED CHATU',fieldPreset:'Upravovaná předvolba',fieldRight:'Od pravého okraje',fieldBottom:'Od spodního okraje',fieldWidth:'Šířka chatu',fieldHeight:'Výška chatu',fieldFont:'Velikost písma',qAuto:'Automaticky',qAutoD:'nejvyšší stabilní kvalita',q1080D:'nejostřejší · vyšší datový tok',q720D:'plynulý HD obraz',q480D:'vyvážená a stabilní',q360D:'úspornější připojení',q160D:'minimum pro slabou síť',saved:'ULOŽENO',changingQuality:'Měním kvalitu obrazu…',qualityReload:'{quality} · stream se krátce znovu načte',compatibilityRetry:'Zkouším kompatibilní režim…',compatibilityRetryDetail:'Starší Tizen odmítl nastavení kvality. Spouštím stream bez omezení bitrate.',offlineTitle:'{name} je offline',offlineDetail:'Každých 10 sekund kontroluji, jestli stream nezačal.',offlineRetry:'Stav se nepodařilo ověřit. Zkusím to znovu za 10 sekund.',streamStarting:'{name} je online',streamStartingDetail:'Spouštím živý přenos…',invalidKick:'Neplatná odpověď Kicku',kickFailed:'Kick API se nepřipojilo',retryHttp:'HTTP {status}. Stiskni Zpět a zkus to znovu.',kickTimeout:'Kick API neodpovídá',timeoutDetail:'Vypršel časový limit 15 sekund. Stiskni Zpět.',networkError:'Síťová chyba',networkDetail:'TV se nedokázala spojit s Kick API. Stiskni Zpět.',requestError:'Chyba požadavku',avUnavailable:'AVPlay není dostupný',avUnavailableDetail:'Samsung přehrávač se v této aplikaci nenačetl.',loadingVideo:'Načítám obraz…',bufferingDetail:'Stream nalezen, TV ukládá první data.',streamEnded:'Vysílání skončilo',streamEndedDetail:'Streamer ukončil živý stream.',playbackError:'Chyba přehrávání',cannotPlay:'Stream nelze spustit',cannotPrepare:'Stream nelze připravit',avFailed:'AVPlay selhal'},
@@ -250,11 +250,15 @@
     chatMessages.scrollTop=chatMessages.scrollHeight;if(chatMode===0&&!chatEditorOpen){chatUnread++;updateChatHint();}
   }
   function disconnectChat(){
+    chatSequence++;
     clearTimeout(chatReconnect);chatReconnect=null;var socket=chatSocket;chatSocket=null;chatRoomId=null;chatConnected=false;if(socket)try{socket.close();}catch(ignore){}
   }
   function connectChat(roomId){
     disconnectChat();chatRoomId=roomId;if(!roomId){setChatStatus(tr('chatUnavailable'),false);return;}
     setChatStatus(tr('connecting'),false);
+    var sequence=chatSequence;
+    KickRealtime.resolve(currentKickChannelId,function(pusherUrl){
+    if(sequence!==chatSequence||!playing)return;
     try{
       var socket=new WebSocket(pusherUrl);chatSocket=socket;
       socket.onmessage=function(event){
@@ -270,6 +274,7 @@
       socket.onerror=function(){if(socket===chatSocket){chatConnected=false;setChatStatus(tr('chatReconnecting'),false);}};
       socket.onclose=function(){if(socket!==chatSocket||!playing)return;chatSocket=null;chatConnected=false;setChatStatus(tr('restoringConnection'),false);chatReconnect=setTimeout(function(){if(playing)connectChat(roomId);},3000);};
     }catch(e){chatConnected=false;setChatStatus(tr('chatFailed'),false);chatReconnect=setTimeout(function(){if(playing)connectChat(roomId);},4000);}
+    });
   }
   function clamp(value,min,max){return Math.max(min,Math.min(max,Number(value)||0));}
   function cloneLayouts(value){return JSON.parse(JSON.stringify(value));}
@@ -334,6 +339,7 @@
   function channelDisplayName(data,fallback){return String((data&&data.user&&data.user.username)||data&&data.username||fallback||'Kick');}
   function showOfflineChannel(data,name){
     if(!playing)return;
+    currentKickChannelId=data&&data.id||currentKickChannelId;
     var alreadyOffline=view.classList.contains('offline-state');
     var roomId=data&&data.chatroom&&data.chatroom.id,userId=data&&(data.user_id||(data.user&&data.user.id));
     currentChannelDisplayName=channelDisplayName(data,currentChannelDisplayName||name);currentKickUserId=userId||currentKickUserId;currentStreamUrl=null;currentRoomId=roomId||currentRoomId;
@@ -355,7 +361,7 @@
       if(xhr.readyState!==4||!active())return;
       if(xhr.status>=200&&xhr.status<300){
         try{
-          var data=JSON.parse(xhr.responseText),isLive=!!(data.livestream&&data.livestream.is_live!==false);if(!isLive||!data.playback_url){showOfflineChannel(data,name);return;}
+          var data=JSON.parse(xhr.responseText),isLive=!!(data.livestream&&data.livestream.is_live!==false);currentKickChannelId=data.id;if(!isLive||!data.playback_url){showOfflineChannel(data,name);return;}
           var roomId=data.chatroom&&data.chatroom.id,userId=data.user_id||(data.user&&data.user.id),keepChat=!!(chatSocket&&chatRoomId===roomId),masterUrl=data.playback_url;
           clearOfflinePolling();currentChannelDisplayName=channelDisplayName(data,currentChannelDisplayName||name);currentKickUserId=userId;currentRoomId=roomId;
           view.classList.remove('offline-state','player-error');setStatus(tr('streamStarting',{name:currentChannelDisplayName}),tr('streamStartingDetail'),false);

@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         setupPlayer()
         setupChatView()
         emoteRepository = EmoteRepository(api.client)
-        chatClient = ChatClient(api.client, ::setChatConnected, ::appendChatMessage)
+        chatClient = ChatClient(api.client, ::setChatConnected, ::appendChatMessage, getSharedPreferences("kicktv.realtime.v1", MODE_PRIVATE))
         setupLists()
         setupSearch()
         renderHistory()
@@ -334,7 +334,7 @@ class MainActivity : AppCompatActivity() {
                 } else details.name
                 if (details.roomId != null && chatRoomId != details.roomId) {
                     chatRoomId = details.roomId
-                    chatClient.connect(details.roomId)
+                    chatClient.connect(details.roomId, details.channelId)
                 }
                 if (!emotesRequested) {
                     emotesRequested = true

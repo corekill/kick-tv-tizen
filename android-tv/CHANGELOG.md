@@ -1,5 +1,11 @@
 # Android TV changelog
 
+## 0.1.2-beta
+
+- Opravené připojení chatu po změně veřejného Pusher klíče na straně Kicku. Aplikace nově získává aktuální klíč i cluster z připojovacího endpointu; při výpadku použije uložené údaje nebo zálohu.
+- Opožděné odpovědi a události starého chatu se po změně kanálu ignorují.
+- Díky @anyrobert za diagnostiku a původní opravu v PR #8.
+
 ## 0.1.1-beta
 
 - Profilové obrázky streamerů se nyní zobrazují ve výsledcích hledání i historii; pokud obrázek chybí nebo se nenačte, zůstane čitelná iniciála.

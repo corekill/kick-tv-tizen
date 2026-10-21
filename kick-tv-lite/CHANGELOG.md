@@ -1,5 +1,18 @@
 # Kick TV Lite changelog
 
+## 1.1.0-lite
+
+- Aktuální připojovací klíč a cluster chatu se načítají přímo z Kicku; při výpadku se použije uložená nebo záložní konfigurace. Díky @anyrobert za odhalení změny v PR #8.
+- Zprávy se při zaplnění panelu nesmršťují a nepřekrývají.
+
+- Lokální diagnostika přehrávače se nově otevře až po trojím rychlém stisknutí šipky dolů, takže ji nejde snadno vyvolat omylem.
+- Lite má vlastní anonymní počítadlo prvních spuštění, oddělené od běžné Kick TV.
+- Přidaná zcela dobrovolná výkonová diagnostika s jasným souhlasem přímo v aplikaci. Měří pouze technické údaje jako CPU, dostupnou RAM a úložiště, odezvu aplikace a stav AVPlay; neposílá kanály, historii, chat ani streamovací adresy.
+- Diagnostická data lze kdykoli vypnout na hlavní obrazovce a server je automaticky maže po 90 dnech.
+- Podepsané Amazon IVS adresy jsou nově skryté i v lokálním diagnostickém panelu a opakované události `PLAYER_SPARSE_TRACK_DETECT` už nezaplňují výpis.
+
+Velké poděkování patří [@fightspit](https://github.com/fightspit), který Lite ochotně testoval na skutečné Samsung UE49MU7075 s Tizenem 3.0 a pomohl potvrdit přehrávání, volbu kvality i chat.
+
 ## 1.0.3-lite
 
 - Tizen 3 už neposílá AVPlay komplikovaný Amazon IVS master playlist. Aplikace nejdřív načte dostupné H.264 varianty a přehrávači předá přímo konkrétní media playlist.

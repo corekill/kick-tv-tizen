@@ -19,7 +19,8 @@ data class ChannelDetails(
     val userId: Long?,
     val viewers: Int,
     val category: String,
-    val profileUrl: String
+    val profileUrl: String,
+    val channelId: Long? = null
 )
 
 data class ChatMessage(

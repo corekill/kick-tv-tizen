@@ -27,28 +27,32 @@ jobs:
       - name: Publish experimental Lite release
         uses: softprops/action-gh-release@v2
         with:
-          name: Kick TV Lite 1.0.3 — direct HLS test for Tizen 3
+          name: Kick TV Lite 1.1.0 — diagnostics and real-TV feedback
           prerelease: true
           body: |
             ## Čeština
 
             Samostatná odlehčená verze pro starší Samsung TV s Tizenem 3.0.
 
-            Po diagnostice z reálné Tizen 3 televize tato verze obchází Amazon IVS master playlist, na kterém starý AVPlay zůstával ve stavu IDLE. Aplikace načte dostupné H.264 varianty a přehrávači předá přímo zvolený media playlist. Nabídka kvality proto ukazuje pouze varianty skutečně dostupné pro daný stream.
+            Přehrávání, automatická i ruční kvalita a živý chat jsou nyní ověřené na skutečné Samsung UE49MU7075 s Tizenem 3.0. Diagnostika přehrávače se otevře až po trojím rychlém stisknutí šipky dolů.
 
-            Diagnostika na šipce dolů nyní navíc zobrazuje master i přímý playlist, model, kód modelu a firmware televize.
+            Díky @anyrobert za odhalení změny Pusher klíče a opravu v PR #8. Připojovací údaje teď získáváme dynamicky přímo z Kicku; při výpadku se použije poslední uložená konfigurace nebo záloha. Opravené je také překrývání dlouhých zpráv.
 
-            Jde o experimentální balíček, protože zatím nebyl ověřený na skutečné Tizen 3 televizi. Používá vlastní ID aplikace a nepřepisuje běžnou Kick TV.
+            Lite má samostatné anonymní počítadlo instalací a novou dobrovolnou výkonovou diagnostiku. Po výslovném souhlasu odesílá pouze technické údaje o CPU, RAM, úložišti, odezvě aplikace a AVPlay. Nikdy neposílá sledované kanály, historii, chat ani streamovací adresy a lze ji kdykoli vypnout.
+
+            Velké poděkování patří @fightspit za trpělivé testování Lite na skutečné Tizen 3 televizi a za podrobné reporty v issue #1.
 
             ## English
 
             A separate lightweight build for older Samsung TVs running Tizen 3.0.
 
-            Based on diagnostics from a real Tizen 3 television, this version bypasses the Amazon IVS master playlist that left old AVPlay stuck in IDLE. The app reads the available H.264 renditions and opens the selected media playlist directly. The quality menu therefore shows only renditions actually available for the current stream.
+            Playback, automatic and manual quality selection, and live chat are now verified on a real Samsung UE49MU7075 running Tizen 3.0. Player diagnostics now require three quick presses of Down, preventing accidental activation.
 
-            Press Down to open diagnostics, which now include the master and direct playlist, TV model, model code, and firmware.
+            Thanks to @anyrobert for identifying the Pusher key change and contributing PR #8. Connection settings are now discovered dynamically from Kick, with cached and built-in fallbacks. Wrapped messages also keep their height instead of overlapping.
 
-            This is an experimental build because it has not yet been verified on a real Tizen 3 television. It uses a separate application ID and does not replace the standard Kick TV app.
+            Lite now has a separate anonymous install counter and optional performance diagnostics. After explicit consent, it sends only technical CPU, memory, storage, responsiveness, and AVPlay metrics. It never sends watched channels, history, chat, or stream URLs and can be disabled at any time.
+
+            Special thanks to @fightspit for patiently testing Lite on real Tizen 3 hardware and sharing detailed feedback in issue #1.
           files: |
             dist/KickTV-Lite.wgt
             dist/KickTV-Lite.wgt.sha256

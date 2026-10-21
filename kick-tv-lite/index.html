@@ -24,7 +24,7 @@
     </section>
     <section id="searchSection" class="section hidden"><h2 data-i18n="results">Výsledky hledání</h2><span id="searchState"></span><div id="results" class="results"></div></section>
     <section id="recentSection" class="section hidden"><h2 data-i18n="recent">Naposledy sledované</h2><div id="recent" class="recent"></div></section>
-    <footer><span class="key">OK</span> <span data-i18n="select">vybrat</span><span class="key back">↩</span> <span data-i18n="back">zpět</span></footer>
+    <footer><div><span class="key">OK</span> <span data-i18n="select">vybrat</span><span class="key back">↩</span> <span data-i18n="back">zpět</span></div><button id="telemetrySettings" class="focusable telemetry-link"><span data-i18n="diagnostics">Diagnostika</span>: <b id="telemetryState">vypnuta</b></button></footer>
   </main>
   <section id="playerView" class="hidden">
     <object id="av-player" type="application/avplayer"></object>
@@ -45,7 +45,17 @@
       <footer><span class="key">↓</span> <span data-i18n="debugClose">zavřít diagnostiku</span></footer>
     </aside>
   </section>
+  <section id="telemetryConsent" class="telemetry-consent" aria-hidden="true">
+    <div class="telemetry-card">
+      <span class="telemetry-kicker" data-i18n="diagnosticsOptional">DOBROVOLNÁ DIAGNOSTIKA</span>
+      <h2 data-i18n="diagnosticsTitle">Pomůžeš vylepšit Lite?</h2>
+      <p data-i18n="diagnosticsBody">Pokud ji povolíš, aplikace občas odešle model TV, verzi systému, vytížení CPU, využití paměti a úložiště a technické chyby přehrávače.</p>
+      <p class="telemetry-safe" data-i18n="diagnosticsSafe">Nikdy neposílá sledované kanály, historii, chat ani streamovací adresy. Volbu můžeš kdykoli změnit na hlavní obrazovce.</p>
+      <div class="telemetry-actions"><button id="telemetryDecline" class="consent-option" data-i18n="diagnosticsDecline">Ne, díky</button><button id="telemetryAllow" class="consent-option allow" data-i18n="diagnosticsAllow">Povolit</button></div>
+    </div>
+  </section>
   <div id="sparkles"></div>
+  <script src="realtime.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

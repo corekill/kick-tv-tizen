@@ -12,9 +12,10 @@ for command in node xmllint zip unzip; do
 done
 
 node --check "$APP/app.js"
+node --check "$APP/realtime.js"
 xmllint --noout "$APP/config.xml"
 
-for file in config.xml index.html style.css app.js kick-icon.png kick-icon-117.png; do
+for file in config.xml index.html style.css app.js realtime.js kick-icon.png kick-icon-117.png; do
   if [[ ! -s "$APP/$file" ]]; then
     echo "Missing or empty application file: $file" >&2
     exit 1

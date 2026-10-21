@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.3 — chat znovu online
+
+- Chat si při připojení a obnovení spojení načítá aktuální veřejný Pusher klíč a cluster přímo od Kicku. Při nedostupnosti použije uložené údaje nebo záložní klíč.
+- Poděkování @anyrobert za nalezení příčiny nefunkčního chatu a nového připojovacího endpointu v PR #8.
+- Dlouhé zprávy si zachovávají výšku a na starších Tizenech se nepřekrývají.
+
 ## 2.2.2 — oprava ruční volby kvality
 
 - Ruční kvalita nyní používá přímo H.264 HLS variantu, kterou Kick skutečně nabízí pro daný stream.

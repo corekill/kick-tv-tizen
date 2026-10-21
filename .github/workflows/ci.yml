@@ -19,6 +19,8 @@ jobs:
         run: |
           ./scripts/build.sh
           ./scripts/build-lite.sh
+          node scripts/test-realtime.cjs
+          python3 -m unittest server/install-counter/test_server.py
       - name: Upload device-neutral WGT
         uses: actions/upload-artifact@v4
         with:

@@ -4,7 +4,7 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 ![Ikona Kick TV](kick-tv/kick-icon-117.png)
 
-[Web projektu](https://corekill.github.io/kick-tv-tizen/) · [Nainstalovat na Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.1-beta) · [Nejnovější Samsung vydání](https://github.com/corekill/kick-tv-tizen/releases/latest)
+[Web projektu](https://corekill.github.io/kick-tv-tizen/) · [Nainstalovat na Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.2-beta) · [Nejnovější Samsung vydání](https://github.com/corekill/kick-tv-tizen/releases/latest)
 
 [![Dostupné v katalogu Apps2Samsung](https://img.shields.io/badge/Instalace-Apps2Samsung%20Community-53FC18?style=for-the-badge&logo=samsung&logoColor=white&labelColor=11151A)](https://github.com/Apps2Samsung/Apps2Samsung/releases)
 
@@ -12,7 +12,7 @@ Kick TV jsem vytvořil pro každého, kdo chce sledovat své oblíbené streamer
 
 Pro televize a multimediální krabičky s Android TV nebo Google TV je k dispozici samostatná nativní beta. Umí přehrávání přes Media3/ExoPlayer, hledání, volbu kvality, historii se stavem LIVE/OFFLINE, chat s animovanými Kick a 7TV emotikony i stejné nastavitelné předvolby chatu v obraze.
 
-[Stáhnout instalační APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.1-beta/KickTV-Android-TV-0.1.1-beta.apk)
+[Stáhnout instalační APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.2-beta/KickTV-Android-TV-0.1.2-beta.apk)
 
 APK je určené k ruční instalaci (sideload). První betu jsem ověřil v Android TV 14 emulátoru na 1920×1080; testy na skutečných televizích a stickách teprve sbírám. Podrobnosti k sestavení a instalaci přes ADB jsou v [android-tv/README.md](android-tv/README.md).
 
@@ -86,9 +86,9 @@ Hotový balíček najdeš v `dist/KickTV.wgt`. Ani vlastní build ale neobejde p
 
 ### Experimentální Lite verze pro Tizen 3
 
-Pro televizory z roku 2017 s Tizenem 3.0 je k dispozici samostatný balíček **Kick TV Lite**. Zachovává přehrávání, volbu kvality, hledání, historii, LIVE/OFFLINE stav a jednoduchý živý chat. Kvůli výkonu starších TV nemá 7TV, obrázkové emotikony ani nastavitelné overlaye. Používá vlastní ID, takže nepřepíše běžnou Kick TV. Lite zatím není otestovaná na skutečné Tizen 3 televizi, proto ji vydávám jako experimentální verzi.
+Pro televizory z roku 2017 s Tizenem 3.0 je k dispozici samostatný balíček **Kick TV Lite**. Zachovává přehrávání, volbu kvality, hledání, historii, LIVE/OFFLINE stav a jednoduchý živý chat. Kvůli výkonu starších TV nemá 7TV, obrázkové emotikony ani nastavitelné overlaye. Používá vlastní ID, takže nepřepíše běžnou Kick TV. Lite je ověřená na skutečné Samsung UE49MU7075 s Tizenem 3.0, ale kvůli malému počtu otestovaných modelů zůstává experimentální.
 
-[Stáhnout Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.2-lite)
+[Stáhnout Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.1.0-lite)
 
 ## Chceš podpořit další vývoj?
 
@@ -100,7 +100,7 @@ Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpř
 
 Kick TV je můj neoficiální komunitní projekt. Nejsem nijak spojený s Kickem, 7TV, Samsungem ani Tizenem a žádná z těchto společností aplikaci nepodporuje. Kick nebo 7TV navíc mohou svoje veřejné služby změnit, takže se občas může něco rozbít. Když se to stane, klidně [založ issue](https://github.com/corekill/kick-tv-tizen/issues/new) a zkusím se na to podívat.
 
-Od verze 2.2 aplikace při prvním úspěšném spuštění odešle jediný anonymní signál, který zvýší celkové počítadlo instalací. Signál neobsahuje žádný identifikátor, informace o televizi, hledání, sledované kanály ani chat. Přijímač uchovává pouze výsledné celkové číslo a nevytváří záznamy o jednotlivých instalacích. [Podrobnosti o počítadle](https://corekill.github.io/kick-tv-tizen/privacy.html)
+Od verze 2.2 aplikace při prvním úspěšném spuštění odešle jediný anonymní signál, který zvýší celkové počítadlo instalací. Lite používá vlastní oddělené počítadlo a nabízí také dobrovolnou technickou diagnostiku, kterou musí uživatel výslovně povolit. Nikdy neposílá sledované kanály, historii, chat ani streamovací adresy. [Podrobnosti o soukromí](https://corekill.github.io/kick-tv-tizen/privacy.html)
 
 ## Licence
 
@@ -112,13 +112,13 @@ Zdrojový kód je dostupný pod [licencí MIT](LICENSE), takže se v něm může
 
 I built Kick TV for anyone who wants to watch their favorite streamers comfortably from the couch on a big screen — without AirPlay, a phone, or a laptop. Just find a channel, start the stream, and control everything with your TV remote. Native builds are now available for Samsung Tizen and, as a beta, Android TV / Google TV.
 
-[Project website](https://corekill.github.io/kick-tv-tizen/) · [Install on Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.1-beta) · [Latest Samsung release](https://github.com/corekill/kick-tv-tizen/releases/latest)
+[Project website](https://corekill.github.io/kick-tv-tizen/) · [Install on Samsung TV](INSTALL.md) · [Android TV beta](https://github.com/corekill/kick-tv-tizen/releases/tag/android-v0.1.2-beta) · [Latest Samsung release](https://github.com/corekill/kick-tv-tizen/releases/latest)
 
 ## Android TV and Google TV — beta
 
 A separate native beta is available for Android TV and Google TV televisions and streaming devices. It includes Media3/ExoPlayer playback, search, selectable quality, LIVE/OFFLINE history, animated Kick and 7TV chat emotes, and the same configurable in-picture chat presets.
 
-[Download the installable APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.1-beta/KickTV-Android-TV-0.1.1-beta.apk)
+[Download the installable APK](https://github.com/corekill/kick-tv-tizen/releases/download/android-v0.1.2-beta/KickTV-Android-TV-0.1.2-beta.apk)
 
 The APK is intended for sideloading. This first beta has been verified in an Android TV 14 emulator at 1920×1080; real-device feedback is welcome. Build and ADB installation instructions are available in [android-tv/README.md](android-tv/README.md).
 
@@ -175,9 +175,9 @@ The device-neutral package is written to `dist/KickTV.wgt`. It still needs to be
 
 ### Experimental Lite build for Tizen 3
 
-A separate **Kick TV Lite** package is available for 2017 Samsung TVs running Tizen 3.0. It keeps playback, quality selection, search, history, LIVE/OFFLINE status, and lightweight read-only live chat. To reduce load on older hardware, it omits 7TV, image emotes, thumbnails, and configurable overlays. It has its own application ID and does not replace the standard app. This build has not yet been tested on real Tizen 3 hardware.
+A separate **Kick TV Lite** package is available for 2017 Samsung TVs running Tizen 3.0. It keeps playback, quality selection, search, history, LIVE/OFFLINE status, and lightweight read-only live chat. To reduce load on older hardware, it omits 7TV, image emotes, thumbnails, and configurable overlays. It has its own application ID and does not replace the standard app. It has been verified on a real Samsung UE49MU7075 running Tizen 3.0, but remains experimental because only a small number of models have been tested.
 
-[Download Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.0.2-lite)
+[Download Kick TV Lite](https://github.com/corekill/kick-tv-tizen/releases/tag/v1.1.0-lite)
 
 ## Support development
 
@@ -189,7 +189,7 @@ Kick TV is a free project I build in my spare time. If it made watching streams 
 
 This is an unofficial community project and is not affiliated with or endorsed by Kick, 7TV, Samsung, or Tizen. Kick and 7TV may change their public web endpoints at any time. Their names, logos, and trademarks belong to their respective owners.
 
-Starting with version 2.2, the app sends one anonymous signal after its first successful launch to increment an aggregate installation counter. It contains no identifier, TV information, searches, watched channels, or chat data. The receiver stores only the resulting total and creates no per-installation records. [Installation counter details](https://corekill.github.io/kick-tv-tizen/privacy.html#english)
+Starting with version 2.2, the app sends one anonymous signal after its first successful launch to increment an aggregate installation counter. Lite uses a separate counter and also offers optional technical diagnostics that require explicit consent. It never sends watched channels, history, chat, or stream URLs. [Privacy details](https://corekill.github.io/kick-tv-tizen/privacy.html#english)
 
 ## License
 

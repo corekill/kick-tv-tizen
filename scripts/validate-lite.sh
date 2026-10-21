@@ -9,14 +9,15 @@ for command in node xmllint zip unzip; do
 done
 
 node --check "$APP/app.js"
+node --check "$APP/realtime.js"
 xmllint --noout "$APP/config.xml"
 
-for file in config.xml index.html style.css app.js kick-icon-117.png; do
+for file in config.xml index.html style.css app.js realtime.js kick-icon-117.png; do
   [[ -s "$APP/$file" ]] || { echo "Missing or empty Lite application file: $file" >&2; exit 1; }
 done
 
 grep -q 'required_version="3.0"' "$APP/config.xml"
-if grep -Eq '(^|[;{}[:space:]])(const|let|class|async)[[:space:]]+[A-Za-z_$]|=>|`' "$APP/app.js"; then
+if grep -Eq '(^|[;{}[:space:]])(const|let|class|async)[[:space:]]+[A-Za-z_$]|=>|`' "$APP/app.js" "$APP/realtime.js"; then
   echo "Lite JavaScript contains syntax newer than ES5" >&2
   exit 1
 fi

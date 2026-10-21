@@ -94,7 +94,8 @@ class KickApi {
                 ?: user?.optLong("id")?.takeIf { it > 0 },
             viewers = stream?.optInt("viewer_count") ?: 0,
             category = categoryObject?.optString("name")?.takeIf { it.isNotBlank() } ?: "Kick",
-            profileUrl = user?.optString("profile_pic")?.takeIf { it.startsWith("http") }.orEmpty()
+            profileUrl = user?.optString("profile_pic")?.takeIf { it.startsWith("http") }.orEmpty(),
+            channelId = data.optLong("id").takeIf { it > 0 }
         )
     }
 

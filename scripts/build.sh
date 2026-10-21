@@ -18,6 +18,7 @@ rm -f "$PACKAGE" "$CHECKSUM_FILE"
     index.html \
     style.css \
     app.js \
+    realtime.js \
     kick-icon.png \
     kick-icon-117.png
 )
