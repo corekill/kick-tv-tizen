@@ -38,7 +38,7 @@ jobs:
 
             Díky @anyrobert za odhalení změny Pusher klíče a opravu v PR #8. Připojovací údaje teď získáváme dynamicky přímo z Kicku; při výpadku se použije poslední uložená konfigurace nebo záloha. Opravené je také překrývání dlouhých zpráv.
 
-            Lite má samostatné anonymní počítadlo instalací a novou dobrovolnou výkonovou diagnostiku. Po výslovném souhlasu odesílá pouze technické údaje o CPU, RAM, úložišti, odezvě aplikace a AVPlay. Nikdy neposílá sledované kanály, historii, chat ani streamovací adresy a lze ji kdykoli vypnout.
+            Lite nabízí novou dobrovolnou výkonovou diagnostiku. Po výslovném souhlasu odesílá pouze technické údaje o CPU, RAM, úložišti, odezvě aplikace a AVPlay. Nikdy neposílá sledované kanály, historii, chat ani streamovací adresy a lze ji kdykoli vypnout.
 
             Velké poděkování patří @fightspit za trpělivé testování Lite na skutečné Tizen 3 televizi a za podrobné reporty v issue #1.
 
@@ -50,7 +50,7 @@ jobs:
 
             Thanks to @anyrobert for identifying the Pusher key change and contributing PR #8. Connection settings are now discovered dynamically from Kick, with cached and built-in fallbacks. Wrapped messages also keep their height instead of overlapping.
 
-            Lite now has a separate anonymous install counter and optional performance diagnostics. After explicit consent, it sends only technical CPU, memory, storage, responsiveness, and AVPlay metrics. It never sends watched channels, history, chat, or stream URLs and can be disabled at any time.
+            Lite now offers optional performance diagnostics. After explicit consent, it sends only technical CPU, memory, storage, responsiveness, and AVPlay metrics. It never sends watched channels, history, chat, or stream URLs and can be disabled at any time.
 
             Special thanks to @fightspit for patiently testing Lite on real Tizen 3 hardware and sharing detailed feedback in issue #1.
           files: |
