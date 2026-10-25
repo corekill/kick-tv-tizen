@@ -157,4 +157,5 @@
   reportInstall();
   if(telemetryConsent===true)startTelemetry();
   setTimeout(function(){if(telemetryConsent===null)openTelemetryConsent(true);else input.focus();},500);
+  KickTVLaunch.install({platforms:['kick'],current:function(){return playing?{platform:'kick',name:current}:null;},close:closePlayer,open:function(channel){openChannel(channel.name);}});
 })();

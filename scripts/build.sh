@@ -19,6 +19,7 @@ rm -f "$PACKAGE" "$CHECKSUM_FILE"
     style.css \
     app.js \
     realtime.js \
+    tv-launch.js \
     kick-icon.png \
     kick-icon-117.png
 )

@@ -1,5 +1,12 @@
 # Changelog
 
+## Připravované změny
+
+- Po odchodu z aplikace přes Home se zastaví AVPlay, odpojí chat a ukončí kontrola offline kanálu. Po návratu se znovu otevře stejný kanál na živém vysílání.
+- Aplikace umí otevřít kanál předaný v Samsung launch requestu (`appcontrol` / `metaTag`). Platné odkazy se kontrolují podle domény a cesty.
+- Nový odkaz při návratu z pozadí dostane přednost před původním kanálem; opakované události neotevírají stream víckrát.
+- Díky @anyrobert za původní implementace v PR #7 a #9. Jeho commity i autorství jsou zachované; společná obsluha je rozšířená také pro Lite.
+
 ## 2.2.3 — chat znovu online
 
 - Chat si při připojení a obnovení spojení načítá aktuální veřejný Pusher klíč a cluster přímo od Kicku. Při nedostupnosti použije uložené údaje nebo záložní klíč.

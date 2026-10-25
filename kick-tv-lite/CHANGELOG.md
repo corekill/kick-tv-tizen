@@ -1,5 +1,11 @@
 # Kick TV Lite changelog
 
+## Připravované změny
+
+- Zastavení přehrávání, chatu a offline kontroly při přepnutí do jiné aplikace; po návratu se stejný kanál otevře znovu na živém vysílání.
+- Otevření Kick kanálu odkazem předaným ze síťového ovládání telefonu nebo počítače.
+- Díky @anyrobert za původní Samsung změny v PR #7 a #9, na kterých tato úprava staví.
+
 ## 1.1.0-lite
 
 - Aktuální připojovací klíč a cluster chatu se načítají přímo z Kicku; při výpadku se použije uložená nebo záložní konfigurace. Díky @anyrobert za odhalení změny v PR #8.
