@@ -1,7 +1,15 @@
 # Changelog
 
-## Připravované změny
+## 2.3.0 — procházení, jazykový filtr a Kick účet
 
+- Přibylo procházení živých streamů a kategorií; u živých kanálů i streamů v kategorii lze přepínat jazyk. Volba se uloží v televizi. Díky @janrydzewski za inspiraci pro procházení.
+- Přihlášení Kick účtu přes QR kód: přihlášení probíhá přímo na Kicku, následně se účet potvrdí na televizi. Jméno účtu se zobrazí v aplikaci a lze otevřít Kick nebo se odhlásit.
+- Heslo se aplikaci neposílá. OAuth tokeny zůstávají na serveru a jsou šifrované; televize obdrží pouze odvolatelnou relaci. Připojení k serveru a diagnostika jsou vypnuté, dokud s nimi uživatel nesouhlasí.
+- Přihlášení zatím nepřináší seznam Following ani zůstatek diváckých bodů. Veřejné Kick API tyto informace momentálně neposkytuje; psaní do chatu zůstává vypnuté. Aplikace může zobrazit dostupné události kanálu.
+- Opravené ovládání klávesnice a směrový pohyb v rozhraní. Klávesnice se otevře až po stisku OK; seznamy se načítají postupně, aby TV zůstala svižná.
+- Po odchodu z aplikace přes Home se zastaví AVPlay, odpojí chat a ukončí kontrola offline kanálu. Po návratu se znovu otevře stejný kanál na živém vysílání.
+- Aplikace umí otevřít kanál předaný v Samsung launch requestu; odkazy se ověřují podle domény a cesty a duplicitní události stream neotevřou znovu.
+- Přihlašovací a instalační požadavky používají proxovanou adresu `kicktv.corekill.cz`.
 - Po odchodu z aplikace přes Home se zastaví AVPlay, odpojí chat a ukončí kontrola offline kanálu. Po návratu se znovu otevře stejný kanál na živém vysílání.
 - Aplikace umí otevřít kanál předaný v Samsung launch requestu (`appcontrol` / `metaTag`). Platné odkazy se kontrolují podle domény a cesty.
 - Nový odkaz při návratu z pozadí dostane přednost před původním kanálem; opakované události neotevírají stream víckrát.

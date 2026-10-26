@@ -2,6 +2,9 @@
 
 ## Připravované změny
 
+- Připravené přihlášení Kick účtu přes QR, vyžadující potvrzení identity na TV. Kliknutí na přihlášené jméno zobrazí odkaz na Kick; odesílání zpráv zůstává skryté a serverově vypnuté.
+- Úvodní nastavení nabízí společný souhlas s připojením k serveru a výkonovou diagnostikou; bez souhlasu se našemu serveru nic neodesílá a přihlášení není dostupné.
+- Klávesnice se po startu neotevírá automaticky.
 - Zastavení přehrávání, chatu a offline kontroly při přepnutí do jiné aplikace; po návratu se stejný kanál otevře znovu na živém vysílání.
 - Otevření Kick kanálu odkazem předaným ze síťového ovládání telefonu nebo počítače.
 - Díky @anyrobert za původní Samsung změny v PR #7 a #9, na kterých tato úprava staví.

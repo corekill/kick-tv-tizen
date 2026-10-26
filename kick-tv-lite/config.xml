@@ -10,7 +10,7 @@
   <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable" pointing-device-support="disable"/>
   <access origin="https://kick.com" subdomains="true"/>
   <access origin="https://www.kickstats.com" subdomains="true"/>
-  <access origin="https://corekill.cz" subdomains="true"/>
+  <access origin="https://kicktv.corekill.cz" subdomains="true"/>
   <access origin="https://ws-us2.pusher.com" subdomains="true"/>
   <access origin="*" subdomains="true"/>
   <name>Kick TV Lite</name>

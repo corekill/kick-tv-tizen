@@ -24,12 +24,19 @@ APK je určené k ruční instalaci (sideload). První betu jsem ověřil v Andr
 - Nemusíš si pamatovat přesné jméno streamera. Stačí napsat jeho část a aplikace ho zkusí najít.
 - Naposledy sledované kanály zůstávají v historii. Karty ukážou profilovou fotku a u živých také počet diváků a kategorii.
 - Když streamer nevysílá, místo černé obrazovky uvidíš jeho jméno a rovnou otevřený chat. Aplikace každých 10 sekund zkontroluje, jestli nezačal vysílat.
+- Streamy můžeš procházet živě nebo podle kategorie a vybrat jazyk vysílání. Nastavení jazyka se uloží v televizi.
 - Chat umí běžné i animované Kick emotikony a k tomu globální i kanálové emotikony z 7TV.
 - Chat si můžeš otevřít celý nebo ho nechat přímo v obraze. K dispozici jsou tři předvolby, u kterých si nastavíš velikost i pozici.
 - Aplikace si pro každého streamera pamatuje naposledy zvolený režim chatu. Rozměry a pozice tří předvoleb přitom zůstávají společné.
 - Pokud máš televizi nastavenou česky, bude česky i aplikace. Pro ostatní jazyky se automaticky přepne do angličtiny.
 - Tlačítko Zpět se chová tak, jak člověk čeká: nejdřív zavře otevřenou nabídku a až potom tě vrátí na výběr streamera.
 - Během sledování aplikace vypne spořič obrazovky, aby tě zbytečně nerušil.
+
+## Přihlášení ke Kicku
+
+Přihlášení je dobrovolné a vyžaduje souhlas s připojením k serveru. Na televizi se zobrazí QR kód; telefon otevře přihlašovací stránku Kicku a heslo zadáváš přímo tam. Aplikace ani její server heslo nedostanou. Po potvrzení účtu na televizi se zobrazí tvoje jméno, můžeš otevřít Kick nebo účet odhlásit. OAuth tokeny se ukládají šifrovaně na serveru a televize dostane pouze odvolatelnou relaci.
+
+Současné oficiální Kick API zatím neposkytuje seznam kanálů, které sleduješ, ani zůstatek diváckých bodů. Přihlášení proto Following zatím nepřidá a psaní do chatu je vypnuté; dostupné události kanálu se mohou zobrazit v chatu. Přehled možností popisuje [oficiální API Kicku](https://docs.kick.com/) a [požadavek na endpoint Following](https://github.com/KickEngineering/KickDevDocs/issues/134).
 
 ## Jak Kick TV vypadá
 
@@ -100,7 +107,7 @@ Kick TV dělám ve volném čase a dávám ji k dispozici zdarma. Jestli ti zpř
 
 Kick TV je můj neoficiální komunitní projekt. Nejsem nijak spojený s Kickem, 7TV, Samsungem ani Tizenem a žádná z těchto společností aplikaci nepodporuje. Kick nebo 7TV navíc mohou svoje veřejné služby změnit, takže se občas může něco rozbít. Když se to stane, klidně [založ issue](https://github.com/corekill/kick-tv-tizen/issues/new) a zkusím se na to podívat.
 
-Od verze 2.2 aplikace při prvním úspěšném spuštění odešle jediný anonymní signál, který zvýší celkové počítadlo instalací. Lite používá vlastní oddělené počítadlo a nabízí také dobrovolnou technickou diagnostiku, kterou musí uživatel výslovně povolit. Nikdy neposílá sledované kanály, historii, chat ani streamovací adresy. [Podrobnosti o soukromí](https://corekill.github.io/kick-tv-tizen/privacy.html)
+Pokud povolíš připojení k serveru, aplikace při prvním úspěšném spuštění odešle jeden anonymní signál do souhrnného počítadla. Lite má vlastní oddělené počítadlo. Stejný souhlas zahrnuje technickou diagnostiku; aplikace nikdy neposílá sledované kanály, historii, obsah chatu ani streamovací adresy. [Podrobnosti o soukromí](https://corekill.github.io/kick-tv-tizen/privacy.html)
 
 ## Licence
 
@@ -173,6 +180,12 @@ The device-neutral package is written to `dist/KickTV.wgt`. It still needs to be
 - Tested on a real Samsung TV running Tizen 6.0.
 - A network connection is required for streams, chat, search, and emote assets.
 
+## Kick sign-in
+
+Sign-in is optional and requires consent to server connectivity. The TV displays a QR code; the phone opens Kick's own sign-in page, where you enter your password directly with Kick. Neither the app nor its server receives the password. After you confirm the account on the TV, the app displays your name and lets you open Kick or sign out. OAuth tokens are encrypted at rest on the server; the TV receives only a revocable session.
+
+The current official Kick API does not expose a followed-channels list or viewer-points balance, so sign-in cannot populate Following yet. Chat writing remains disabled; available channel events may appear in chat. See the [official Kick API docs](https://docs.kick.com/) and the [request for a Following endpoint](https://github.com/KickEngineering/KickDevDocs/issues/134).
+
 ### Experimental Lite build for Tizen 3
 
 A separate **Kick TV Lite** package is available for 2017 Samsung TVs running Tizen 3.0. It keeps playback, quality selection, search, history, LIVE/OFFLINE status, and lightweight read-only live chat. To reduce load on older hardware, it omits 7TV, image emotes, thumbnails, and configurable overlays. It has its own application ID and does not replace the standard app. It has been verified on a real Samsung UE49MU7075 running Tizen 3.0, but remains experimental because only a small number of models have been tested.
@@ -189,7 +202,7 @@ Kick TV is a free project I build in my spare time. If it made watching streams 
 
 This is an unofficial community project and is not affiliated with or endorsed by Kick, 7TV, Samsung, or Tizen. Kick and 7TV may change their public web endpoints at any time. Their names, logos, and trademarks belong to their respective owners.
 
-Starting with version 2.2, the app sends one anonymous signal after its first successful launch to increment an aggregate installation counter. Lite uses a separate counter and also offers optional technical diagnostics that require explicit consent. It never sends watched channels, history, chat, or stream URLs. [Privacy details](https://corekill.github.io/kick-tv-tizen/privacy.html#english)
+If you enable server connectivity, the app sends one anonymous signal after its first successful launch to increment an aggregate installation counter. Lite has a separate counter. The same consent includes technical diagnostics; the app never sends watched channels, history, chat contents, or stream URLs. [Privacy details](https://corekill.github.io/kick-tv-tizen/privacy.html#english)
 
 ## License
 

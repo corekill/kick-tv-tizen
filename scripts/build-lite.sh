@@ -14,7 +14,7 @@ rm -f "$PACKAGE" "$CHECKSUM_FILE"
 
 (
   cd "$APP"
-  zip -X -q "$PACKAGE" config.xml index.html style.css app.js realtime.js tv-launch.js kick-icon-117.png
+  zip -X -q "$PACKAGE" config.xml index.html style.css app.js realtime.js tv-launch.js tv-navigation.js account.js account.css kick-icon-117.png
 )
 
 unzip -t "$PACKAGE" >/dev/null

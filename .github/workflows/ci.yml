@@ -15,6 +15,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install validation tools
         run: sudo apt-get update && sudo apt-get install -y libxml2-utils zip unzip
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install auth test dependencies
+        run: python -m pip install -r server/auth/requirements.txt
       - name: Validate and build
         run: |
           ./scripts/build.sh
@@ -22,6 +27,7 @@ jobs:
           node scripts/test-realtime.cjs
           node scripts/test-tv-launch.cjs
           python3 -m unittest server/install-counter/test_server.py
+          python3 -m unittest server/auth/test_server.py
       - name: Upload device-neutral WGT
         uses: actions/upload-artifact@v4
         with:

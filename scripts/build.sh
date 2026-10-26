@@ -20,6 +20,11 @@ rm -f "$PACKAGE" "$CHECKSUM_FILE"
     app.js \
     realtime.js \
     tv-launch.js \
+    tv-navigation.js \
+    browse.js \
+    account.js \
+    account.css \
+    diagnostics.js \
     kick-icon.png \
     kick-icon-117.png
 )

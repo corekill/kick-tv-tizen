@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=1920, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Kick TV</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="account.css">
   <script src="$WEBAPIS/webapis/webapis.js"></script>
 </head>
 <body>
@@ -25,7 +26,7 @@
         <div class="card-heading"><span>01</span><div><h2 data-i18n="findStream">Najít stream</h2><p data-i18n="findStreamHelp">Stačí část názvu nebo celá adresa kanálu</p></div></div>
         <label class="sr-only" for="channel" data-i18n="searchStreamer">Hledat streamera</label>
       <div class="input-row">
-          <input id="channel" class="focusable" type="text" placeholder="Jméno streamera…" data-i18n-placeholder="streamerPlaceholder" autocomplete="off" autofocus>
+          <input id="channel" class="focusable" type="text" placeholder="Jméno streamera…" data-i18n-placeholder="streamerPlaceholder" autocomplete="off">
         <button id="watch" class="focusable primary" data-i18n="watch">Sledovat</button>
       </div>
         <p class="hint"><span>TIP</span><b data-i18n="searchTip">Z textového pole odejdeš šipkou → nebo ↓</b></p>
@@ -33,6 +34,7 @@
     </section>
     <section id="searchSection" class="search-results hidden"><div class="result-heading"><h2 data-i18n="searchResults">Výsledky hledání</h2><span id="searchState"></span></div><div id="results" class="results"></div></section>
     <section id="recentSection" class="recent hidden"><h2 data-i18n="recent">Naposledy sledované</h2><div id="recent" class="tiles"></div></section>
+    <section id="browseSection" class="recent"><h2 id="browseTitle">Procházet Kick</h2><div id="browseActions" class="browse-actions"></div><div id="browseState" role="status"></div><div id="browseItems" class="browse-items"></div></section>
     <footer class="home-footer"><div><span class="key">OK</span><span data-i18n="select">vybrat</span><span class="key">↩</span><span data-i18n="back">zpět</span></div><div class="footer-tip" data-i18n="playbackKeys">Při přehrávání: ↑ kvalita · ↓ rozložení chatu · OK režim chatu</div></footer>
   </main>
   <section id="playerView" class="hidden">
@@ -63,6 +65,10 @@
   <div id="sparkles" aria-hidden="true"></div>
   <script src="realtime.js"></script>
   <script src="tv-launch.js"></script>
+  <script src="browse.js"></script>
+  <script src="account.js"></script>
+  <script src="tv-navigation.js"></script>
+  <script src="diagnostics.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -7,6 +7,10 @@ work/
 *.pem
 *.key
 password.txt
+.env
+*.env
+auth.db
+auth.db-*
 device-profile.xml
 author-signature.xml
 signature1.xml

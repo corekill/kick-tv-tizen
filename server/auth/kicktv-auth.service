@@ -1,0 +1,27 @@
+[Unit]
+Description=Kick TV OAuth pairing broker
+After=network.target
+
+[Service]
+DynamicUser=yes
+StateDirectory=kicktv-auth
+StateDirectoryMode=0700
+Environment=KICKTV_EVENTS_ENABLED=1
+Environment=KICKTV_PHONE_CHAT_ENABLED=0
+EnvironmentFile=/etc/kicktv-auth/kick.env
+ExecStart=/opt/kicktv-auth/venv/bin/python /opt/kicktv-auth/server.py
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

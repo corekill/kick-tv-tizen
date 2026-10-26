@@ -17,10 +17,16 @@
   <header><nav class="wrap"><a class="brand" href="index.html"><img src="icon.png" alt="">Kick TV</a><a class="back" href="index.html">← Zpět na web</a></nav></header>
   <main class="wrap">
     <h1>Soukromí bez <span>drobných písmen.</span></h1>
-    <p class="lead">Běžná Kick TV počítá pouze anonymní první spuštění. Lite navíc nabízí zcela dobrovolnou technickou diagnostiku, kterou musíš sám povolit.</p>
+    <p class="lead">Připojení k našemu serveru i přihlášení jsou dobrovolné. Bez souhlasu funguje anonymní sledování dál a aplikace k našemu serveru nic neposílá.</p>
+    <section class="card">
+      <h2>Přihlášení Kick účtu</h2>
+      <p>QR kód otevře oficiální přihlášení na Kicku. Heslo zadáváš Kicku a aplikace ho nikdy nevidí. Server zpracuje OAuth autorizační kód a uchovává přístupové tokeny šifrovaně, aby mohl udržet přihlášení a načíst jméno účtu. Televize ukládá jen odvolatelnou relaci. Odhlášení smaže přihlašovací údaje této televize ze serveru.</p>
+      <p>Přihlášení nyní zobrazí jméno účtu, umožní otevřít Kick a přijímat dostupné události kanálu. Oficiální API zatím neobsahuje endpoint pro seznam Following ani zůstatek diváckých bodů. Psaní do chatu je vypnuté. <a href="https://docs.kick.com/">Dokumentace Kick API</a> · <a href="https://github.com/KickEngineering/KickDevDocs/issues/134">požadavek na endpoint Following</a>.</p>
+      <p>Žádné online přihlášení nelze označit za bezrizikové: povolením důvěřuješ serveru Kick TV při uchování OAuth tokenů. Tok je omezený na přihlášení přes OAuth/PKCE; heslo se serveru Kick TV neposílá.</p>
+    </section>
     <section class="card">
       <h2>Co aplikace odešle</h2>
-      <p>Po prvním úspěšném spuštění odešle Kick TV i Kick TV Lite jeden prázdný požadavek na <code>corekill.cz</code>. Každá edice má vlastní souhrnné počítadlo. Požadavek neobsahuje ID instalace, model televize, jazyk, hledání, sledované kanály ani chat.</p>
+      <p>Po souhlasu s připojením odešle Kick TV i Kick TV Lite jeden prázdný požadavek na <code>kicktv.corekill.cz</code>. Každá edice má vlastní souhrnné počítadlo. Požadavek neobsahuje ID instalace, model televize, jazyk, hledání, sledované kanály ani chat.</p>
       <p>Stejně jako u každého HTTPS spojení projde síťová adresa přes webový server a reverzní proxy. Samotný přijímač ji ale nepřebírá, neukládá ani nespojuje s výsledným počtem.</p>
     </section>
     <section class="card">
@@ -34,7 +40,7 @@
     <section class="card">
       <h2>Dobrovolná Lite diagnostika</h2>
       <p>Kick TV Lite se při prvním spuštění jasně zeptá. Dokud nezvolíš <strong>Povolit</strong>, žádná výkonová diagnostika se neposílá. Volbu lze kdykoli změnit na hlavní obrazovce.</p>
-      <p>Po povolení se odesílá model a firmware TV, verze Tizenu a aplikace, zatížení CPU, celková a dostupná RAM, volné úložiště, případně velikost JavaScriptové haldy, odezva event loopu a technický stav AVPlay včetně času přípravy, bufferování a chybového kódu.</p>
+      <p>V obou aplikacích je diagnostika součástí jediného souhlasu s připojením k serveru. Po povolení se odesílá model a firmware TV, verze Tizenu a aplikace, zatížení CPU, celková a dostupná RAM, volné úložiště, případně velikost JavaScriptové haldy, odezva event loopu a technický stav AVPlay včetně času přípravy, bufferování a chybového kódu.</p>
       <p>Diagnostika <strong>nikdy neposílá</strong> název sledovaného kanálu, historii, chat, streamovací adresu ani stabilní identifikátor zařízení. Náhodné ID relace platí jen do dalšího spuštění aplikace. Technické záznamy se automaticky mažou po 90 dnech.</p>
     </section>
     <section class="card">
@@ -43,10 +49,11 @@
     </section>
     <div class="english" id="english" lang="en">
       <h1>Privacy without <span>fine print.</span></h1>
-      <p class="lead">Standard Kick TV only counts anonymous first launches. Lite also offers strictly opt-in technical diagnostics.</p>
-      <section class="card"><h2>What is sent</h2><p>After the first successful launch, Kick TV and Kick TV Lite each send one empty request to <code>corekill.cz</code> for their separate aggregate counters. It contains no installation ID, TV model, language, searches, watched channels, or chat.</p><p>As with every HTTPS connection, the network address passes through the web server and reverse proxy. The counter receiver itself does not accept, store, or associate it with the resulting total.</p></section>
+      <p class="lead">Server connectivity and sign-in are optional. Without consent, anonymous viewing still works and the app sends nothing to our server.</p>
+      <section class="card"><h2>Kick account sign-in</h2><p>The QR code opens Kick's official sign-in page. You enter your password with Kick; the app never sees it. The server handles the OAuth authorization code and stores access tokens encrypted so it can maintain sign-in and retrieve the account name. The TV stores only a revocable session. Signing out removes that TV's authorization from the server.</p><p>Sign-in currently shows the account name, can open Kick, and can receive available channel events. The official API has no Following list or viewer-points balance endpoint yet. Chat writing is disabled. <a href="https://docs.kick.com/">Kick API docs</a> · <a href="https://github.com/KickEngineering/KickDevDocs/issues/134">Following endpoint request</a>.</p><p>No online sign-in is risk-free: by enabling it, you trust the Kick TV server to hold OAuth tokens. The flow is limited to OAuth/PKCE; your Kick password is not sent to the Kick TV server.</p></section>
+      <section class="card"><h2>What is sent</h2><p>After the user consents to server connectivity, Kick TV and Kick TV Lite each send one empty request to <code>kicktv.corekill.cz</code> for their separate aggregate counters. It contains no installation ID, TV model, language, searches, watched channels, or chat.</p><p>As with every HTTPS connection, the network address passes through the web server and reverse proxy. The counter receiver itself does not accept, store, or associate it with the resulting total.</p></section>
       <section class="card"><h2>What is stored</h2><ul><li>The server only increments the shared aggregate total for the corresponding edition.</li><li>The receiver creates no per-request records, and its backend routes have access logging disabled.</li><li>The TV stores only a local flag so the first-launch signal is not sent again.</li></ul></section>
-      <section class="card"><h2>Optional Lite diagnostics</h2><p>Kick TV Lite asks clearly on first launch. No performance diagnostics are sent until the user selects <strong>Allow</strong>, and the setting can be changed from the home screen at any time.</p><p>When enabled, Lite sends the TV model and firmware, Tizen and app versions, CPU load, total and available memory, free storage, optional JavaScript heap size, event-loop responsiveness, and technical AVPlay timing, buffering, state, and error information.</p><p>It <strong>never sends</strong> the watched channel, history, chat, stream URLs, or a stable device identifier. A random session ID lasts only until the app is restarted. Technical records are deleted automatically after 90 days.</p></section>
+      <section class="card"><h2>Optional diagnostics</h2><p>In both apps, technical diagnostics are part of the single server-consent setting. The app asks explicitly before sending anything to our service.</p><p>When enabled, the app sends the TV model and firmware, Tizen and app versions, CPU load, total and available memory, free storage, optional JavaScript heap size, event-loop responsiveness, and technical AVPlay timing, buffering, state, and error information.</p><p>It <strong>never sends</strong> the watched channel, history, chat, stream URLs, or a stable device identifier. A random session ID lasts only until the app is restarted. Technical records are deleted automatically after 90 days.</p></section>
       <section class="card"><h2>What the number means</h2><p>It is the number of first successful launches since version 2.2. Uninstalling the app does not decrease it. A reinstall or clearing the app data may be counted again.</p></section>
     </div>
   </main>

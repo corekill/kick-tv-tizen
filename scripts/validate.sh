@@ -14,9 +14,13 @@ done
 node --check "$APP/app.js"
 node --check "$APP/realtime.js"
 node --check "$APP/tv-launch.js"
+node --check "$APP/tv-navigation.js"
+node --check "$APP/browse.js"
+node --check "$APP/account.js"
+node --check "$APP/diagnostics.js"
 xmllint --noout "$APP/config.xml"
 
-for file in config.xml index.html style.css app.js realtime.js tv-launch.js kick-icon.png kick-icon-117.png; do
+for file in config.xml index.html style.css app.js realtime.js tv-launch.js tv-navigation.js browse.js account.js account.css diagnostics.js kick-icon.png kick-icon-117.png; do
   if [[ ! -s "$APP/$file" ]]; then
     echo "Missing or empty application file: $file" >&2
     exit 1
