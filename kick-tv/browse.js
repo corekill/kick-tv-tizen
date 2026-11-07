@@ -22,7 +22,8 @@
       {code:'fr',cs:'Francouzština',en:'French'},
       {code:'it',cs:'Italština',en:'Italian'},
       {code:'pt',cs:'Portugalština',en:'Portuguese'},
-      {code:'ru',cs:'Ruština',en:'Russian'}
+      {code:'ru',cs:'Ruština',en:'Russian'},
+      {code:'tr',cs:'Turečtina',en:'Turkish'}
     ];
     try{var savedLanguage=localStorage.getItem('kicktv.browseLanguage'),savedIndex=-1;languages.forEach(function(item,index){if(item.code===savedLanguage)savedIndex=index;});languageIndex=savedIndex>=0?savedIndex:(cs?0:1);}catch(ignoreLanguage){languageIndex=cs?0:1;}
     function image(value){if(value&&typeof value==='object'){var small=String(value.srcset||'').split(',').map(function(item){return item.trim().split(/\s+/);}).filter(function(item){return /^\d+w$/.test(item[1]||'');});small.sort(function(a,b){return parseInt(a[1],10)-parseInt(b[1],10);});value=small.length?small[0][0]:value.src||value.url||'';}return /^https:\/\//i.test(String(value||''))?value:'';}
