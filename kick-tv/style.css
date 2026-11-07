@@ -59,3 +59,21 @@ html.video-playing,body.video-playing{background:transparent!important}body.vide
 .is-offline-card .tile-status{color:#788179}
 .is-unknown .tile-status,.is-checking .tile-status{color:#899289}
 #sparkles{position:fixed;inset:0;pointer-events:none}#sparkles:empty{display:none}.spark{position:absolute;width:18px;height:18px;background:var(--green);clip-path:polygon(50% 0,61% 37%,100% 50%,61% 63%,50% 100%,39% 63%,0 50%,39% 37%);animation:pop 1.5s ease-out forwards}@keyframes pop{0%{opacity:0;transform:scale(.1) rotate(0)}30%{opacity:1}100%{opacity:0;transform:scale(2.2) rotate(160deg) translateY(-90px)}}
+
+/* Following section */
+.following-heading{display:flex;align-items:center;margin-top:14px}
+.following-heading h2{margin:0 20px 0 0}
+#followEdit{height:44px;margin:0;padding:0 18px;font-size:17px;background:#1b241c;color:#fff}
+.following-hint{margin:10px 0 0;color:#a5aea6;font-size:17px}
+#following{display:flex;flex-wrap:wrap;height:auto;margin-top:12px}
+#following .tile{margin:0 10px 10px 0}
+#followingSection.is-editing .tile{border-color:#ff6a5a}
+#follow{flex:0 0 auto;margin:0 0 0 14px;padding:0 20px;background:#1b241c;color:#fff}
+#following .tile{display:none}#following .tile.is-live-card,#followingSection.is-editing #following .tile{display:block}
+
+.tile-status{font-size:14px}
+.tile-meta{font-size:16px}
+.is-offline-card .tile-status{color:#a3aca4}
+.follow-account{display:flex;align-items:center;margin-top:12px}
+#kickSession{width:560px;height:54px;padding:0 16px;border:3px solid #ffffff2a;border-radius:12px;background:#0d110e;color:#fff;font-size:18px}
+#kickConnect{height:54px;margin:0 0 0 12px;padding:0 20px;font-size:18px;background:#1b241c;color:#fff}

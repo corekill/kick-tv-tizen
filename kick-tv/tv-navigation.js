@@ -3,8 +3,9 @@
   'use strict';
   root.KickTVNavigation={install:function(options){
     var input=document.getElementById('channel'),home=document.getElementById('home');
-    input.readOnly=true;
-    input.addEventListener('blur',function(){input.readOnly=true;});
+    var session=document.getElementById('kickSession');
+    [input,session].forEach(function(field){field.readOnly=true;field.addEventListener('blur',function(){field.readOnly=true;});});
+    function textField(){var active=document.activeElement;return active===input||active===session?active:null;}
     function consume(e){e.preventDefault();e.stopPropagation();if(e.stopImmediatePropagation)e.stopImmediatePropagation();}
     function move(code){
       var nodes=home.querySelectorAll('.focusable'),active=document.activeElement,r=active&&active.getBoundingClientRect(),best=null,score=Infinity,i;
@@ -25,12 +26,13 @@
       if(e.keyCode===13&&root.KickTVOKHeld){consume(e);return;}
       if(options.playing()||home.classList.contains('hidden')||document.querySelector('.account-modal'))return;
       var code=e.keyCode;
-      if(document.activeElement===input&&code===13&&input.readOnly){consume(e);input.blur();input.readOnly=false;input.focus();return;}
+      var field=textField();
+      if(field&&code===13&&field.readOnly){consume(e);field.blur();field.readOnly=false;field.focus();return;}
       if(code===13&&document.activeElement&&document.activeElement.tagName==='BUTTON'){
         var target=document.activeElement;root.KickTVOKHeld=true;consume(e);target.click();return;
       }
       if(code>=37&&code<=40){
-        if(document.activeElement===input&&!input.readOnly&&(code===37||code===39))return;
+        if(field&&!field.readOnly&&(code===37||code===39))return;
         consume(e);move(code);
       }
     },true);
