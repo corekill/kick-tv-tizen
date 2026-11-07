@@ -8,6 +8,10 @@
   var qualityMenu=document.getElementById('qualityMenu'),qualityList=document.getElementById('qualityOptions');
   var chatEditor=document.getElementById('chatEditor'),chatEditorRows=document.getElementById('chatEditorRows');
   var editorSubtitle=document.getElementById('editorSubtitle');
+  var followingChecked=false,followingSyncBusy=false,followingSyncState='',kickSessionToken='';
+  var followAccount=document.getElementById('followAccount'),sessionInput=document.getElementById('kickSession'),sessionBtn=document.getElementById('kickConnect');
+  var followBtn=document.getElementById('follow'),followEditBtn=document.getElementById('followEdit'),followingBox=document.getElementById('following'),followingHint=document.getElementById('followingHint'),followingSection=document.getElementById('followingSection');
+  var following=[],followingTiles=[],followingEditing=false,followingQueue=[],followingActive=0,followingRun=0,followingUserMoved=false,followFlashTimer=null;
   var history=[],chatModes={},playing=false,hudTimer=null,searchTimer=null,searchSeq=0,secret=[],lastBackAt=0;
   var chatSocket=null,chatReconnect=null,chatRoomId=null,chatMode=0,chatUnread=0,chatConnected=false;
   var qualityOpen=false,qualityCursor=0,selectedQuality='480',currentStreamUrl=null,currentRoomId=null,currentChannelName='',currentChannelDisplayName='',currentKickUserId=null;
@@ -26,6 +30,11 @@
     cs:{ready:'AVPlay připraven',heroLine1:'Živě. Pohodlně.',heroLine2:'Na velké obrazovce.',heroText:'Najdi kanál, spusť stream a ovládej kvalitu i chat jediným ovladačem.',featureNative:'⚡ Nativní AVPlay',featureChat:'● Živý chat + 7TV',featurePhone:'⌁ Bez telefonu',findStream:'Najít stream',findStreamHelp:'Stačí část názvu nebo celá adresa kanálu',searchStreamer:'Hledat streamera',streamerPlaceholder:'Jméno streamera…',watch:'Sledovat',searchTip:'Z textového pole odejdeš šipkou → nebo ↓',searchResults:'Výsledky hledání',recent:'Naposledy sledované',select:'vybrat',back:'zpět',playbackKeys:'Při přehrávání: ↑ kvalita · ↓ rozložení chatu · OK režim chatu',loadingStream:'Načítám stream…',playerHintDefault:'OK: chat · Zpět: nabídka',liveChat:'Živý chat',connecting:'Připojuji…',chatEmpty:'Nové zprávy se objeví tady.',nextChatMode:'další režim chatu',qualityTitle:'Kvalita obrazu',qualitySubtitle:'Změna krátce znovu načte stream',qualityHelp:'↑ ↓ vybrat · OK potvrdit · Zpět zavřít',layoutTitle:'Rozložení chatu',layoutHelp:'↑ ↓ vlastnost · ← → upravit · OK uložit · Zpět zrušit',checking:'ověřuji stav…',unknown:'stav neznámý',followers:'sledujících',viewers:'diváků',exactChannel:'Přesně zadaný kanál',foundLocal:'nalezeno v TV · ověřuji online…',checkingOnline:'ověřuji online…',localResults:'lokální výsledky',gettingStream:'Získávám živý stream…',kickConnecting:'Připojuji se ke Kick API.',chatUnavailable:'Chat není pro kanál dostupný',connected:'Připojeno',connected7tv:'Připojeno · 7TV {count}',chatReconnecting:'Chat se znovu připojuje…',restoringConnection:'Obnovuji spojení…',chatFailed:'Chat se nepodařilo připojit',hudOff:'↑ kvalita · ↓ upravit chat · OK celý chat{unread} · Zpět nabídka',hudFull:'↑ kvalita · ↓ upravit chat · OK předvolba 1 · Zpět nabídka',hudPreset:'↑ kvalita · ↓ upravit chat · OK předvolba {next} · Zpět nabídka',hudPresetLast:'↑ kvalita · ↓ upravit chat · OK skrýt chat · Zpět nabídka',preset:'Předvolba {number}',editorSubtitle:'Předvolba {number} · změny vidíš živě v obraze',preview:'NÁHLED CHATU',fieldPreset:'Upravovaná předvolba',fieldRight:'Od pravého okraje',fieldBottom:'Od spodního okraje',fieldWidth:'Šířka chatu',fieldHeight:'Výška chatu',fieldFont:'Velikost písma',qAuto:'Automaticky',qAutoD:'nejvyšší stabilní kvalita',q1080D:'nejostřejší · vyšší datový tok',q720D:'plynulý HD obraz',q480D:'vyvážená a stabilní',q360D:'úspornější připojení',q160D:'minimum pro slabou síť',saved:'ULOŽENO',changingQuality:'Měním kvalitu obrazu…',qualityReload:'{quality} · stream se krátce znovu načte',compatibilityRetry:'Zkouším kompatibilní režim…',compatibilityRetryDetail:'Starší Tizen odmítl nastavení kvality. Spouštím stream bez omezení bitrate.',offlineTitle:'{name} je offline',offlineDetail:'Každých 10 sekund kontroluji, jestli stream nezačal.',offlineRetry:'Stav se nepodařilo ověřit. Zkusím to znovu za 10 sekund.',streamStarting:'{name} je online',streamStartingDetail:'Spouštím živý přenos…',invalidKick:'Neplatná odpověď Kicku',kickFailed:'Kick API se nepřipojilo',retryHttp:'HTTP {status}. Stiskni Zpět a zkus to znovu.',kickTimeout:'Kick API neodpovídá',timeoutDetail:'Vypršel časový limit 15 sekund. Stiskni Zpět.',networkError:'Síťová chyba',networkDetail:'TV se nedokázala spojit s Kick API. Stiskni Zpět.',requestError:'Chyba požadavku',avUnavailable:'AVPlay není dostupný',avUnavailableDetail:'Samsung přehrávač se v této aplikaci nenačetl.',loadingVideo:'Načítám obraz…',bufferingDetail:'Stream nalezen, TV ukládá první data.',streamEnded:'Vysílání skončilo',streamEndedDetail:'Streamer ukončil živý stream.',playbackError:'Chyba přehrávání',cannotPlay:'Stream nelze spustit',cannotPrepare:'Stream nelze připravit',avFailed:'AVPlay selhal'},
     en:{ready:'AVPlay ready',heroLine1:'Live. Comfortable.',heroLine2:'On the big screen.',heroText:'Find a channel, start the stream, and control quality and chat with one remote.',featureNative:'⚡ Native AVPlay',featureChat:'● Live chat + 7TV',featurePhone:'⌁ No phone needed',findStream:'Find a stream',findStreamHelp:'Enter part of a name or the full channel address',searchStreamer:'Search for a streamer',streamerPlaceholder:'Streamer name…',watch:'Watch',searchTip:'Leave the text field with → or ↓',searchResults:'Search results',recent:'Recently watched',select:'select',back:'back',playbackKeys:'During playback: ↑ quality · ↓ chat layout · OK chat mode',loadingStream:'Loading stream…',playerHintDefault:'OK: chat · Back: menu',liveChat:'Live chat',connecting:'Connecting…',chatEmpty:'New messages will appear here.',nextChatMode:'next chat mode',qualityTitle:'Video quality',qualitySubtitle:'Changing it briefly reloads the stream',qualityHelp:'↑ ↓ select · OK confirm · Back close',layoutTitle:'Chat layout',layoutHelp:'↑ ↓ property · ← → adjust · OK save · Back cancel',checking:'checking status…',unknown:'status unknown',followers:'followers',viewers:'viewers',exactChannel:'Exact channel name',foundLocal:'found on TV · checking online…',checkingOnline:'checking online…',localResults:'local results',gettingStream:'Getting the live stream…',kickConnecting:'Connecting to the Kick API.',chatUnavailable:'Chat is not available for this channel',connected:'Connected',connected7tv:'Connected · 7TV {count}',chatReconnecting:'Reconnecting chat…',restoringConnection:'Restoring connection…',chatFailed:'Chat connection failed',hudOff:'↑ quality · ↓ edit chat · OK full chat{unread} · Back menu',hudFull:'↑ quality · ↓ edit chat · OK preset 1 · Back menu',hudPreset:'↑ quality · ↓ edit chat · OK preset {next} · Back menu',hudPresetLast:'↑ quality · ↓ edit chat · OK hide chat · Back menu',preset:'Preset {number}',editorSubtitle:'Preset {number} · changes update live',preview:'CHAT PREVIEW',fieldPreset:'Preset to edit',fieldRight:'From right edge',fieldBottom:'From bottom edge',fieldWidth:'Chat width',fieldHeight:'Chat height',fieldFont:'Font size',qAuto:'Automatic',qAutoD:'highest stable quality',q1080D:'sharpest · higher bitrate',q720D:'smooth HD video',q480D:'balanced and stable',q360D:'lower bandwidth',q160D:'minimum for a weak network',saved:'SAVED',changingQuality:'Changing quality…',qualityReload:'{quality} · the stream will briefly reload',compatibilityRetry:'Trying compatibility mode…',compatibilityRetryDetail:'This Tizen version rejected the quality setting. Starting the stream without a bitrate limit.',offlineTitle:'{name} is offline',offlineDetail:'Checking every 10 seconds whether the stream has started.',offlineRetry:'The status check failed. I will try again in 10 seconds.',streamStarting:'{name} is live',streamStartingDetail:'Starting the live stream…',invalidKick:'Invalid Kick response',kickFailed:'Kick API connection failed',retryHttp:'HTTP {status}. Press Back and try again.',kickTimeout:'Kick API did not respond',timeoutDetail:'The 15-second timeout expired. Press Back.',networkError:'Network error',networkDetail:'The TV could not connect to the Kick API. Press Back.',requestError:'Request error',avUnavailable:'AVPlay is unavailable',avUnavailableDetail:'Samsung player did not load in this application.',loadingVideo:'Loading video…',bufferingDetail:'Stream found, the TV is buffering the first data.',streamEnded:'Stream ended',streamEndedDetail:'The streamer ended the live stream.',playbackError:'Playback error',cannotPlay:'Unable to start the stream',cannotPrepare:'Unable to prepare the stream',avFailed:'AVPlay failed'}
   };
+  var followingStrings={
+    cs:{following:'Sleduji',follow:'+ Sledovat',unfollow:'Odebrat',followEdit:'Upravit',followDone:'Hotovo',followingEmpty:'Zatím žádné kanály. Zadej jméno kanálu a stiskni + Sledovat.',followRemoveHint:'Stiskni OK na kanálu, který chceš odebrat.',followNotFound:'Nenalezeno',followingChecking:'Kontroluji živé kanály…',followingNoLive:'Žádný ze sledovaných kanálů teď nevysílá.',accountConnect:'Připojit účet',accountDisconnect:'Odpojit',accountPlaceholder:'Klíč relace Kick',accountConnected:'Účet je připojený. Sledované kanály se synchronizují z Kicku automaticky.',accountExpired:'Relace Kick je neplatná. Zadej klíč znovu.',accountFailed:'Sledované kanály z Kicku se nepodařilo načíst. Zobrazuji poslední uložený seznam.',liveBadge:'LIVE',offlineBadge:'OFFLINE'},
+    en:{following:'Following',follow:'+ Follow',unfollow:'Unfollow',followEdit:'Edit',followDone:'Done',followingEmpty:'No followed channels yet. Enter a channel name and press + Follow.',followRemoveHint:'Press OK on a channel to remove it.',followNotFound:'Not found',followingChecking:'Checking live channels…',followingNoLive:'None of your followed channels are live right now.',accountConnect:'Connect account',accountDisconnect:'Disconnect',accountPlaceholder:'Kick session key',accountConnected:'Account connected. Your follows sync from Kick automatically.',accountExpired:'Kick session is invalid. Enter the key again.',accountFailed:'Could not load your Kick follows. Showing the last saved list.',liveBadge:'LIVE',offlineBadge:'OFFLINE'}
+  };
+  Object.keys(followingStrings).forEach(function(code){Object.keys(followingStrings[code]).forEach(function(key){translations[code][key]=followingStrings[code][key];});});
   function tr(key,values){var text=(translations[language]&&translations[language][key])||translations.en[key]||key;values=values||{};return text.replace(/\{(\w+)\}/g,function(_,name){return values[name]===undefined?'':values[name];});}
   function playlistUrl(value,base){if(/^https?:\/\//i.test(value))return value;if(value.indexOf('//')===0)return base.split(':')[0]+':'+value;var origin=/^(https?:\/\/[^/]+)/i.exec(base);if(value.charAt(0)==='/')return(origin?origin[1]:'')+value;return base.replace(/[?#].*$/,'').replace(/[^/]*$/,'')+value;}
   function playlistQualities(text,base){var lines=text.split(/\r?\n/),items=[],pending=null,seen={},i,line,match,height,fps,bandwidth,codec,id;for(i=0;i<lines.length;i++){line=lines[i].replace(/^\s+|\s+$/g,'');if(line.indexOf('#EXT-X-STREAM-INF:')===0){pending={};line.slice(18).replace(/([A-Z0-9-]+)=("[^"]*"|[^,]*)/g,function(all,key,value){pending[key]=value.replace(/^"|"$/g,'');return all;});continue;}if(!pending||!line||line.charAt(0)==='#')continue;match=/^(\d+)x(\d+)$/.exec(pending.RESOLUTION||'');codec=pending.CODECS||'';if(match&&Number(match[2])<=1080&&(!codec||/avc[13]\./i.test(codec))){height=Number(match[2]);fps=Math.round(Number(pending['FRAME-RATE'])||30);bandwidth=Number(pending.BANDWIDTH)||0;id=String(height);if(!seen[id]){seen[id]=true;items.push({id:id,label:height+'p / '+fps+' fps',detailKey:'q'+height+'D',detail:(bandwidth/1000000).toFixed(1)+' Mb/s',url:playlistUrl(line,base),height:height,fps:fps,bandwidth:bandwidth});}}pending=null;}items.sort(function(a,b){return b.height-a.height||b.fps-a.fps||b.bandwidth-a.bandwidth;});return items;}
@@ -69,6 +78,11 @@
     if(savedLayouts&&savedLayouts.length===3)chatLayouts=savedLayouts;else if(savedLayout)chatLayouts[0]=savedLayout;
     if(savedModes&&Object.prototype.toString.call(savedModes)==='[object Object]')chatModes=savedModes;
   }catch(e){}
+  try{
+    kickSessionToken=localStorage.getItem('kicktv.kickSession')||'';
+    var storedFollowing=JSON.parse(localStorage.getItem('kicktv.following')||'[]');
+    if(Object.prototype.toString.call(storedFollowing)==='[object Array]')following=storedFollowing.map(clean).filter(Boolean);
+  }catch(ignoreFollowing){}
   function clean(value){
     value=(value||'').trim().toLowerCase();
     value=value.replace(/^https?:\/\/(www\.)?kick\.com\//,'').replace(/[?#].*$/,'').replace(/^@/,'');
@@ -82,14 +96,126 @@
     var name=clean(currentChannelName);if(!name)return;chatModes['channel:'+name]=chatMode;
     try{localStorage.setItem('kicktv.chatModes',JSON.stringify(chatModes));}catch(ignoreStore){}
   }
+  function createTile(name){
+    var b=document.createElement('button'),preview=document.createElement('img'),shade=document.createElement('span'),content=document.createElement('span'),label=document.createElement('strong'),meta=document.createElement('span'),status=document.createElement('span');
+    b.className='tile focusable is-checking';preview.className='tile-preview';preview.alt='';preview.loading='lazy';shade.className='tile-shade';content.className='tile-content';label.className='tile-name';label.textContent=name;meta.className='tile-meta';status.className='tile-status checking';status.textContent=tr('checking');
+    content.appendChild(label);content.appendChild(meta);b.appendChild(preview);b.appendChild(shade);b.appendChild(content);b.appendChild(status);
+    return {name:name,button:b,preview:preview,meta:meta,status:status,live:false};
+  }
   function renderHistory(){
     recentBox.innerHTML='';recentSection.className=history.length?'recent':'recent hidden';
     history.forEach(function(name){
-      var b=document.createElement('button'),preview=document.createElement('img'),shade=document.createElement('span'),content=document.createElement('span'),label=document.createElement('strong'),meta=document.createElement('span'),status=document.createElement('span');
-      b.className='tile focusable is-checking';preview.className='tile-preview';preview.alt='';shade.className='tile-shade';content.className='tile-content';label.className='tile-name';label.textContent=name;meta.className='tile-meta';status.className='tile-status checking';status.textContent=tr('checking');
-      content.appendChild(label);content.appendChild(meta);b.appendChild(preview);b.appendChild(shade);b.appendChild(content);b.appendChild(status);
-      b.onclick=function(){open(name);};recentBox.appendChild(b);refreshHistoryStatus(name,b,preview,meta,status);
+      var tile=createTile(name);tile.button.onclick=function(){open(name);};recentBox.appendChild(tile.button);refreshHistoryStatus(name,tile.button,tile.preview,tile.meta,tile.status);
     });
+  }
+  function saveFollowing(){try{localStorage.setItem('kicktv.following',JSON.stringify(following));}catch(ignoreStore){}}
+  function updateFollowButton(){var name=clean(input.value);followBtn.textContent=tr(name&&following.indexOf(name)>=0?'unfollow':'follow');}
+  function updateFollowingHint(){
+    var anyLive=followingTiles.some(function(t){return t.live;});
+    var editHint=followingSyncState==='failed'?tr('accountFailed'):kickSessionToken?tr('accountConnected'):tr('followRemoveHint');
+    followingHint.textContent=followingSyncState==='expired'?tr('accountExpired'):followingEditing?editHint:!following.length?tr('followingEmpty'):!followingChecked?tr('followingChecking'):anyLive?'':tr('followingNoLive');
+    followingHint.className=followingHint.textContent?'following-hint':'following-hint hidden';
+  }
+  function updateFollowingLabels(){
+    followingSection.className='recent'+(followingEditing?' is-editing':'');
+    followEditBtn.textContent=tr(followingEditing?'followDone':'followEdit');followEditBtn.className='focusable';
+    followAccount.className=followingEditing?'follow-account':'follow-account hidden';sessionInput.className=kickSessionToken?'focusable hidden':'focusable';sessionInput.setAttribute('placeholder',tr('accountPlaceholder'));sessionBtn.textContent=tr(kickSessionToken?'accountDisconnect':'accountConnect');followBtn.className=kickSessionToken?'focusable hidden':'focusable';
+    updateFollowingHint();updateFollowButton();
+  }
+  function renderFollowing(){
+    followingRun++;followingBox.innerHTML='';followingTiles=[];followingQueue=[];followingActive=0;followingChecked=false;
+    following.forEach(function(name){
+      var tile=createTile(name);tile.button.onclick=function(){if(followingEditing&&!kickSessionToken)removeFollowing(name);else open(name);};followingBox.appendChild(tile.button);followingTiles.push(tile);
+    });
+    updateFollowingLabels();refreshFollowing();
+  }
+  function refreshFollowing(){if(followingQueue.length||followingActive)return;followingQueue=followingTiles.slice();pumpFollowing();}
+  function pumpFollowing(){
+    var run=followingRun;
+    function start(tile){
+      var settled=false;followingActive++;
+      refreshHistoryStatus(tile.name,tile.button,tile.preview,tile.meta,tile.status,function(live,viewers){
+        if(settled||run!==followingRun)return;settled=true;tile.live=live;tile.viewers=viewers||0;followingActive--;
+        if(live)claimFirstTile();
+        if(followingQueue.length)pumpFollowing();else if(!followingActive)sortFollowing();
+      });
+    }
+    while(followingActive<4&&followingQueue.length)start(followingQueue.shift());
+  }
+  function sortFollowing(){
+    var active=document.activeElement,listFocused=followingBox.contains(active);
+    var ordered=followingTiles.filter(function(t){return t.live;}).sort(function(a,b){return (b.viewers||0)-(a.viewers||0);}).concat(followingTiles.filter(function(t){return !t.live;}));
+    var changed=ordered.some(function(t,i){return followingBox.children[i]!==t.button;});
+    followingChecked=true;updateFollowingHint();
+    if(changed)ordered.forEach(function(t){followingBox.appendChild(t.button);});
+    followingTiles=ordered;
+    if(claimFirstTile())return;
+    if(listFocused&&!active.offsetWidth){if(!playing)focusHome();}else if(listFocused&&changed)active.focus();
+  }
+  function removeFollowing(name){
+    var index=following.indexOf(name),listFocused=followingBox.contains(document.activeElement),tiles,next;if(index<0)return;
+    following.splice(index,1);saveFollowing();if(!following.length)followingEditing=false;renderFollowing();
+    if(listFocused){tiles=followingBox.querySelectorAll('.focusable');next=tiles[Math.min(index,tiles.length-1)];(next||watch).focus();}
+  }
+  function flashFollowButton(text){followBtn.textContent=text;clearTimeout(followFlashTimer);followFlashTimer=setTimeout(updateFollowButton,2500);}
+  function toggleFollow(){
+    var name=clean(input.value),xhr;if(!name){input.focus();return;}
+    if(following.indexOf(name)>=0){removeFollowing(name);return;}
+    xhr=new XMLHttpRequest();xhr.open('GET','https://kick.com/api/v2/channels/'+encodeURIComponent(name),true);xhr.timeout=8000;xhr.setRequestHeader('Accept','application/json');
+    function failed(){flashFollowButton(tr('followNotFound'));}
+    xhr.onreadystatechange=function(){
+      if(xhr.readyState!==4)return;if(xhr.status<200||xhr.status>=300){failed();return;}
+      try{var slug=clean(JSON.parse(xhr.responseText).slug)||name;if(following.indexOf(slug)<0){following.push(slug);saveFollowing();renderFollowing();}}catch(e){failed();}
+    };
+    xhr.ontimeout=failed;try{xhr.send();}catch(e){failed();}
+  }
+  function focusHome(){(followingBox.querySelector('.is-live-card')||watch).focus();}
+  function claimFirstTile(){
+    if(playing||followingUserMoved||followingEditing||document.querySelector('.account-modal'))return false;
+    var first=followingBox.querySelector('.is-live-card');if(!first)return false;first.focus();return true;
+  }
+  function applyLiveData(data){
+    followingTiles.forEach(function(t){
+      var item=data[t.name];if(!item)return;t.live=item.live;t.viewers=item.viewers;
+      if(item.live){t.button.className='tile focusable is-live-card';t.status.className='tile-status is-live';t.status.textContent='● '+tr('liveBadge');t.meta.textContent=compact(item.viewers)+' '+tr('viewers')+(item.category?' · '+item.category:'');loadTileImage(t.button,t.preview,item.image);}
+    });
+    sortFollowing();
+  }
+  function normaliseSession(value){value=String(value||'').trim();try{value=decodeURIComponent(value);}catch(ignoreDecode){}return value.replace(/^Bearer\s+/i,'');}
+  function storeSession(value){kickSessionToken=value;try{if(value)localStorage.setItem('kicktv.kickSession',value);else localStorage.removeItem('kicktv.kickSession');}catch(ignoreStore){}}
+  function syncFollowing(){
+    if(!kickSessionToken||followingSyncBusy)return;
+    var token=kickSessionToken,names=[],liveData={},pages=0,finished=false;followingSyncBusy=true;
+    function finish(state){
+      if(finished)return;finished=true;followingSyncBusy=false;if(token!==kickSessionToken)return;
+      if(state==='ok'&&!names.length)state='failed';
+      followingSyncState=state;if(state==='expired')storeSession('');
+      if(state==='ok'&&names.slice().sort().join(',')!==following.slice().sort().join(',')){var refocus=followingBox.contains(document.activeElement);following=names;saveFollowing();renderFollowing();if(refocus)watch.focus();}
+      else updateFollowingLabels();
+      if(state==='ok')applyLiveData(liveData);
+    }
+    function page(cursor){
+      var xhr=new XMLHttpRequest();pages++;
+      xhr.open('GET','https://kick.com/api/v2/channels/followed-page'+(cursor?'?cursor='+encodeURIComponent(cursor):''),true);
+      xhr.timeout=10000;xhr.setRequestHeader('Accept','application/json');xhr.setRequestHeader('Authorization','Bearer '+token);
+      xhr.onreadystatechange=function(){
+        if(xhr.readyState!==4)return;
+        if(xhr.status===401){finish('expired');return;}
+        if(xhr.status<200||xhr.status>=300){finish('failed');return;}
+        try{
+          var data=JSON.parse(xhr.responseText);
+          (data.channels||[]).forEach(function(channel){var slug=clean(channel.channel_slug);if(!slug)return;if(names.indexOf(slug)<0)names.push(slug);liveData[slug]={live:!!channel.is_live,viewers:Number(channel.viewer_count)||0,category:String(channel.category_name||''),image:normaliseImageUrl(channel.profile_picture)};});
+          if(data.nextCursor&&pages<40)page(data.nextCursor);else finish('ok');
+        }catch(e){finish('failed');}
+      };
+      xhr.ontimeout=function(){finish('failed');};try{xhr.send();}catch(e){finish('failed');}
+    }
+    page(0);
+  }
+  function toggleSession(){
+    if(kickSessionToken){storeSession('');followingSyncState='';updateFollowingLabels();return;}
+    var value=normaliseSession(sessionInput.value);if(!value){sessionInput.focus();return;}
+    sessionInput.value='';storeSession(value);followingSyncState='';updateFollowingLabels();sessionBtn.focus();syncFollowing();
   }
   function normaliseImageUrl(value){value=String(value||'');if(value.indexOf('//')===0)value='https:'+value;return /^https?:\/\//i.test(value)?value:'';}
   function profileImage(data){var user=data&&data.user||{},stream=data&&data.livestream||{},broadcaster=stream.broadcaster_user||{},value=user.profile_pic||user.profile_picture||data&&data.profile_pic||data&&data.profile_picture||stream.profile_picture||broadcaster.profile_picture||'';if(value&&typeof value==='object')value=value.url||value.src||'';return normaliseImageUrl(value);}
@@ -101,14 +227,15 @@
     var stream=data&&data.livestream||{},category=stream.category||(stream.categories&&stream.categories[0])||(data&&data.recent_categories&&data.recent_categories[0])||data&&data.category;
     return String(category&&(category.name||category.title)||'');
   }
-  function refreshHistoryStatus(name,button,preview,meta,status){
+  function refreshHistoryStatus(name,button,preview,meta,status,done){
     var xhr=new XMLHttpRequest();xhr.open('GET','https://kick.com/api/v2/channels/'+encodeURIComponent(name),true);xhr.timeout=8000;xhr.setRequestHeader('Accept','application/json');
-    function unknown(){button.className='tile focusable is-unknown';status.className='tile-status checking';status.textContent=tr('unknown');meta.textContent='';preview.removeAttribute('src');}
+    function unknown(){button.className='tile focusable is-unknown';status.className='tile-status checking';status.textContent=tr('unknown');meta.textContent='';preview.removeAttribute('src');if(done)done(false,0);}
     xhr.onreadystatechange=function(){if(xhr.readyState!==4)return;if(xhr.status>=200&&xhr.status<300){try{
       var data=JSON.parse(xhr.responseText),stream=data.livestream||{},live=!!(data.livestream&&(data.livestream.is_live!==false)),profile=profileImage(data),category=streamCategory(data),viewers=Number(stream.viewer_count);if(isNaN(viewers)||viewers<0)viewers=0;
-      button.className='tile focusable '+(live?'is-live-card':'is-offline-card');status.className='tile-status '+(live?'is-live':'is-offline');status.textContent=live?'● LIVE':'○ OFFLINE';
+      button.className='tile focusable '+(live?'is-live-card':'is-offline-card');status.className='tile-status '+(live?'is-live':'is-offline');status.textContent=live?'● '+tr('liveBadge'):'○ '+tr('offlineBadge');
       if(live){meta.textContent=compact(viewers)+' '+tr('viewers')+(category?' · '+category:'');loadTileImage(button,preview,profile);}
       else{meta.textContent='';loadTileImage(button,preview,profile);}
+      if(done)done(live,viewers);
     }catch(e){unknown();}}else unknown();};
     xhr.onerror=unknown;xhr.ontimeout=unknown;try{xhr.send();}catch(e){unknown();}
   }
@@ -119,7 +246,7 @@
     channels.slice(0,6).forEach(function(c){
       var b=document.createElement('button');b.className='result focusable';
       var avatar=c.profile_pic?'<img class="avatar" src="'+esc(c.profile_pic)+'">':'<span class="avatar avatar-fallback">K</span>';
-      var status=c.is_live?'<span class="live">● LIVE</span>':'OFFLINE';
+      var status=c.is_live?'<span class="live">● '+tr('liveBadge')+'</span>':tr('offlineBadge');
       b.innerHTML=avatar+'<span class="result-copy"><strong class="result-name">'+esc(c.username||c.slug)+'</strong><span class="result-meta">'+status+' · '+esc((c.category&&c.category.name)||'Kick')+' · '+compact(c.followers_count)+' '+tr('followers')+'</span></span>';
       b.onclick=function(){open(c.slug);};resultBox.appendChild(b);
     });
@@ -410,7 +537,7 @@
   function closePlayer(){
     clearOfflinePolling();streamRequestSeq++;disconnectChat();
     stopAVPlay();
-    setScreenSaver(true);resetPlayerView();view.classList.add('hidden');home.className='';playing=false;currentStreamUrl=null;currentRoomId=null;currentChannelName='';currentChannelDisplayName='';currentKickUserId=null;renderHistory();setTimeout(function(){watch.focus();},50);
+    setScreenSaver(true);resetPlayerView();view.classList.add('hidden');home.className='';playing=false;currentStreamUrl=null;currentRoomId=null;currentChannelName='';currentChannelDisplayName='';currentKickUserId=null;renderHistory();updateFollowButton();followingUserMoved=false;refreshFollowing();syncFollowing();setTimeout(focusHome,50);
   }
   function setScreenSaver(enabled){try{if(window.webapis&&webapis.appcommon){var state=enabled?webapis.appcommon.AppCommonScreenSaverState.SCREEN_SAVER_ON:webapis.appcommon.AppCommonScreenSaverState.SCREEN_SAVER_OFF;webapis.appcommon.setScreenSaver(state,function(){},function(){});}}catch(ignoreScreenSaver){}}
   function showHud(){view.classList.add('hud');clearTimeout(hudTimer);hudTimer=setTimeout(function(){view.classList.remove('hud');},2400);}
@@ -418,7 +545,8 @@
   function handleBack(e){
     consumeKey(e);var now=Date.now();if(now-lastBackAt<350)return;lastBackAt=now;
     if(playing){if(chatEditorOpen)closeChatEditor(false);else if(qualityOpen)closeQualityMenu();else closePlayer();return;}
-    if((input.value||'').trim()||!searchSection.classList.contains('hidden')){clearTimeout(searchTimer);searchSeq++;input.value='';renderResults([]);searchState.textContent='';watch.focus();return;}
+    if(followingEditing){followingEditing=false;updateFollowingLabels();followEditBtn.focus();return;}
+    if((input.value||'').trim()||!searchSection.classList.contains('hidden')){clearTimeout(searchTimer);searchSeq++;input.value='';renderResults([]);searchState.textContent='';updateFollowButton();watch.focus();return;}
     if(browser.back())return;
     try{tizen.application.getCurrentApplication().exit();}catch(x){window.close();}
   }
@@ -426,7 +554,10 @@
   function move(delta){var a=focusables(),i=a.indexOf(document.activeElement);i=i<0?0:(i+delta+a.length)%a.length;a[i].focus();}
   function sparkle(){var box=document.getElementById('sparkles');for(var i=0;i<22;i++){var s=document.createElement('i');s.className='spark';s.style.left=(18+Math.random()*64)+'%';s.style.top=(18+Math.random()*64)+'%';s.style.animationDelay=(Math.random()*.45)+'s';box.appendChild(s);setTimeout((function(x){return function(){x.remove();};})(s),2100);}}
   function remember(code){secret.push(code);secret=secret.slice(-8);if(secret.join(',')==='38,38,40,40,37,39,37,39')sparkle();}
-  applyLanguage();watch.onclick=function(){open(input.value);};input.addEventListener('input',function(){search(input.value);});renderHistory();
+  applyLanguage();watch.onclick=function(){open(input.value);};input.addEventListener('input',function(){search(input.value);updateFollowButton();});renderHistory();
+  followBtn.onclick=toggleFollow;followEditBtn.onclick=function(){followingEditing=!followingEditing;updateFollowingLabels();};sessionBtn.onclick=toggleSession;window.addEventListener('keydown',function(e){if((e.keyCode>=37&&e.keyCode<=40)||e.keyCode===13)followingUserMoved=true;},true);renderFollowing();syncFollowing();
+  setInterval(function(){if(!playing)refreshFollowing();},90000);
+  setInterval(function(){if(!playing)syncFollowing();},300000);
   document.addEventListener('keydown',function(e){
     remember(e.keyCode);
     if(e.keyCode===10009||e.keyCode===27){handleBack(e);return;}
@@ -449,6 +580,6 @@
   var diagnostics=KickTVDiagnostics.create({edition:'standard',version:'2.3.0',playing:function(){return playing;}});
   var account=KickTVAccount.install({language:language,telemetry:diagnostics,message:addChatMessage,playing:function(){return playing;},onConsent:reportInstall,onLogin:function(){account.channel(playing?currentKickUserId:0);}});
   setInterval(function(){account.channel(playing?currentKickUserId:0);},4000);
-  applyChatLayout();setTimeout(function(){if(!playing)watch.focus();},100);setTimeout(reportInstall,1200);
+  applyChatLayout();setTimeout(function(){if(!playing)focusHome();},100);setTimeout(reportInstall,1200);
   KickTVLaunch.install({platforms:['kick'],current:function(){return playing?{platform:'kick',name:currentChannelName}:null;},close:function(){if(chatEditorOpen)closeChatEditor(false);closePlayer();},open:function(channel){open(channel.name);}});
 })();
