@@ -27,7 +27,9 @@ jobs:
           node scripts/test-realtime.cjs
           node scripts/test-tv-launch.cjs
           node scripts/test-settings.cjs
+          node scripts/test-locale.cjs
           node scripts/test-phone.cjs
+          node scripts/test-following.cjs
           python3 -m unittest server/install-counter/test_server.py
           python3 -m unittest server/auth/test_server.py
       - name: Upload device-neutral WGT

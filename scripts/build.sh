@@ -18,12 +18,14 @@ rm -f "$PACKAGE" "$CHECKSUM_FILE"
     index.html \
     style.css \
     app.js \
+    locale.js \
     realtime.js \
     tv-launch.js \
     tv-navigation.js \
     browse.js \
     qrcode.js \
     phone-link.js \
+    following.js \
     phone-worker.js \
     phone-runtime.js \
     settings.js \

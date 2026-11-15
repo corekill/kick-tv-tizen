@@ -57,7 +57,10 @@
       {code:'fa',cs:'Perština',en:'Persian'},
       {code:'fil',cs:'Filipínština',en:'Filipino'}
     ];
-    try{var savedLanguage=localStorage.getItem('kicktv.browseLanguage'),savedIndex=-1;languages.forEach(function(item,index){if(item.code===savedLanguage)savedIndex=index;});languageIndex=savedIndex>=0?savedIndex:(cs?0:1);}catch(ignoreLanguage){languageIndex=cs?0:1;}
+    var turkish=options.language==='tr',defaultIndex=turkish?10:cs?0:1;
+    var trLanguages={cs:'Çekçe',en:'İngilizce',sk:'Slovakça',pl:'Lehçe',de:'Almanca',es:'İspanyolca',fr:'Fransızca',it:'İtalyanca',pt:'Portekizce',ru:'Rusça',tr:'Türkçe',ar:'Arapça',ja:'Japonca',ko:'Korece',zh:'Çince',hi:'Hintçe',id:'Endonezce',th:'Tayca',vi:'Vietnamca',uk:'Ukraynaca',nl:'Felemenkçe',sv:'İsveççe',fi:'Fince',no:'Norveççe',da:'Danca',el:'Yunanca',ro:'Rumence',hu:'Macarca',bg:'Bulgarca',sr:'Sırpça',he:'İbranice',fa:'Farsça',fil:'Filipince'};
+    if(turkish)labels={title:'Kick’e göz at',live:'Canlı yayınlar',categories:'Kategoriler',language:'Dil',loading:'Yükleniyor…',empty:'Şu anda burada bir şey yok.',failed:'Yayınlar yüklenemedi. Tekrar dene.',viewers:'izleyici',retry:'Tekrar dene'};
+    try{var savedLanguage=localStorage.getItem('kicktv.browseLanguage'),savedIndex=-1;languages.forEach(function(item,index){if(item.code===savedLanguage)savedIndex=index;});languageIndex=savedIndex>=0?savedIndex:defaultIndex;}catch(ignoreLanguage){languageIndex=defaultIndex;}
     function image(value){if(value&&typeof value==='object'){var small=String(value.srcset||'').split(',').map(function(item){return item.trim().split(/\s+/);}).filter(function(item){return /^\d+w$/.test(item[1]||'');});small.sort(function(a,b){return parseInt(a[1],10)-parseInt(b[1],10);});value=small.length?small[0][0]:value.src||value.url||'';}return /^https:\/\//i.test(String(value||''))?value:'';}
     function pump(){while(imageActive<2&&imageQueue.length){var job=imageQueue.shift();if(job.sequence!==sequence)continue;imageActive++;(function(task){var done=false,timer=setTimeout(finish,7000);function finish(){if(done)return;done=true;clearTimeout(timer);imageActive--;pump();}task.image.onload=finish;task.image.onerror=function(){this.style.display='none';finish();};task.image.src=task.source;})(job);}}
     function button(text,callback,parent){var b=document.createElement('button');b.type='button';b.className='focusable browse-button';b.textContent=text;b.onclick=callback;parent.appendChild(b);return b;}
@@ -97,7 +100,8 @@
       mode=kind;category=cat||null;var id=++sequence;if(request)request.abort();imageQueue=[];loadNext=null;clearTimeout(scrollTimer);items.innerHTML='';state.textContent=labels.loading;
       title.textContent=category?category.name:kind==='categories'?labels.categories:labels.live;
       for(var a=0;a<actions.children.length;a++)actions.children[a].setAttribute('aria-pressed',String((a===1)===(kind==='categories')||a===2));
-      languageButton.textContent=labels.language+': '+(cs?languages[languageIndex].cs:languages[languageIndex].en);
+      var selected=languages[languageIndex];
+      languageButton.textContent=labels.language+': '+(turkish?trLanguages[selected.code]:cs?selected.cs:selected.en);
       var url=kind==='categories'?'https://kick.com/api/v1/categories/top?limit=24':'https://kick.com/stream/livestreams/'+languages[languageIndex].code+'?limit=24&sort=featured'+(cat?'&subcategory='+encodeURIComponent(cat.slug):'');
       var xhr=new XMLHttpRequest();request=xhr;xhr.open('GET',url,true);xhr.timeout=12000;xhr.setRequestHeader('Accept','application/json');
       function fail(){if(id!==sequence)return;state.textContent=labels.failed;items.innerHTML='';button(labels.retry,function(){show(kind,cat);},items);}

@@ -19,14 +19,27 @@ input{width:100%;background:#0a100d}button{cursor:pointer;text-align:left}button
 <p id="status" role="status"></p>
 <section><h2 id="add"></h2><input id="query" type="search" maxlength="60" autocomplete="off"><div id="results"></div></section>
 <section><h2 id="saved"></h2><p id="empty" hidden></p><div id="list"></div></section>
+<section id="following" hidden>
+  <details>
+  <summary id="followTitle"></summary><p id="followWarning"></p>
+  <form id="followForm" autocomplete="off">
+    <label for="followToken">Kick session_token</label>
+    <input id="followToken" type="password" required minlength="16" maxlength="1902" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <p><label><input id="followConsent" style="width:auto" type="checkbox" required><span id="followConsentText"></span></label></p>
+    <button id="followSend" type="submit"></button>
+    <p id="followStatus" role="status"></p>
+  </form>
+  </details>
+</section>
 </main>
 <script>
 (function(){
-  var fragment=location.hash.slice(1).split('.'),token=fragment[0],cs=fragment[1]!=='en',timer,revision=0,busy=false,channels=[];
+  var fragment=location.hash.slice(1).split('.'),token=fragment[0],turkish=fragment[1]==='tr',cs=fragment[1]!=='en'&&!turkish,timer,revision=0,busy=false,channels=[];
   var t=cs?{title:'Můj seznam',subtitle:'Změny se ukládají přímo v televizi. Vyhledávaná jména zpracovává KickStats.',add:'Přidat streamera',saved:'Uložené kanály',hint:'Napiš část jména…',empty:'Seznam je zatím prázdný.',wait:'Připojuji se k TV…',search:'Hledám…',none:'Žádné nové odpovídající kanály.',offline:'Nepodařilo se spojit s TV. Ověř Wi-Fi a otevřené párování.',expired:'Párování není platné. Naskenuj nový QR kód z TV.',failed:'Požadavek se nezdařil. Zkus to znovu.',full:'Seznam pojme nejvýš 50 kanálů.',remove:'Odebrat'}:{title:'My list',subtitle:'Changes are saved directly on the TV. Search terms are processed by KickStats.',add:'Add a streamer',saved:'Saved channels',hint:'Enter part of a name…',empty:'Your list is empty.',wait:'Connecting to the TV…',search:'Searching…',none:'No new matching channels.',offline:'Could not reach your TV. Check Wi-Fi and keep pairing open.',expired:'Pairing is invalid. Scan a new QR code from the TV.',failed:'Request failed. Try again.',full:'The list can hold up to 50 channels.',remove:'Remove'};
+  if(turkish)t={title:'Listem',subtitle:'Değişiklikler doğrudan TV’ye kaydedilir. Aramalar KickStats üzerinden yapılır.',add:'Yayıncı ekle',saved:'Kayıtlı kanallar',hint:'Adının bir kısmını yaz…',empty:'Listede henüz kanal yok.',wait:'TV’ye bağlanılıyor…',search:'Aranıyor…',none:'Eşleşen yeni kanal bulunamadı.',offline:'TV’ye ulaşılamadı. Aynı ağa bağlan ve TV’de eşleştirmeyi açık tut.',expired:'Eşleştirme geçersiz. TV’deki yeni QR kodunu tara.',failed:'İstek başarısız oldu. Tekrar dene.',full:'Listeye en fazla 50 kanal eklenebilir.',remove:'Kaldır'};
   function id(name){return document.getElementById(name);}
   var query=id('query'),results=id('results'),list=id('list'),status=id('status');
-  document.documentElement.lang=cs?'cs':'en';document.title='Kick TV · '+t.title;
+  document.documentElement.lang=turkish?'tr':cs?'cs':'en';document.title='Kick TV · '+t.title;
   ['title','subtitle','add','saved','empty'].forEach(function(key){id(key).textContent=t[key];});
   query.placeholder=t.hint;query.setAttribute('aria-label',t.hint);query.disabled=true;
   function request(path,data){
@@ -34,6 +47,8 @@ input{width:100%;background:#0a100d}button{cursor:pointer;text-align:left}button
     if(data){headers['Content-Type']='application/json';opts.method='POST';opts.body=JSON.stringify(data);}
     return fetch(path,opts).catch(function(){throw Error(t.offline);}).then(function(r){
       if(r.status===403)throw Error(t.expired);
+      if(path==='/api/following/session'&&r.status===400)throw Error(cs?'Neplatný formát relace. Vlož jen hodnotu cookie session_token.':turkish?'Oturum biçimi geçersiz. Yalnızca session_token çerezinin değerini yapıştır.':'Invalid session format. Paste only the session_token cookie value.');
+      if(path==='/api/following/session'&&r.status===503)throw Error(cs?'TV nemohla relaci bezpečně uložit.':turkish?'TV oturumu güvenli şekilde kaydedemedi.':'The TV could not securely store the session.');
       if(r.status===409)throw Error(t.full);
       if(!r.ok)throw Error(t.failed);
       return r.json();
@@ -63,6 +78,20 @@ input{width:100%;background:#0a100d}button{cursor:pointer;text-align:left}button
   };
   var taps=0,last=0,mark=id('mark');mark.onclick=function(){var now=Date.now();taps=now-last<550?taps+1:1;last=now;if(taps===5){taps=0;mark.classList.add('twinkle');setTimeout(function(){mark.classList.remove('twinkle');},600);}};
   if(!/^[a-f0-9]{32}$/.test(token)){status.textContent=t.expired;return;}
+  if(fragment[2]==='follow'){
+    var f=cs?['Sledované · experiment','Relace dává plný přístup k účtu Kick. Přenos do TV používá nešifrované místní HTTP. Pokračuj jen na důvěryhodné síti. TV použije relaci pouze k načtení Sledovaných přímo z Kicku.','Rozumím a souhlasím','Předat relaci do TV','Relace předána. Výsledek synchronizace najdeš v nastavení TV.']:turkish?['Takip edilenler · deneysel','Oturum anahtarı Kick hesabına tam erişim sağlar. TV’ye şifrelenmemiş yerel HTTP üzerinden gönderilir. Yalnızca güvendiğin bir ağda devam et. TV anahtarı sadece takip edilen kanalları doğrudan Kick’ten almak için kullanır.','Anladım ve kabul ediyorum','Oturumu TV’ye gönder','Oturum gönderildi. Sonucu TV ayarlarında görebilirsin.']:['Following · experimental','The session grants full access to your Kick account. It is sent to your TV over unencrypted local HTTP. Continue only on a trusted network. The TV uses it only to load Following directly from Kick.','I understand and accept','Send session to TV','Session sent. Check the TV settings for the sync result.'];
+    var followStatus=id('followStatus');
+    id('following').hidden=false;
+    id('followTitle').textContent=cs?'Experimentální funkce':turkish?'Deneysel özellikler':'Experimental features';
+    id('followWarning').textContent=f[1];
+    id('followConsentText').textContent=' '+f[2];id('followSend').textContent=f[3];
+    id('followForm').onsubmit=function(event){
+      event.preventDefault();if(busy||!id('followConsent').checked)return;
+      var input=id('followToken'),credential=input.value.trim();input.value='';id('followConsent').checked=false;
+      busy=true;id('followSend').disabled=true;followStatus.textContent=t.wait;
+      request('/api/following/session',{token:credential}).then(function(){followStatus.textContent=f[4];}).catch(function(error){followStatus.textContent=error.message;}).then(function(){busy=false;id('followSend').disabled=false;});
+    };
+  }
   status.textContent=t.wait;request('/api/list').then(function(value){draw(value);status.textContent='';query.disabled=false;}).catch(function(error){status.textContent=error.message;});
 })();
 </script>

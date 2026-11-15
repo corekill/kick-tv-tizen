@@ -28,7 +28,7 @@ APK je určené k ruční instalaci (sideload). První betu jsem ověřil v Andr
 - Chat umí běžné i animované Kick emotikony a k tomu globální i kanálové emotikony z 7TV.
 - Chat si můžeš otevřít celý nebo ho nechat přímo v obraze. K dispozici jsou tři předvolby, u kterých si nastavíš velikost i pozici.
 - Aplikace si pro každého streamera pamatuje naposledy zvolený režim chatu. Rozměry a pozice tří předvoleb přitom zůstávají společné.
-- Pokud máš televizi nastavenou česky, bude česky i aplikace. Pro ostatní jazyky se automaticky přepne do angličtiny.
+- Standardní aplikace používá češtinu nebo turečtinu podle jazyka TV, jinak angličtinu.
 - Tlačítko Zpět se chová tak, jak člověk čeká: nejdřív zavře otevřenou nabídku a až potom tě vrátí na výběr streamera.
 - Během sledování aplikace vypne spořič obrazovky, aby tě zbytečně nerušil.
 
@@ -138,7 +138,7 @@ The APK is intended for sideloading. This first beta has been verified in an And
 - Read-only live chat with animated native Kick emotes plus global and channel-specific 7TV emotes.
 - Full chat panel plus three independently configurable in-picture presets.
 - The last selected chat mode is remembered per streamer, while preset sizes and positions remain global.
-- Czech UI for Czech TV language settings; English for every other language.
+- The standard app uses Czech or Turkish based on the TV language, with English for other languages.
 - Remote-first controls and hierarchical Back behavior.
 - Screensaver suppression while playback is active.
 

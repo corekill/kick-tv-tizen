@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.2 — turecké rozhraní a experimentální Sledované
+
+- Přidaný experimentální režim Sledované. Relace se předává v rozbalovací sekci na stejné mobilní stránce jako Můj seznam a ukládá pouze do systémového úložiště TV. Používá neoficiální rozhraní Kicku a může přestat fungovat.
+- Standardní Samsung aplikace má turecké rozhraní včetně nastavení, přihlášení a mobilní správy seznamu. Jazyk se volí podle TV: čeština, turečtina nebo angličtina jako výchozí pro ostatní. Díky @igFr0sty za původní turecký překlad.
+
 ## 2.4.0 — vlastní seznam a správa z telefonu
 
 - V nastavení můžeš historii na hlavní obrazovce nahradit vlastním seznamem. Kanály přidáš podle části jména a seznam se ukládá přímo do TV.

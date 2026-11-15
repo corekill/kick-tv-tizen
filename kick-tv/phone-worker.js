@@ -23,6 +23,14 @@
       try{message.q=decodeURIComponent(target.slice(14));}catch(ignore){return reply(400,{});}
       if(message.q.trim().length<2||message.q.length>60)return reply(400,{});
       message.action='search';
+    }else if(method==='POST'&&target==='/api/following/session'){
+      if(!session.follow||headers.origin!=='http://'+session.host)return reply(403,{});
+      if(headers['content-type']!=='application/json')return reply(400,{});
+      var credential;try{credential=JSON.parse(raw.slice(gap+4));}catch(ignore){return reply(400,{});}
+      var value;
+      try{value=credential&&typeof credential.token==='string'?decodeURIComponent(credential.token):'';}catch(ignore){return reply(400,{});}
+      if(!/^[A-Za-z0-9._~+/|-]{16,1900}={0,2}$/.test(value))return reply(400,{});
+      message.action='following-session';message.token=value;
     }else if(method==='POST'&&target==='/api/list'){
       if(headers['content-type']!=='application/json')return reply(400,{});
       var data;try{data=JSON.parse(raw.slice(gap+4));}catch(ignore){return reply(400,{});}

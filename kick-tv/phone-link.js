@@ -36,6 +36,7 @@
   function open(box,options){
     var cs=options.language==='cs',worker,xhr,time,stopped=false;
     var t=cs?{start:'Spouštím místní párování…',scan:'Naskenuj QR telefonem na stejné síti. Párování platí 5 minut nebo do zavření nastavení. QR kód nesdílej.',expired:'Párování skončilo. Pro nový QR kód tlačítko stiskni znovu.',ip:'TV nemá dostupnou místní IPv4 adresu.',failed:'Místní párování se na této TV nepodařilo spustit.'}:{start:'Starting local pairing…',scan:'Scan the QR code on the same network. Pairing expires in five minutes or when you close Settings. Do not share the QR code.',expired:'Pairing ended. Press the button again for a new QR code.',ip:'No local IPv4 address is available on this TV.',failed:'Local pairing could not start on this TV.'};
+    if(options.language==='tr')t={start:'Yerel eşleştirme başlatılıyor…',scan:'Aynı ağa bağlı telefonunla QR kodunu tara. Eşleştirme 5 dakika boyunca veya ayarları kapatana kadar geçerli. QR kodunu paylaşma.',expired:'Eşleştirme sona erdi. Yeni QR kodu için düğmeye tekrar bas.',ip:'TV’nin yerel IPv4 adresi bulunamadı.',failed:'Bu TV’de yerel eşleştirme başlatılamadı.'};
     function stop(message){
       if(stopped)return;stopped=true;clearTimeout(time);
       if(worker)worker.terminate();if(xhr)xhr.abort();
@@ -45,6 +46,10 @@
     function hidden(){if(document.hidden)stop(t.expired);}
     function respond(id,status,body){if(!stopped)worker.postMessage({kind:'response',id:id,status:status,body:body});}
     function request(m){
+      if(m.action==='following-session'){
+        if(!options.follow)return respond(m.id,403,{});
+        return options.follow(m.token,function(code){respond(m.id,code,{});});
+      }
       if(m.action!=='search'){
         var status=m.action==='list'?200:options.change(m.action,m.channel);
         respond(m.id,status,{channels:options.channels()});return;
@@ -72,7 +77,7 @@
       clearTimeout(time);
       if(!ip){stop(t.ip);return;}
       try{
-      var host=ip+':18765',secret=token(),until=Date.now()+300000,url='http://'+host+'/#'+secret+'.'+(cs?'cs':'en');
+      var host=ip+':18765',secret=token(),until=Date.now()+300000,url='http://'+host+'/#'+secret+'.'+(options.language==='tr'?'tr':cs?'cs':'en')+(options.follow?'.follow':'');
       worker=new Worker('phone-worker.js');
       worker.onerror=function(e){failure('worker',e.message);};
       worker.onmessage=function(e){
@@ -86,7 +91,7 @@
         else if(e.data.kind==='request')request(e.data.value);
       };
       time=setTimeout(function(){failure('worker timeout');},10000);
-      worker.postMessage({kind:'start',ip:ip,host:host,token:secret,until:until});
+      worker.postMessage({kind:'start',ip:ip,host:host,token:secret,until:until,follow:!!options.follow});
       }catch(error){failure('start',error);}
     }
     box.textContent=t.start;
