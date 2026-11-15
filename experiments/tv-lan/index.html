@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="cs">
+<meta charset="utf-8">
+<title>Kick TV LAN Test</title>
+<style>
+body{margin:6%;background:#101713;color:#dcf8de;font:28px Arial,sans-serif}
+h1{color:#9aff74}pre{white-space:pre-wrap;overflow-wrap:break-word}
+button{font-size:24px;padding:14px 24px}button:focus{outline:5px solid #9aff74}
+</style>
+<h1>Kick TV · LAN Test</h1>
+<button id="retry" type="button">Spustit znovu</button>
+<pre id="log" role="status"></pre>
+<script>
+(function(){
+  var log=document.getElementById('log'), retry=document.getElementById('retry'), worker;
+  function line(message){log.textContent+=message+'\n';}
+  function start(){
+    if(worker)worker.terminate();
+    log.textContent='';
+    try{
+      worker=new Worker('check-worker.js');
+      worker.onmessage=function(event){line(event.data);};
+      worker.onerror=function(event){line('Worker error: '+event.message+' ('+event.filename+':'+event.lineno+')');};
+    }catch(error){line(error.stack||String(error));}
+  }
+  retry.onclick=start;retry.focus();start();
+})();
+</script>
+</html>

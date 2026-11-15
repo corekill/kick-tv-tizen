@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4.0 — vlastní seznam a správa z telefonu
+
+- V nastavení můžeš historii na hlavní obrazovce nahradit vlastním seznamem. Kanály přidáš podle části jména a seznam se ukládá přímo do TV.
+- Na kompatibilní TV můžeš seznam spravovat i z telefonu přes místní QR párování. Není potřeba účet ani doprovodný server.
+- Přibyla turečtina a dalších 22 jazyků ve filtru procházení. Díky @igFr0sty za návrh v PR #12 a podnět k vlastnímu seznamu v PR #13.
+- Řazení platí pro Živě a streamy uvnitř kategorií. Historie zůstává od nejnovějších a vlastní seznam v pořadí přidání.
+
 ## 2.3.0 — procházení, jazykový filtr a Kick účet
 
 - Přibylo procházení živých streamů a kategorií; u živých kanálů i streamů v kategorii lze přepínat jazyk. Volba se uloží v televizi. Díky @janrydzewski za inspiraci pro procházení.

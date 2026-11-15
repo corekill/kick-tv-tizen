@@ -22,12 +22,23 @@ rm -f "$PACKAGE" "$CHECKSUM_FILE"
     tv-launch.js \
     tv-navigation.js \
     browse.js \
+    qrcode.js \
+    phone-link.js \
+    phone-worker.js \
+    phone-runtime.js \
+    settings.js \
+    settings.css \
     account.js \
     account.css \
     diagnostics.js \
     kick-icon.png \
     kick-icon-117.png
 )
+
+STAGING="$(mktemp -d)"
+trap 'rm -rf "$STAGING"' EXIT
+node -e 'const fs=require("fs");fs.writeFileSync(process.argv[2],"self.KickTVPhonePage="+JSON.stringify(fs.readFileSync(process.argv[1],"utf8"))+";\n");' "$APP/phone-page.html" "$STAGING/phone-page-data.js"
+zip -X -q -j "$PACKAGE" "$STAGING/phone-page-data.js"
 
 unzip -t "$PACKAGE" >/dev/null
 version="$(xmllint --xpath 'string(/*[local-name()="widget"]/@version)' "$APP/config.xml")"

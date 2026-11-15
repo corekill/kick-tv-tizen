@@ -82,14 +82,23 @@
     var name=clean(currentChannelName);if(!name)return;chatModes['channel:'+name]=chatMode;
     try{localStorage.setItem('kicktv.chatModes',JSON.stringify(chatModes));}catch(ignoreStore){}
   }
+  var shelfQueue=[],shelfActive=0;
+  function pumpShelf(){
+    while(shelfActive<3&&shelfQueue.length){shelfActive++;shelfQueue.shift()();}
+  }
   function renderHistory(){
-    recentBox.innerHTML='';recentSection.className=history.length?'recent':'recent hidden';
-    history.forEach(function(name){
+    var settings=KickTVSettings,manual=settings.prefs.mode==='manual',names=manual?settings.prefs.channels:history;
+    shelfQueue=[];recentBox.textContent='';recentSection.className=manual||names.length?'recent':'recent hidden';
+    document.getElementById('shelfTitle').textContent=manual?(language==='cs'?'Můj seznam':'My list'):tr('recent');
+    document.getElementById('shelfEmpty').textContent=manual&&!names.length?(language==='cs'?'Přidej kanály přes ⚙ Nastavení.':'Add channels in ⚙ Settings.'):'';
+    names.forEach(function(name){
       var b=document.createElement('button'),preview=document.createElement('img'),shade=document.createElement('span'),content=document.createElement('span'),label=document.createElement('strong'),meta=document.createElement('span'),status=document.createElement('span');
       b.className='tile focusable is-checking';preview.className='tile-preview';preview.alt='';shade.className='tile-shade';content.className='tile-content';label.className='tile-name';label.textContent=name;meta.className='tile-meta';status.className='tile-status checking';status.textContent=tr('checking');
       content.appendChild(label);content.appendChild(meta);b.appendChild(preview);b.appendChild(shade);b.appendChild(content);b.appendChild(status);
-      b.onclick=function(){open(name);};recentBox.appendChild(b);refreshHistoryStatus(name,b,preview,meta,status);
+      b.onclick=function(){open(name);};recentBox.appendChild(b);
+      shelfQueue.push(function(){refreshHistoryStatus(name,b,preview,meta,status,function(){shelfActive--;pumpShelf();});});
     });
+    pumpShelf();
   }
   function normaliseImageUrl(value){value=String(value||'');if(value.indexOf('//')===0)value='https:'+value;return /^https?:\/\//i.test(value)?value:'';}
   function profileImage(data){var user=data&&data.user||{},stream=data&&data.livestream||{},broadcaster=stream.broadcaster_user||{},value=user.profile_pic||user.profile_picture||data&&data.profile_pic||data&&data.profile_picture||stream.profile_picture||broadcaster.profile_picture||'';if(value&&typeof value==='object')value=value.url||value.src||'';return normaliseImageUrl(value);}
@@ -101,14 +110,16 @@
     var stream=data&&data.livestream||{},category=stream.category||(stream.categories&&stream.categories[0])||(data&&data.recent_categories&&data.recent_categories[0])||data&&data.category;
     return String(category&&(category.name||category.title)||'');
   }
-  function refreshHistoryStatus(name,button,preview,meta,status){
+  function refreshHistoryStatus(name,button,preview,meta,status,done){
     var xhr=new XMLHttpRequest();xhr.open('GET','https://kick.com/api/v2/channels/'+encodeURIComponent(name),true);xhr.timeout=8000;xhr.setRequestHeader('Accept','application/json');
-    function unknown(){button.className='tile focusable is-unknown';status.className='tile-status checking';status.textContent=tr('unknown');meta.textContent='';preview.removeAttribute('src');}
+    var finished=false;function finish(){if(!finished){finished=true;done();}}
+    function unknown(){button.className='tile focusable is-unknown';status.className='tile-status checking';status.textContent=tr('unknown');meta.textContent='';preview.removeAttribute('src');finish();}
     xhr.onreadystatechange=function(){if(xhr.readyState!==4)return;if(xhr.status>=200&&xhr.status<300){try{
       var data=JSON.parse(xhr.responseText),stream=data.livestream||{},live=!!(data.livestream&&(data.livestream.is_live!==false)),profile=profileImage(data),category=streamCategory(data),viewers=Number(stream.viewer_count);if(isNaN(viewers)||viewers<0)viewers=0;
       button.className='tile focusable '+(live?'is-live-card':'is-offline-card');status.className='tile-status '+(live?'is-live':'is-offline');status.textContent=live?'● LIVE':'○ OFFLINE';
       if(live){meta.textContent=compact(viewers)+' '+tr('viewers')+(category?' · '+category:'');loadTileImage(button,preview,profile);}
       else{meta.textContent='';loadTileImage(button,preview,profile);}
+      finish();
     }catch(e){unknown();}}else unknown();};
     xhr.onerror=unknown;xhr.ontimeout=unknown;try{xhr.send();}catch(e){unknown();}
   }
@@ -156,7 +167,7 @@
     var name=clean(raw);if(!name){input.focus();return;}
     currentKickUserId=null;if(account)account.channel(0);
     history=[name].concat(history.filter(function(x){return x!==name;})).slice(0,6);
-    localStorage.setItem('kicktv.recent',JSON.stringify(history));renderHistory();
+    KickTVSettings.record(name);try{localStorage.setItem('kicktv.recent',JSON.stringify(history));}catch(ignoreHistory){}
     input.value=name;currentChannelName=name;currentChannelDisplayName=name;updateNowPlaying();
     try{if(document.activeElement)document.activeElement.blur();}catch(ignoreFocus){}
     home.className='hidden';resetPlayerView();restoreChatMode(name);view.classList.remove('hidden');playing=true;setScreenSaver(false);clearChat();setStatus(tr('gettingStream'),tr('kickConnecting'));showHud();
@@ -410,7 +421,7 @@
   function closePlayer(){
     clearOfflinePolling();streamRequestSeq++;disconnectChat();
     stopAVPlay();
-    setScreenSaver(true);resetPlayerView();view.classList.add('hidden');home.className='';playing=false;currentStreamUrl=null;currentRoomId=null;currentChannelName='';currentChannelDisplayName='';currentKickUserId=null;renderHistory();setTimeout(function(){watch.focus();},50);
+    setScreenSaver(true);resetPlayerView();view.classList.add('hidden');home.className='';playing=false;currentStreamUrl=null;currentRoomId=null;currentChannelName='';currentChannelDisplayName='';currentKickUserId=null;renderHistory();if(KickTVSettings.prefs.sort==='plays')browser.refreshSort();setTimeout(function(){watch.focus();},50);
   }
   function setScreenSaver(enabled){try{if(window.webapis&&webapis.appcommon){var state=enabled?webapis.appcommon.AppCommonScreenSaverState.SCREEN_SAVER_ON:webapis.appcommon.AppCommonScreenSaverState.SCREEN_SAVER_OFF;webapis.appcommon.setScreenSaver(state,function(){},function(){});}}catch(ignoreScreenSaver){}}
   function showHud(){view.classList.add('hud');clearTimeout(hudTimer);hudTimer=setTimeout(function(){view.classList.remove('hud');},2400);}
@@ -418,6 +429,7 @@
   function handleBack(e){
     consumeKey(e);var now=Date.now();if(now-lastBackAt<350)return;lastBackAt=now;
     if(playing){if(chatEditorOpen)closeChatEditor(false);else if(qualityOpen)closeQualityMenu();else closePlayer();return;}
+    if(settingsMenu.close())return;
     if((input.value||'').trim()||!searchSection.classList.contains('hidden')){clearTimeout(searchTimer);searchSeq++;input.value='';renderResults([]);searchState.textContent='';watch.focus();return;}
     if(browser.back())return;
     try{tizen.application.getCurrentApplication().exit();}catch(x){window.close();}
@@ -426,6 +438,7 @@
   function move(delta){var a=focusables(),i=a.indexOf(document.activeElement);i=i<0?0:(i+delta+a.length)%a.length;a[i].focus();}
   function sparkle(){var box=document.getElementById('sparkles');for(var i=0;i<22;i++){var s=document.createElement('i');s.className='spark';s.style.left=(18+Math.random()*64)+'%';s.style.top=(18+Math.random()*64)+'%';s.style.animationDelay=(Math.random()*.45)+'s';box.appendChild(s);setTimeout((function(x){return function(){x.remove();};})(s),2100);}}
   function remember(code){secret.push(code);secret=secret.slice(-8);if(secret.join(',')==='38,38,40,40,37,39,37,39')sparkle();}
+  var settingsMenu=KickTVSettings.install({language:language,change:renderHistory,sortChange:function(){browser.refreshSort();}});
   applyLanguage();watch.onclick=function(){open(input.value);};input.addEventListener('input',function(){search(input.value);});renderHistory();
   document.addEventListener('keydown',function(e){
     remember(e.keyCode);
@@ -446,7 +459,7 @@
   try{['MediaPlay','MediaPause','MediaPlayPause'].forEach(function(k){tizen.tvinputdevice.registerKey(k);});}catch(e){}
   var browser=KickTVBrowse.install({language:language,open:open});
   KickTVNavigation.install({playing:function(){return playing;}});
-  var diagnostics=KickTVDiagnostics.create({edition:'standard',version:'2.3.0',playing:function(){return playing;}});
+  var diagnostics=KickTVDiagnostics.create({edition:'standard',version:'2.4.0',playing:function(){return playing;}});
   var account=KickTVAccount.install({language:language,telemetry:diagnostics,message:addChatMessage,playing:function(){return playing;},onConsent:reportInstall,onLogin:function(){account.channel(playing?currentKickUserId:0);}});
   setInterval(function(){account.channel(playing?currentKickUserId:0);},4000);
   applyChatLayout();setTimeout(function(){if(!playing)watch.focus();},100);setTimeout(reportInstall,1200);

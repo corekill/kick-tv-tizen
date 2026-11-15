@@ -30,8 +30,8 @@ jobs:
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          name: Kick TV 2.3.0 — procházení a přihlášení ke Kicku
-          body_path: docs/releases/v2.3.0.md
+          name: Kick TV ${{ github.ref_name }}
+          body_path: docs/releases/${{ github.ref_name }}.md
           files: |
             dist/KickTV.wgt
             dist/KickTV.wgt.sha256

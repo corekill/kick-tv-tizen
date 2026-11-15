@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="cs">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kick TV · Můj seznam</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0a100d;color:#edf8ed;font:16px system-ui}
+main{max-width:34rem;margin:auto;padding:1.6rem}.mark{color:#9aff74;font-weight:900;display:inline-block}
+h1{font-size:2rem;margin:.6rem 0}p{color:#bdcfc1}section{background:#151e17;border:1px solid #304632;border-radius:1rem;padding:1rem;margin:1rem 0}h2{font-size:1.1rem;margin:0 0 .8rem}
+input,button{font:inherit;color:inherit;border:1px solid #49604b;border-radius:.65rem;padding:.65rem .8rem;background:#202f23}
+input{width:100%;background:#0a100d}button{cursor:pointer;text-align:left}button:focus-visible,input:focus-visible{outline:2px solid #9aff74}
+#results,#list{display:grid;gap:.45rem;margin-top:.7rem}#results:empty,#list:empty{display:none}.mark.twinkle{animation:twinkle .55s}
+@keyframes twinkle{50%{transform:rotate(-12deg) scale(1.24);color:#ffc2df;text-shadow:0 0 13px #ff83c4}}
+</style>
+<main>
+<span class="mark" id="mark">KICK TV</span>
+<h1 id="title">Můj seznam</h1>
+<p id="subtitle"></p>
+<p id="status" role="status"></p>
+<section><h2 id="add"></h2><input id="query" type="search" maxlength="60" autocomplete="off"><div id="results"></div></section>
+<section><h2 id="saved"></h2><p id="empty" hidden></p><div id="list"></div></section>
+</main>
+<script>
+(function(){
+  var fragment=location.hash.slice(1).split('.'),token=fragment[0],cs=fragment[1]!=='en',timer,revision=0,busy=false,channels=[];
+  var t=cs?{title:'Můj seznam',subtitle:'Změny se ukládají přímo v televizi. Vyhledávaná jména zpracovává KickStats.',add:'Přidat streamera',saved:'Uložené kanály',hint:'Napiš část jména…',empty:'Seznam je zatím prázdný.',wait:'Připojuji se k TV…',search:'Hledám…',none:'Žádné nové odpovídající kanály.',offline:'Nepodařilo se spojit s TV. Ověř Wi-Fi a otevřené párování.',expired:'Párování není platné. Naskenuj nový QR kód z TV.',failed:'Požadavek se nezdařil. Zkus to znovu.',full:'Seznam pojme nejvýš 50 kanálů.',remove:'Odebrat'}:{title:'My list',subtitle:'Changes are saved directly on the TV. Search terms are processed by KickStats.',add:'Add a streamer',saved:'Saved channels',hint:'Enter part of a name…',empty:'Your list is empty.',wait:'Connecting to the TV…',search:'Searching…',none:'No new matching channels.',offline:'Could not reach your TV. Check Wi-Fi and keep pairing open.',expired:'Pairing is invalid. Scan a new QR code from the TV.',failed:'Request failed. Try again.',full:'The list can hold up to 50 channels.',remove:'Remove'};
+  function id(name){return document.getElementById(name);}
+  var query=id('query'),results=id('results'),list=id('list'),status=id('status');
+  document.documentElement.lang=cs?'cs':'en';document.title='Kick TV · '+t.title;
+  ['title','subtitle','add','saved','empty'].forEach(function(key){id(key).textContent=t[key];});
+  query.placeholder=t.hint;query.setAttribute('aria-label',t.hint);query.disabled=true;
+  function request(path,data){
+    var headers={Authorization:'Bearer '+token},opts={headers:headers,cache:'no-store'};
+    if(data){headers['Content-Type']='application/json';opts.method='POST';opts.body=JSON.stringify(data);}
+    return fetch(path,opts).catch(function(){throw Error(t.offline);}).then(function(r){
+      if(r.status===403)throw Error(t.expired);
+      if(r.status===409)throw Error(t.full);
+      if(!r.ok)throw Error(t.failed);
+      return r.json();
+    });
+  }
+  function button(box,label,action){var b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=action;box.appendChild(b);return b;}
+  function draw(value){
+    channels=value.channels;list.textContent='';id('empty').hidden=channels.length>0;
+    channels.forEach(function(name){button(list,'×  '+name,function(){change('remove',name);}).setAttribute('aria-label',t.remove+' '+name);});
+  }
+  function change(action,name){
+    if(busy)return;busy=true;revision++;clearTimeout(timer);status.textContent='';
+    request('/api/list',{action:action,channel:name}).then(function(value){
+      draw(value);if(action==='add'){query.value='';results.textContent='';query.focus();}
+    }).catch(function(error){status.textContent=error.message;}).then(function(){busy=false;});
+  }
+  query.oninput=function(){
+    var q=query.value.trim(),seq=++revision;clearTimeout(timer);results.textContent='';status.textContent='';
+    if(q.length<2)return;
+    timer=setTimeout(function(){
+      status.textContent=t.search;request('/api/search?q='+encodeURIComponent(q)).then(function(value){
+        if(seq!==revision)return;status.textContent='';
+        value.channels.filter(function(item){return channels.indexOf(item.slug)<0;}).forEach(function(item){button(results,'+  '+item.name,function(){change('add',item.slug);});});
+        if(!results.children.length)status.textContent=t.none;
+      }).catch(function(error){if(seq===revision)status.textContent=error.message;});
+    },330);
+  };
+  var taps=0,last=0,mark=id('mark');mark.onclick=function(){var now=Date.now();taps=now-last<550?taps+1:1;last=now;if(taps===5){taps=0;mark.classList.add('twinkle');setTimeout(function(){mark.classList.remove('twinkle');},600);}};
+  if(!/^[a-f0-9]{32}$/.test(token)){status.textContent=t.expired;return;}
+  status.textContent=t.wait;request('/api/list').then(function(value){draw(value);status.textContent='';query.disabled=false;}).catch(function(error){status.textContent=error.message;});
+})();
+</script>
+</html>

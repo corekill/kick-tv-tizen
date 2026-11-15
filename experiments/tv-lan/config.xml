@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="urn:kicktv:lan-test" version="1.0.2">
+  <tizen:application id="CrKckLan01.LanTest" package="CrKckLan01" required_version="5.5"/>
+  <content src="index.html"/>
+  <tizen:privilege name="http://tizen.org/privilege/internet"/>
+  <tizen:profile name="tv-samsung"/>
+  <name>Kick TV LAN Test</name>
+</widget>
